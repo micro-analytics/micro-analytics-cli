@@ -1,0 +1,22 @@
+{
+  "name": "blog-view-counter",
+  "version": "1.0.0",
+  "description": "A simple node microservice to count the views of a blogpost.",
+  "main": "index.js",
+  "scripts": {
+    "start": "micro -p 3000 -H localhost index.js",
+    "dev": "NODE_ENV=development nodemon --config package.json index.js"
+  },
+  "author": "Max Stoiber <contact@mxstbr.com> (http://mxstbr.com/)",
+  "license": "MIT",
+  "dependencies": {
+    "level": "^1.5.0",
+    "levelplus": "^0.0.5",
+    "micro": "^6.1.0",
+    "then-levelup": "^1.0.2"
+  },
+  "devDependencies": {},
+  "execMap": {
+    "js": "micro -p 3000 -H localhost"
+  }
+}
