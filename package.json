@@ -10,10 +10,10 @@
   "author": "Max Stoiber <contact@mxstbr.com> (http://mxstbr.com/)",
   "license": "MIT",
   "dependencies": {
-    "level": "^1.5.0",
-    "levelplus": "^0.0.5",
-    "micro": "^6.1.0",
-    "then-levelup": "^1.0.2"
+    "level": "1.5.0",
+    "levelplus": "0.0.5",
+    "micro": "6.1.0",
+    "then-levelup": "1.0.2"
   },
   "devDependencies": {},
   "execMap": {
