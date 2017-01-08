@@ -6,10 +6,10 @@ const { send, createError, sendError } = require('micro')
 const db = then(level('blog-views'))
 
 module.exports = async function (req, res) {
-  // Check that a blogpost is provided
+  // Check that a page is provided
   const { pathname } = url.parse(req.url)
   if (pathname.length <= 1) {
-    throw createError(400, 'Please include a path to a blogpost.')
+    throw createError(400, 'Please include a path to a page.')
   }
   if (req.method !== 'GET') {
     throw createError(400, 'Please make a GET request.')
@@ -21,7 +21,7 @@ module.exports = async function (req, res) {
     send(res, 200, { views: views + 1 })
   } catch (err) {
     if (err.notFound) {
-      // Initialise the post with one view
+      // Initialise the page with one view
       await db.put(pathname, 1)
       send(res, 200, { views: 1 })
     } else {

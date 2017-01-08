@@ -1,10 +1,10 @@
 {
-  "name": "blog-view-counter",
-  "version": "1.0.0",
-  "description": "A simple node microservice to count the views of a blogpost.",
+  "name": "micro-analytics",
+  "version": "0.1.0",
+  "description": "Analytics as a Node.js microservice.",
   "main": "index.js",
   "scripts": {
-    "start": "micro -p 3000 -H localhost index.js",
+    "start": "micro index.js",
     "dev": "NODE_ENV=development nodemon --config package.json index.js"
   },
   "author": "Max Stoiber <contact@mxstbr.com> (http://mxstbr.com/)",
