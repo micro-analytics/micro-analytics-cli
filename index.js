@@ -14,6 +14,18 @@ module.exports = async function (req, res) {
   if (req.method !== 'GET') {
     throw createError(400, 'Please make a GET request.')
   }
+  // Allow getting all views in one request via /_p/all
+  if (/\/?_p\/all\/?/.test(pathname)) {
+    const posts = []
+    db.createReadStream()
+      .on('data', function (data) {
+        posts.push({ url: data.key, views: data.value })
+      })
+      .on('end', function () {
+        send(res, 200, { posts })
+      })
+    return
+  }
   try {
     const views = parseInt(await db.get(pathname), 10)
     // Increment the views and send them back to client
