@@ -3,5 +3,7 @@ node_js:
   - node
   - 7
   - 6
-script: npm run test
+script: npm run test -- --coverage
 cache: yarn
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
