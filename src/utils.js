@@ -4,9 +4,9 @@ const db = require('./db')
 // db messing up.
 const pushView = async (key, view) => {
   const locks = {}
-  await push()
+  push()
 
-  async function push() {
+  function push() {
     if (locks[key]) return setImmediate(push)
     locks[key] = true
 
@@ -18,9 +18,13 @@ const pushView = async (key, view) => {
     }
 
     try {
-      await db.put(key, { views: views.concat([view]) })
-      delete locks[key]
+      db.put(key, { views: views.concat([view]) })
+        .then(() => {
+          delete locks[key]
+        })
+        .catch(err => { throw err })
     } catch (err) {
+      delete locks[key]
       throw err
     }
   }

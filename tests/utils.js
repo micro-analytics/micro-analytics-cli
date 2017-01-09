@@ -17,7 +17,7 @@ const DB = () => {
     keys: () => Object.keys(data),
     // Custom methods used in tests
     _reset: () => { data = {} },
-    _setDelay: (ms) => { DELAY = ms }
+    _setDelay: (ms) => { DELAY = ms || 1 }
   }
 }
 

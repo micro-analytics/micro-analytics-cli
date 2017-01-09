@@ -6,11 +6,8 @@ const service = require('../src')
 let url
 
 beforeEach(async () => {
-  url = await listen(service)
-})
-
-afterEach(async () => {
   mockDb._reset()
+  url = await listen(service)
 })
 
 describe('single', () => {
