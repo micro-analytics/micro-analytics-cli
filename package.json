@@ -4,8 +4,8 @@
   "description": "Public analytics as a Node.js microservice.",
   "main": "index.js",
   "scripts": {
-    "start": "micro index.js",
-    "dev": "NODE_ENV=development nodemon --config package.json index.js"
+    "start": "micro src/index.js",
+    "dev": "NODE_ENV=development nodemon --config package.json src/index.js"
   },
   "author": "Max Stoiber <contact@mxstbr.com> (http://mxstbr.com/)",
   "license": "MIT",
@@ -16,6 +16,6 @@
   },
   "devDependencies": {},
   "execMap": {
-    "js": "micro -p 3000 -H localhost"
+    "js": "micro"
   }
 }
