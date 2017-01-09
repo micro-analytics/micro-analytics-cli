@@ -4,8 +4,20 @@ const { send, createError, sendError } = require('micro')
 const db = require('./db')
 
 module.exports = async function (req, res) {
-  // Check that a page is provided
   const { pathname, query } = url.parse(req.url, /* parseQueryString */ true)
+  // Send all views down if "?all" is true
+  if (query.all === 'true' || query.all === true) {
+    const data = {
+      data: {},
+      time: Date.now()
+    }
+    for (let key of db.keys()) {
+      data.data[key] = db.get(key)
+    }
+    send(res, 200, data)
+    return
+  }
+  // Check that a page is provided
   if (pathname.length <= 1) {
     throw createError(400, 'Please include a path to a page.')
   }
