@@ -2,6 +2,7 @@ const url = require('url')
 const { send, createError, sendError } = require('micro')
 
 const db = require('./db')
+const { pushView } = require('./utils')
 
 module.exports = async function (req, res) {
   const { pathname, query } = url.parse(req.url, /* parseQueryString */ true)
@@ -28,10 +29,10 @@ module.exports = async function (req, res) {
   try {
     // Add a view and send the total views back to the client
     if (shouldIncrement) {
-      await db.pushView(pathname, { time: Date.now() })
+      await pushView(pathname, { time: Date.now() })
     }
     if (req.method === 'GET') {
-      send(res, 200, { views: db.get(pathname).views.length })
+      send(res, 200, { views: db.has(pathname) ? db.get(pathname).views.length : 0 })
     } else {
       send(res, 200)
     }
