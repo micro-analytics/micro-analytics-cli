@@ -1,7 +1,7 @@
 {
   "name": "micro-analytics",
   "version": "0.1.0",
-  "description": "Public analytics as a Node.js microservice.",
+  "description": "Public analytics as a Node.js microservice, no sysadmin experience required.",
   "main": "index.js",
   "scripts": {
     "start": "micro src/index.js",

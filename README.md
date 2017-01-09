@@ -1,15 +1,10 @@
 # `micro-analytics`
 
-Public analytics as a Node.js microservice.
+Public analytics as a Node.js microservice, no sysadmin experience required.
 
-With less than 100 lines of code this service is the smallest analytics you'll ever need. It does nothing except count the views of something and making the views accessible via an API.
+A tiny analytics server with less than 100 lines of code, easy to run and hack around on. It does one thing, and it does it well: count the views of something and making the views publicly accessible via an API.
 
-(there is currently no frontend to display pretty graphs, feel free to build one!)
-
-## Built with
-
-- [`micro`](https://github.com/zeit/micro) to create the service.
-- [`flat-file-db`](https://github.com/mafintosh/flat-file-db) to store the data. (and [`promise`](https://github.com/then/promise) to promisify `flat-file-db`)
+(there is currently no frontend to display pretty graphs, feel free to build one yourself!)
 
 ## Setup
 
@@ -44,6 +39,16 @@ If you want to get all views for all paths, set the `all` query parameter to `tr
 ## Contributing
 
 If you run `npm run dev` the server will restart every time you edit the code. Perfect for development of `micro-analytics`!
+
+## Built with
+
+- [`micro`](https://github.com/zeit/micro) to create the service.
+
+  `micro` is a lightweight wrapper around Nodes `http.Server` which makes it easy to write ultra-high performance, asynchronous microservices. Perfect for our use case!
+
+- [`flat-file-db`](https://github.com/mafintosh/flat-file-db) to store the data. (and [`promise`](https://github.com/then/promise) to promisify `flat-file-db`)
+
+  `flat-file-db` is a fast in-process flat file database that caches all data in memory and persists it to an open file using an append-only algorithm ensuring compact file sizes and strong consistency. By using the filesystem for storage setup is easy and backups are only a copy & paste away. (in case you need more advanced features of a real database, swapping out `flat-file-db` for a real db shouldn't take long)
 
 ## License
 
