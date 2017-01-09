@@ -1,7 +1,7 @@
 const flatfile = require('flat-file-db')
 const promise = require('promise')
 
-const db = flatfile.sync('views')
+const db = flatfile.sync('views.db')
 
 const promisifiedDb = {
   // Promisify async operations
