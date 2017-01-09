@@ -9,7 +9,7 @@ With less than 50 lines of code this service is the smallest analytics you'll ev
 ## Built with
 
 - [`micro`](https://github.com/zeit/micro) to create the service.
-- [`level`](https://github.com/level/level) to store the data. (and [`then-levelup`](https://github.com/then/then-levelup) to promisify `level`)
+- [`flat-file-db`](https://github.com/mafintosh/flat-file-db) to store the data. (and [`promise`](https://github.com/then/promise) to promisify `flat-file-db`)
 
 ## Usage
 

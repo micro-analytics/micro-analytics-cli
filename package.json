@@ -10,10 +10,9 @@
   "author": "Max Stoiber <contact@mxstbr.com> (http://mxstbr.com/)",
   "license": "MIT",
   "dependencies": {
-    "level": "1.5.0",
-    "levelplus": "0.0.5",
+    "flat-file-db": "^1.0.0",
     "micro": "6.1.0",
-    "then-levelup": "1.0.2"
+    "promise": "^7.1.1"
   },
   "devDependencies": {},
   "execMap": {
