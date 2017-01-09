@@ -3,7 +3,10 @@ const level = require('level')
 const then = require('then-levelup')
 const { send, createError, sendError } = require('micro')
 
-const db = then(level('blog-views'))
+const db = then(level('blog-views', {
+  keyEncoding: 'json',
+  valueEncoding: 'json'
+}))
 
 module.exports = async function (req, res) {
   // Check that a page is provided
@@ -16,13 +19,14 @@ module.exports = async function (req, res) {
   }
   const shouldIncrement = query.inc !== 'false' && query.inc !== false
   try {
-    const views = parseInt(await db.get(pathname), 10)
-    // Increment the views and send them back to client
+    const { views } = await db.get(pathname)
+    // Add a view and send the total views back to the client
     if (shouldIncrement) {
-      await db.put(pathname, views + 1)
+      views.push({ time: Date.now() })
+      await db.put(pathname, { views })
     }
     if (req.method === 'GET') {
-      send(res, 200, { views: shouldIncrement ? views + 1 : views })
+      send(res, 200, { views: views.length })
     } else {
       send(res, 200)
     }
@@ -30,7 +34,7 @@ module.exports = async function (req, res) {
     if (err.notFound) {
       // Initialise the page with one view
       if (shouldIncrement) {
-        await db.put(pathname, 1)
+        await db.put(pathname, { views: [{ time: Date.now() }] })
       }
       if (req.method === 'GET') {
         send(res, 200, { views: shouldIncrement ? 1 : 0 })
