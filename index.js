@@ -14,28 +14,14 @@ module.exports = async function (req, res) {
   }
   const shouldIncrement = query.inc !== 'false' && query.inc !== false
   try {
-    if (db.has(pathname)) {
-      const { views } = await db.get(pathname)
-      // Add a view and send the total views back to the client
-      if (shouldIncrement) {
-        views.push({ time: Date.now() })
-        await db.put(pathname, { views })
-      }
-      if (req.method === 'GET') {
-        send(res, 200, { views: views.length })
-      } else {
-        send(res, 200)
-      }
+    // Add a view and send the total views back to the client
+    if (shouldIncrement) {
+      await db.pushView(pathname, { time: Date.now() })
+    }
+    if (req.method === 'GET') {
+      send(res, 200, { views: db.get(pathname).views.length })
     } else {
-      // Initialise the page with one view
-      if (shouldIncrement) {
-        await db.put(pathname, { views: [{ time: Date.now() }] })
-      }
-      if (req.method === 'GET') {
-        send(res, 200, { views: shouldIncrement ? 1 : 0 })
-      } else {
-        send(res, 200)
-      }
+      send(res, 200)
     }
   } catch (err) {
     console.log(err)

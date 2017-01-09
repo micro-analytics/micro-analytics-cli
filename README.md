@@ -2,7 +2,7 @@
 
 Public analytics as a Node.js microservice.
 
-With less than 50 lines of code this service is the smallest analytics you'll ever need. It does nothing except count the views of something and making the views accessible via an API.
+With less than 100 lines of code this service is the smallest analytics you'll ever need. It does nothing except count the views of something and making the views accessible via an API.
 
 (there is currently no frontend to consume the statistics, though writing one is on the to-do list)
 
@@ -38,10 +38,6 @@ This is how you'd track pageviews for a website: (though note that this can be u
     .catch(err => console.log('Something went wrong:', err))
 </script>
 ```
-
-## Gotchas
-
-Currently this uses promisified `level` for data storage, which doesn't have atomic operations. If you have a recommendation for a filesystem-based data storage module for Node that has atomic operations, please let us know!
 
 ## Contributing
 
