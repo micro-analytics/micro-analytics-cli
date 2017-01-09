@@ -19,7 +19,7 @@ With less than 50 lines of code this service is the smallest analytics you'll ev
 2. `npm install` to install the dependencies.
 3. `npm start` to start the service.
 
-And that's it! 🎉
+And that's it! 🎉 (see [`deployment.md`](./deployment.md) for deployment instructions)
 
 ### Tracking views
 
