@@ -30,7 +30,7 @@ module.exports = async function (req, res) {
     const currentViews = db.has(pathname) ? db.get(pathname).views.length : 0
     // Add a view and send the total views back to the client
     if (shouldIncrement) {
-      pushView(pathname, { time: Date.now() })
+      await pushView(pathname, { time: Date.now() })
     }
     if (req.method === 'GET') {
       send(res, 200, { views: shouldIncrement ? currentViews + 1 : currentViews })
