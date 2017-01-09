@@ -1,7 +1,7 @@
 {
   "name": "micro-analytics",
   "version": "0.1.0",
-  "description": "Analytics as a Node.js microservice.",
+  "description": "Public analytics as a Node.js microservice.",
   "main": "index.js",
   "scripts": {
     "start": "micro index.js",

@@ -1,8 +1,8 @@
 # `micro-analytics`
 
-Analytics as a simple Node.js microservice.
+Public analytics as a Node.js microservice.
 
-With less than 50 lines of code this service is the smallest analytics you'll ever need. It does nothing except count the views of a page on your site via an API.
+With less than 50 lines of code this service is the smallest analytics you'll ever need. It does nothing except count the views of something and making the views accessible via an API.
 
 (there is currently no frontend to consume the statistics, though writing one is on the to-do list)
 
@@ -23,9 +23,9 @@ And that's it! 🎉 (see [`deployment.md`](./deployment.md) for deployment instr
 
 ### Tracking views
 
-To track a view simply send a request to `/<yourpagepath>`. If you send a `GET` request, the request will increment the views and return the total views. If you send a `POST` request, the views will increment but you're not going to get the total views back.
+To track a view simply send a request to `/<yourpath>`. If you send a `GET` request, the request will increment the views and return the total views. If you send a `POST` request, the views will increment but you're not going to get the total views back.
 
-If you don't want to increment the views during a `GET` request, set `inc` to `false` in your query parameter. (`/<yourpagepath>?inc=false`)
+If you don't want to increment the views during a `GET` request, set `inc` to `false` in your query parameter. (`/<yourpath>?inc=false`)
 
 This is how you'd track pageviews for a website: (though note that this can be used to track anything you want)
 
