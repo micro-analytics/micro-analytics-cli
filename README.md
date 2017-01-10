@@ -52,7 +52,7 @@ If you want to get all views for all ids, set the `all` query parameter to `true
 
 #### Time based segmenting
 
-By passing the `?before=<time>` or `?since=<time>` parameters together with `?all=true`, you can limit the views you get returned to a certain time segment. This is useful when your collection of views becomes larger.
+By passing the `?before=<time>` or `?after=<time>` parameters together with `?all=true`, you can limit the views you get returned to a certain time segment. This is useful when your collection of views becomes larger.
 
 ## Built with
 

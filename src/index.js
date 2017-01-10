@@ -15,12 +15,12 @@ module.exports = async function (req, res) {
     for (let key of db.keys().filter(key => String(query.filter) === 'false' ? true : key.startsWith(pathname))) {
       body.data[key] = db.get(key)
     }
-    if (query.before || query.since) {
+    if (query.before || query.after) {
       Object.keys(body.data).map(path => {
         body.data[path].views = body.data[path].views.filter(view =>
           query.before
           ? view.time < Number(query.before)
-          : view.time > Number(query.since)
+          : view.time > Number(query.after)
         )
       })
     }

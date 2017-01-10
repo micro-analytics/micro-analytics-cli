@@ -117,7 +117,7 @@ describe('all', () => {
       const after = Date.now()
       await request(`${url}/path`)
       await request(`${url}/path`)
-      const body = JSON.parse(await request(`${url}/?all=true&since=${after}`))
+      const body = JSON.parse(await request(`${url}/?all=true&after=${after}`))
       expect(Object.keys(body.data).length).toBe(1)
       expect(body.data['/path'].views).toBeDefined()
       expect(body.data['/path'].views.length).toBe(2)
