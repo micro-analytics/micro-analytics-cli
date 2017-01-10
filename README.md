@@ -44,7 +44,7 @@ This is how you'd track pageviews for a website: (though note that this can be u
 
 If you just want to get the views for an id and don't want to increment the views during a `GET` request, set `inc` to `false` in your query parameter. (`/x?inc=false`)
 
-If you want to get all views for all ids, set the `all` query parameter to `true`. (`/?all=true`)
+If you want to get all views for all ids, set the `all` query parameter to `true`. (`/?all=true`) If you pass the `all` parameter to an id, all ids starting with that pathname will be included. (e.g. `/x?all=true` will match views for `/x`, `/xyz` but not `/y`)
 
 ## Built with
 

@@ -68,4 +68,27 @@ describe('all', () => {
     expect(body.data['/route2'].views).toBeDefined()
     expect(body.data['/route2'].views.length).toBe(3)
   })
+
+  describe('filtering', () => {
+    it('should filter based on pathname', async () => {
+      await request(`${url}/rover`)
+      await request(`${url}/route`)
+      const body = JSON.parse(await request(`${url}/rover?all=true`))
+      expect(Object.keys(body.data).length).toBe(1)
+      expect(body.data['/rover'].views).toBeDefined()
+      expect(body.data['/rover'].views.length).toBe(1)
+    })
+
+    it('should filter based on starting with pathname', async () => {
+      await request(`${url}/rover`)
+      await request(`${url}/rover2`)
+      await request(`${url}/route`)
+      const body = JSON.parse(await request(`${url}/rover?all=true`))
+      expect(Object.keys(body.data).length).toBe(2)
+      expect(body.data['/rover'].views).toBeDefined()
+      expect(body.data['/rover'].views.length).toBe(1)
+      expect(body.data['/rover2'].views).toBeDefined()
+      expect(body.data['/rover2'].views.length).toBe(1)
+    })
+  })
 })
