@@ -2,4 +2,6 @@
 
 const { exec } = require('shelljs')
 
-exec('npm start')
+exec('npm start', {
+  cwd: __dirname
+})

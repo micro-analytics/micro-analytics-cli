@@ -1,6 +1,6 @@
 {
   "name": "micro-analytics-cli",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Public analytics as a Node.js microservice, no sysadmin experience required.",
   "bin": {
     "micro-analytics": "./cli.js"
