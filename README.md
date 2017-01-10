@@ -62,4 +62,4 @@ If you want to get all views for all ids, set the `all` query parameter to `true
 
 ## License
 
-Copyright ©️ 2016 Maximilian Stoiber, licensed under the MIT License.
+Copyright ©️ 2016 Maximilian Stoiber, licensed under the MIT License. See [`license.md`](./license.md) for more information.
