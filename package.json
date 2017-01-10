@@ -9,6 +9,10 @@
     "dist",
     "cli.js"
   ],
+  "engineStrict": true,
+  "engines": {
+    "node" : ">=6.0.0"
+  },
   "scripts": {
     "start": "micro dist/index.js",
     "build": "./node_modules/.bin/async-to-gen src --out-dir dist",
