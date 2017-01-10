@@ -1,4 +1,4 @@
-# `micro-analytics`
+# `micro-analytics` 📈
 
 Public analytics as a Node.js microservice, no sysadmin experience required.
 
@@ -13,14 +13,12 @@ A tiny analytics server with less than 100 lines of code, easy to run and hack a
 Running your own `micro-analytics` is just two tiny commands away:
 
 ```
-
 npm install -g micro-analytics-cli
 
 micro-analytics
-
 ```
 
-That's it, The analytics server is now running at `localhost:3000`! 🎉
+That's it, the analytics server is now running at `localhost:3000`! 🎉
 
 See [`server-setup.md`](./server-setup.md) for instructions on acquiring a server and setting up `nginx` to make your `micro-analytics` publicly available.
 
@@ -30,7 +28,7 @@ See [`server-setup.md`](./server-setup.md) for instructions on acquiring a serve
 
 ### Tracking views
 
-To track a view, simply send a request to `/<id>`. If you send a `GET` request, the request will increment the views and return the total views for that id. If you send a `POST` request, the views will increment but you don't get the total views back.
+To track a view of `x`, simply send a request to `/x`. If you send a `GET` request, the request will increment the views and return the total views for the id. (in this case "x") If you send a `POST` request, the views will increment but you don't get the total views back.
 
 This is how you'd track pageviews for a website: (though note that this can be used to track anything you want)
 
@@ -44,7 +42,7 @@ This is how you'd track pageviews for a website: (though note that this can be u
 </script>
 ```
 
-If you just want to get the views for an id and don't want to increment the views during a `GET` request, set `inc` to `false` in your query parameter. (`/<id>?inc=false`)
+If you just want to get the views for an id and don't want to increment the views during a `GET` request, set `inc` to `false` in your query parameter. (`/x?inc=false`)
 
 If you want to get all views for all ids, set the `all` query parameter to `true`. (`/?all=true`)
 
