@@ -10,12 +10,19 @@ A tiny analytics server with less than 100 lines of code, easy to run and hack a
 
 ## Setup
 
-```
-npm install -g micro-analytics-cli
-micro-analytics
+Running your own `micro-analytics` is just two tiny commands away:
+
 ```
 
-And that's it! 🎉 The analytics server is now running at `localhost:3000`. (see [`server-setup.md`](./server-setup.md) for instructions on acquiring a server and setting up `nginx` to make this publicly available)
+npm install -g micro-analytics-cli
+
+micro-analytics
+
+```
+
+That's it, The analytics server is now running at `localhost:3000`! 🎉
+
+See [`server-setup.md`](./server-setup.md) for instructions on acquiring a server and setting up `nginx` to make your `micro-analytics` publicly available.
 
 > **Note**: You can pass any option to the `micro-analytics` command that you can pass to [`micro`](https://github.com/zeit/micro). As an example, to change the host you'd do `micro-analytics -H 127.0.0.1`
 
