@@ -60,6 +60,8 @@ If you want to get all views for all ids, set the `all` query parameter to `true
 
   `flat-file-db` is a fast in-process flat file database that caches all data in memory and persists it to an open file using an append-only algorithm ensuring compact file sizes and strong consistency. By using the filesystem for storage setup is easy and backups are only a copy & paste away. (in case you need more advanced features of a real database, swapping out `flat-file-db` for a real db shouldn't take long)
 
+*If you want to change the path the database file is saved as pass it as an env variable called `DB_PATH`. E.g. `DB_PATH=storage/analytics.db micro-analytics`.*
+
 ## License
 
 Copyright ©️ 2016 Maximilian Stoiber, licensed under the MIT License. See [`license.md`](./license.md) for more information.
