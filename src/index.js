@@ -8,14 +8,23 @@ module.exports = async function (req, res) {
   const { pathname, query } = url.parse(req.url, /* parseQueryString */ true)
   // Send all views down if "?all" is true
   if (String(query.all) === 'true') {
-    const data = {
+    const body = {
       data: {},
       time: Date.now()
     }
     for (let key of db.keys().filter(key => String(query.filter) === 'false' ? true : key.startsWith(pathname))) {
-      data.data[key] = db.get(key)
+      body.data[key] = db.get(key)
     }
-    send(res, 200, data)
+    if (query.before || query.since) {
+      Object.keys(body.data).map(path => {
+        body.data[path].views = body.data[path].views.filter(view =>
+          query.before
+          ? view.time < Number(query.before)
+          : view.time > Number(query.since)
+        )
+      })
+    }
+    send(res, 200, body)
     return
   }
   // Check that a page is provided
