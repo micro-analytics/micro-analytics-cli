@@ -10,17 +10,20 @@ A tiny analytics server with less than 100 lines of code, easy to run and hack a
 
 ## Setup
 
-1. `git clone git@github.com:mxstbr/micro-analytics` to get the repo.
-2. `npm install` to install the dependencies.
-3. `npm start` to start the service.
+```
+npm install -g micro-analytics-cli
+micro-analytics
+```
 
-And that's it! 🎉 (see [`deployment.md`](./deployment.md) for deployment instructions)
+And that's it! 🎉 The analytics server is now running at `localhost:3000`. (see [`server-setup.md`](./server-setup.md) for instructions on acquiring a server and setting up `nginx` to make this publicly available)
+
+> **Note**: You can pass any option to the `micro-analytics` command that you can pass to [`micro`](https://github.com/zeit/micro). As an example, to change the host you'd do `micro-analytics -H 127.0.0.1`
 
 ## Usage
 
 ### Tracking views
 
-To track a view, simply send a request to `/<yourpath>`. If you send a `GET` request, the request will increment the views and return the total views. If you send a `POST` request, the views will increment but you don't get the total views back.
+To track a view, simply send a request to `/<id>`. If you send a `GET` request, the request will increment the views and return the total views for that id. If you send a `POST` request, the views will increment but you don't get the total views back.
 
 This is how you'd track pageviews for a website: (though note that this can be used to track anything you want)
 
@@ -34,13 +37,9 @@ This is how you'd track pageviews for a website: (though note that this can be u
 </script>
 ```
 
-If you just want to get the views for a path and don't want to increment the views during a `GET` request, set `inc` to `false` in your query parameter. (`/<yourpath>?inc=false`)
+If you just want to get the views for an id and don't want to increment the views during a `GET` request, set `inc` to `false` in your query parameter. (`/<id>?inc=false`)
 
-If you want to get all views for all paths, set the `all` query parameter to `true`. (`/?all=true`)
-
-## Contributing
-
-If you run `npm run dev` the server will restart every time you edit the code. Perfect for development of `micro-analytics`!
+If you want to get all views for all ids, set the `all` query parameter to `true`. (`/?all=true`)
 
 ## Built with
 
