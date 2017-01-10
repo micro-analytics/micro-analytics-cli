@@ -28,9 +28,7 @@ See [`server-setup.md`](./server-setup.md) for instructions on acquiring a serve
 
 ### Tracking views
 
-To track a view of `x`, simply send a request to `/x`. If you send a `GET` request, the request will increment the views and return the total views for the id. (in this case "x") If you send a `POST` request, the views will increment but you don't get the total views back.
-
-This is how you'd track pageviews for a website: (though note that this can be used to track anything you want)
+To track a view of `x`, simply send a request to `/x`. This is how you'd track page views for a website: (though note that this can be used to track anything you want)
 
 ```HTML
 <script>
@@ -42,9 +40,15 @@ This is how you'd track pageviews for a website: (though note that this can be u
 </script>
 ```
 
+If you send a `GET` request, the request will increment the views and return the total views for the id. (in this case "x") If you send a `POST` request, the views will increment but you don't get the total views back.
+
+#### `GET` the views without incrementing
+
 If you just want to get the views for an id and don't want to increment the views during a `GET` request, set `inc` to `false` in your query parameter. (`/x?inc=false`)
 
-If you want to get all views for all ids, set the `all` query parameter to `true`. (`/?all=true`) If you pass the `all` parameter to an id, all ids starting with that pathname will be included. (e.g. `/x?all=true` will match views for `/x`, `/xyz` but not `/y`)
+### Getting all views
+
+If you want to get all views for all ids, set the `all` query parameter to `true` on a root request. (i.e. `/?all=true`) If you pass the `all` parameter to an id, all ids starting with that pathname will be included. E.g. `/x?all=true` will match views for `/x`, `/xyz` but not `/y`.
 
 ## Built with
 
