@@ -122,5 +122,27 @@ describe('all', () => {
       expect(body.data['/path'].views).toBeDefined()
       expect(body.data['/path'].views.length).toBe(2)
     })
+
+    it('should filter between before and after if both are specified', async () => {
+      await request(`${url}/path`)
+      const after = Date.now()
+      await request(`${url}/path`)
+      const before = Date.now()
+      await request(`${url}/path`)
+      const body = JSON.parse(await request(`${url}/?all=true&after=${after}&before=${before}`))
+      expect(Object.keys(body.data).length).toBe(1)
+      expect(body.data['/path'].views).toBeDefined()
+      expect(body.data['/path'].views.length).toBe(1)
+    })
+
+    it('should return nothing if before and after are the wrong way around', async () => {
+      await request(`${url}/path`)
+      const before = Date.now()
+      await request(`${url}/path`)
+      const after = Date.now()
+      await request(`${url}/path`)
+      const body = JSON.parse(await request(`${url}/?all=true&after=${after}&before=${before}`))
+      expect(Object.keys(body.data).length).toBe(0)
+    })
   })
 })
