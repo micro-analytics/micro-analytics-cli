@@ -33,11 +33,8 @@ const pushRedis = async (key, view) => {
   const viewData = await db.get(key)
   const views = viewData ? viewData.views : []
 
-  try {
-    await db.put(key, { views: views.concat([view]) })
-  } catch (err) {
-    throw err
-  }
+  await db.put(key, { views: views.concat([view]) })
+  
 }
 
 module.exports = exports
