@@ -1,8 +1,8 @@
 const url = require('url')
 const { send, createError, sendError } = require('micro')
 
-const db = require('./db')
-const { pushView } = require('./utils')
+const db = require('./redis')
+const { pushRedis } = require('./utils')
 
 module.exports = async function (req, res) {
   const { pathname, query } = url.parse(req.url, /* parseQueryString */ true)
@@ -12,8 +12,9 @@ module.exports = async function (req, res) {
       data: {},
       time: Date.now()
     }
-    for (let key of db.keys().filter(key => String(query.filter) === 'false' ? true : key.startsWith(pathname))) {
-      data.data[key] = db.get(key)
+    const keys = await db.keys()
+    for (let key of keys.filter(key => String(query.filter) === 'false' ? true : key.startsWith(pathname))) {
+      data.data[key] = await db.get(key)
     }
     send(res, 200, data)
     return
@@ -27,10 +28,11 @@ module.exports = async function (req, res) {
   }
   const shouldIncrement = String(query.inc) !== 'false'
   try {
-    const currentViews = db.has(pathname) ? db.get(pathname).views.length : 0
+    const viewsData = await db.get(pathname);
+    const currentViews = viewsData ? viewsData.views.length : 0
     // Add a view and send the total views back to the client
     if (shouldIncrement) {
-      await pushView(pathname, { time: Date.now() })
+      await pushRedis(pathname, { time: Date.now() })
     }
     if (req.method === 'GET') {
       send(res, 200, { views: shouldIncrement ? currentViews + 1 : currentViews })
