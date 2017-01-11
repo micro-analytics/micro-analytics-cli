@@ -50,6 +50,10 @@ If you just want to get the views for an id and don't want to increment the view
 
 If you want to get all views for all ids, set the `all` query parameter to `true` on a root request. (i.e. `/?all=true`) If you pass the `all` parameter to an id, all ids starting with that pathname will be included. E.g. `/x?all=true` will match views for `/x`, `/xyz` but not `/y`.
 
+#### Time based segmenting
+
+By passing the `?before=<time>` or `?after=<time>` parameters together with `?all=true`, you can limit the views you get returned to a certain time segment. This is useful when your collection of views becomes larger.
+
 ## Built with
 
 - [`micro`](https://github.com/zeit/micro) to create the service.
