@@ -1,9 +1,7 @@
-const db = require('./db')
-const redisDB = require('./redis')
-
 // Atomic view pushing method, can safely be called multiple times without the
 // db messing up.
 const pushView = async (key, view) => {
+  const db = require('./db')
   const locks = {}
   await push()
 
@@ -30,6 +28,7 @@ const pushView = async (key, view) => {
 
 // do redis requests need to be atomic ??
 const pushRedis = async (key, view) => {
+  const redisDB = require('./redis')
   const viewData = await redisDB.get(key)
   const views = viewData ? viewData.views : []
 
