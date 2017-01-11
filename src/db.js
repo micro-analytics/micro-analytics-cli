@@ -1,7 +1,13 @@
 const flatfile = require('flat-file-db')
 const promise = require('promise')
 
-const adapter = require('./flat-file-adapter');
+let adapter
+
+if (process.env.DB_ADAPTER) {
+  adapter = require('micro-analytics-adapter-' + process.env.DB_ADAPTER)
+} else {
+  adapter = require('./flat-file-adapter')
+}
 
 module.exports = {
   get: adapter.get,

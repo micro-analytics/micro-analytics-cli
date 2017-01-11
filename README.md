@@ -24,6 +24,12 @@ See [`server-setup.md`](./server-setup.md) for instructions on acquiring a serve
 
 > **Note**: You can pass any option to the `micro-analytics` command that you can pass to [`micro`](https://github.com/zeit/micro). As an example, to change the host you'd do `micro-analytics -H 127.0.0.1`
 
+### Database adapters
+
+micro-analytics supports custom database adapters. They can be configured with the environment
+variable `DB_ADAPTER`. Setting it to `redis` will make it require `micro-analytics-adapter-redis`.
+Leaving it unset will make micro-analytics use the builtin flat-file-db adapter.
+
 ## Usage
 
 ### Tracking views
