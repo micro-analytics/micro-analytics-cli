@@ -1,6 +1,6 @@
 const redis = require("then-redis")
 
-const host = "redis-11949.c8.us-east-1-4.ec2.cloud.redislabs.com"
+const host = "your-redis-labs-url"
 const port = 11949
 const db = redis.createClient({port, host})
 
