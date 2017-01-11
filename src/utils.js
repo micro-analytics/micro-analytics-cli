@@ -10,12 +10,9 @@ const pushView = async (key, view) => {
     if (locks[key]) return setImmediate(async () => { await push() })
     locks[key] = true
 
-    let views
-    if (db.has(key)) {
-      views = db.get(key).views
-    } else {
-      views = []
-    }
+    const views = db.has(key)
+      ? db.get(key).views
+      : []
 
     try {
       await db.put(key, { views: views.concat([view]) })
