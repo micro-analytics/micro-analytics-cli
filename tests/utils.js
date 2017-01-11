@@ -1,4 +1,5 @@
 const micro = require('micro')
+const Promise = require('promise');
 
 // Mock the database
 const DB = () => {
@@ -15,6 +16,27 @@ const DB = () => {
     }),
     has: (key) => !!data[key],
     keys: () => Object.keys(data),
+    // Custom methods used in tests
+    _reset: () => { data = {} },
+    _setDelay: (ms) => { DELAY = ms || 1 }
+  }
+}
+
+// mock redis
+const redisMock = () => {
+  let data = {}
+  let DELAY = 1
+
+  return {
+    get: (key) => Promise.resolve(data[key]),
+    put: (key, val) => new Promise((res, rej) => {
+      setTimeout(() => {
+        data[key] = val
+        res()
+      }, DELAY)
+    }),
+    has: (key) => Promise.resolve(!!data[key]),
+    keys: () => Promise.resolve(Object.keys(data)),
     // Custom methods used in tests
     _reset: () => { data = {} },
     _setDelay: (ms) => { DELAY = ms || 1 }
@@ -41,3 +63,4 @@ const listen = (fn, opts) => {
 module.exports = exports = {}
 exports.listen = listen
 exports.mockDb = DB()
+exports.mockRedis = redisMock();

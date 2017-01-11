@@ -1,7 +1,8 @@
 const request = require('request-promise')
-const { listen, mockDb } = require('./utils')
+const { listen, mockDb, mockRedis } = require('./utils')
 
 jest.mock('../src/db', () => mockDb)
+jest.mock('../src/redis', () => mockRedis)
 const service = require('../src')
 let url
 

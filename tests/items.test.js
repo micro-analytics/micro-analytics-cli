@@ -1,12 +1,14 @@
 const request = require('request-promise')
-const { listen, mockDb } = require('./utils')
+const { listen, mockDb, mockRedis } = require('./utils')
 
 jest.mock('../src/db', () => mockDb)
+jest.mock('../src/redis', () => mockRedis)
 const service = require('../src')
 let url
 
 beforeEach(async () => {
   mockDb._reset()
+  mockRedis._reset()
   url = await listen(service)
 })
 
@@ -17,7 +19,7 @@ describe('single', () => {
   })
 
   it('should increment the views of an existant path', async () => {
-    await request(`${url}/existant`)
+    const firstBody = await request(`${url}/existant`)
     const body = JSON.parse(await request(`${url}/existant`))
     expect(body.views).toEqual(2)
   })
