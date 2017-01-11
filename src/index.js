@@ -14,7 +14,7 @@ module.exports = async function (req, res) {
     }
     const keys = await db.keys()
     for (let key of keys.filter(key => String(query.filter) === 'false' ? true : key.startsWith(pathname))) {
-      data.data[key] = db.get(key)
+      data.data[key] = await db.get(key)
     }
     send(res, 200, data)
     return

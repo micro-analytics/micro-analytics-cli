@@ -11,11 +11,11 @@ module.exports = {
   has:  key => db.keys(key),
   put:  (key, value) => {
     value = JSON.stringify(value);
-    console.log("saving value ",value);
+    console.log(`[redis]: SET value ${value}, key ${key}`);
     return db.set(key, value)
   },
   get:  key => db.get(key).then(value => {
-    console.log("value from redis: ", value);
+    console.log(`[redis]: GET value ${value}, key ${key}`);
     return JSON.parse(value)
   })
 }
