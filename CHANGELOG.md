@@ -8,6 +8,8 @@ All notable changes to this project will be documented in this file. If a contri
 
 ### Added
 
+- Notification to remind you to update to the newest version. (see [#15](https://github.com/mxstbr/micro-analytics/pull/15))
+
 ### Changed
 
 ## [v1.1.0]
