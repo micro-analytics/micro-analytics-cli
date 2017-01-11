@@ -10,8 +10,8 @@ const pushView = async (key, view) => {
     if (locks[key]) return setImmediate(async () => { await push() })
     locks[key] = true
 
-    const views = db.has(key)
-      ? db.get(key).views
+    const views = await db.has(key)
+      ? (await db.get(key)).views
       : []
 
     try {

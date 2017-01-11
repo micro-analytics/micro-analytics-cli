@@ -1,7 +1,7 @@
 const request = require('request-promise')
 const { listen, mockDb } = require('./utils')
 
-jest.mock('../src/db', () => mockDb)
+jest.mock('../src/flat-file-adapter', () => mockDb)
 const service = require('../src')
 let url
 

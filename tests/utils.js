@@ -6,15 +6,24 @@ const DB = () => {
   let DELAY = 1
 
   return {
-    get: (key) => data[key],
+    get: (key) => new Promise((res, rej) => {
+      setTimeout(() => {
+        res(data[key])
+      }, DELAY)
+    }),
     put: (key, val) => new Promise((res, rej) => {
       setTimeout(() => {
         data[key] = val
         res()
       }, DELAY)
     }),
-    has: (key) => !!data[key],
-    keys: () => Object.keys(data),
+    has: (key) => new Promise((res, rej) => {
+      setTimeout(() => {
+        res(!!data[key])
+      }, DELAY)
+    }),
+    getAll: (options) => Object.assign({}, data),
+
     // Custom methods used in tests
     _reset: () => { data = {} },
     _setDelay: (ms) => { DELAY = ms || 1 }

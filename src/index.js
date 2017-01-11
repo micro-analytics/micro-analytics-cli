@@ -9,11 +9,8 @@ module.exports = async function (req, res) {
   // Send all views down if "?all" is true
   if (String(query.all) === 'true') {
     const data = {
-      data: {},
+      data: await db.getAll(),
       time: Date.now()
-    }
-    for (let key of db.keys().filter(key => String(query.filter) === 'false' ? true : key.startsWith(pathname))) {
-      data.data[key] = db.get(key)
     }
     send(res, 200, data)
     return
@@ -27,7 +24,7 @@ module.exports = async function (req, res) {
   }
   const shouldIncrement = String(query.inc) !== 'false'
   try {
-    const currentViews = db.has(pathname) ? db.get(pathname).views.length : 0
+    const currentViews = await db.has(pathname) ? (await db.get(pathname)).views.length : 0
     // Add a view and send the total views back to the client
     if (shouldIncrement) {
       await pushView(pathname, { time: Date.now() })
