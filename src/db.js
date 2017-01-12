@@ -1,13 +1,15 @@
 const flatfile = require('flat-file-db')
 const promise = require('promise')
-const { repeatCharacter } = require('./utils')
 
 let adapter
 
+const repeatCharacter = (char, n) => `${Array(n + 1).join(char)}`
+
 if (process.env.DB_ADAPTER) {
-  const adapterName = 'micro-analytics-adapter-' + process.env.DB_ADAPTER
+  const adapterName = `micro-analytics-adapter-${process.env.DB_ADAPTER}`
   try {
     adapter = require(adapterName)
+    console.log(`Using ${adapterName}`)
   } catch (err) {
     if (err.code === 'MODULE_NOT_FOUND') {
       // Console.error a warning message, but normally exit the process to avoid printing ugly npm ERR lines and stack trace.
@@ -16,6 +18,7 @@ if (process.env.DB_ADAPTER) {
     }
   }
 } else {
+  console.log('Using standard flat-file-adapter')
   adapter = require('./flat-file-adapter')
 }
 
