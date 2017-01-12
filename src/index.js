@@ -6,6 +6,7 @@ const { pushView } = require('./utils')
 
 module.exports = async function (req, res) {
   const { pathname, query } = url.parse(req.url, /* parseQueryString */ true)
+  res.setHeader('Access-Control-Allow-Origin', '*')
   // Send all views down if "?all" is true
   if (String(query.all) === 'true') {
     const data = {
