@@ -9,13 +9,15 @@ module.exports = {
 
   has: (key) => Promise.resolve(db.has(key)),
   get: (key, options) => {
-    const value = db.get(key)
+    const value = db.get(key) || { views: [] }
 
-    return value.filter(view => {
-      if (options && options.before && dateFns.isAfter(view.time, options.before)) return false
-      if (options && options.after && dateFns.isBefore(view.time, options.after)) return false
-      return true
-    })
+    return {
+      views: value.views.filter(view => {
+        if (options && options.before && dateFns.isAfter(view.time, options.before)) return false
+        if (options && options.after && dateFns.isBefore(view.time, options.after)) return false
+        return true
+      })
+    }
   },
   keys: () => Promise.resolve(db.keys()),
 

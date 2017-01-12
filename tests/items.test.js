@@ -99,18 +99,18 @@ describe('all', () => {
 
       const d = dateFns.addMinutes(baseDate, 20)
 
-      mockDb._put('/rover', [
+      mockDb._put('/rover', { views: [
         { time: baseDate.getTime() },
         { time: dateFns.addMinutes(baseDate, 10).getTime() },
         { time: dateFns.addMinutes(baseDate, 20).getTime() },
         { time: dateFns.addMinutes(baseDate, 30).getTime() },
         { time: dateFns.addMinutes(baseDate, 40).getTime() },
         { time: dateFns.addMinutes(baseDate, 50).getTime() },
-      ])
+      ]})
 
       const mapToIsoString = view => new Date(view.time).toISOString()
       const body = JSON.parse(await request(`${url}/rover?all=true&before=${before}&after=${after}`))
-      expect(body.data['/rover'].map(mapToIsoString)).toEqual([
+      expect(body.data['/rover'].views.map(mapToIsoString)).toEqual([
         '2017-02-01T09:20:00.000Z',
         '2017-02-01T09:30:00.000Z',
         '2017-02-01T09:40:00.000Z'
