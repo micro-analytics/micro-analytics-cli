@@ -90,13 +90,5 @@ describe('all', () => {
       expect(body.data['/rover2'].views).toBeDefined()
       expect(body.data['/rover2'].views.length).toBe(1)
     })
-
-    it('should not filter if filter is set to false', async () => {
-      await request(`${url}/rover`)
-      await request(`${url}/rover2`)
-      await request(`${url}/route`)
-      const body = JSON.parse(await request(`${url}/rover?all=true&filter=false`))
-      expect(Object.keys(body.data).length).toBe(3)
-    })
   })
 })
