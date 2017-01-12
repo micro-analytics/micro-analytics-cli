@@ -15,7 +15,7 @@ module.exports = {
     const keys = await module.exports.keys()
 
     keys
-      .filter(key => String(options.filter) === 'false' ? true : key.startsWith(options.pathname))
+      .filter(key => key.startsWith(options.pathname))
       .forEach((key) => {
         data[key] = db.get(key)
       })
