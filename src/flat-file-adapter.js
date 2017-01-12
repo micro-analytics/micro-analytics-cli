@@ -3,17 +3,24 @@ const promise = require('promise')
 
 const db = flatfile.sync(process.env.DB_NAME || 'views.db')
 
-function getAll(options) {
-  const data = {};
-  const keys = db.keys()
-    .filter(key => String(options.filter) === 'false' ? true : key.startsWith(pathname));
-
-  return Promise.resolve(keys.map(key => db.get(key)));
-}
 
 module.exports = {
-  get: promise.denodeify(db.get.bind(db)),
   put: promise.denodeify(db.put.bind(db)),
-  has: promise.denodeify(db.has.bind(db)),
-  getAll: getAll,
+
+  has: (key) => Promise.resolve(db.has(key)),
+  get: (key) => Promise.resolve(db.get(key)),
+  keys: () => Promise.resolve(db.keys()),
+
+  getAll: async function getAll(options) {
+    const data = {}
+    const keys = await module.exports.keys()
+
+    keys
+      .filter(key => String(options.filter) === 'false' ? true : key.startsWith(options.pathname))
+      .forEach((key) => {
+        data[key] = db.get(key)
+      })
+
+    return data
+  }
 }

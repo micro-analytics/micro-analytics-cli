@@ -8,12 +8,17 @@ module.exports = async function (req, res) {
   const { pathname, query } = url.parse(req.url, /* parseQueryString */ true)
   // Send all views down if "?all" is true
   if (String(query.all) === 'true') {
-    const data = {
-      data: await db.getAll(),
-      time: Date.now()
+    try {
+      const data = {
+        data: await db.getAll({ pathname: pathname, filter: query.filter }),
+        time: Date.now()
+      }
+      send(res, 200, data)
+      return
+    } catch (err) {
+      console.log(err)
+      throw createError(500, 'Internal server error.')
     }
-    send(res, 200, data)
-    return
   }
   // Check that a page is provided
   if (pathname.length <= 1) {

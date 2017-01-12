@@ -6,23 +6,17 @@ const DB = () => {
   let DELAY = 1
 
   return {
-    get: (key) => new Promise((res, rej) => {
-      setTimeout(() => {
-        res(data[key])
-      }, DELAY)
+    sync: () => ({
+      get: (key) => data[key],
+      put: (key, val, cb) => {
+        setTimeout(() => {
+          data[key] = val
+          cb()
+        }, DELAY)
+      },
+      has: (key) => ({}.hasOwnProperty.call(data, key)),
+      keys: () => Object.keys(data),
     }),
-    put: (key, val) => new Promise((res, rej) => {
-      setTimeout(() => {
-        data[key] = val
-        res()
-      }, DELAY)
-    }),
-    has: (key) => new Promise((res, rej) => {
-      setTimeout(() => {
-        res(!!data[key])
-      }, DELAY)
-    }),
-    getAll: (options) => Object.assign({}, data),
 
     // Custom methods used in tests
     _reset: () => { data = {} },

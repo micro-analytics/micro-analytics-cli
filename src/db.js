@@ -14,4 +14,5 @@ module.exports = {
   getAll: adapter.getAll,
   put: adapter.put,
   has: adapter.has,
+  keys: adapter.keys,
 }
