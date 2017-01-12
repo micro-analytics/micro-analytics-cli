@@ -3,7 +3,6 @@ const promise = require('promise')
 
 const db = flatfile.sync(process.env.DB_NAME || 'views.db')
 
-
 module.exports = {
   put: promise.denodeify(db.put.bind(db)),
 
