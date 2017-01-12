@@ -24,5 +24,8 @@ const pushView = async (key, view) => {
   }
 }
 
+const repeatCharacter = (char, n) => `${Array(n + 1).join(char)}`
+
 module.exports = exports
 exports.pushView = pushView
+exports.repeatCharacter = repeatCharacter
