@@ -10,7 +10,11 @@ module.exports = async function (req, res) {
   if (String(query.all) === 'true') {
     try {
       const data = {
-        data: await db.getAll({ pathname: pathname, filter: query.filter }),
+        data: await db.getAll({
+          pathname: pathname,
+          before: query.before,
+          after: query.after,
+        }),
         time: Date.now()
       }
       send(res, 200, data)

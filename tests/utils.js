@@ -20,7 +20,8 @@ const DB = () => {
 
     // Custom methods used in tests
     _reset: () => { data = {} },
-    _setDelay: (ms) => { DELAY = ms || 1 }
+    _setDelay: (ms) => { DELAY = ms || 1 },
+    _put: (key, value) => { data[key] = value }
   }
 }
 
