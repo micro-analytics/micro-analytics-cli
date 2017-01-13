@@ -4,7 +4,7 @@ Public analytics as a Node.js microservice, no sysadmin experience required.
 
 [![Build Status](https://travis-ci.org/mxstbr/micro-analytics.svg?branch=master)](https://travis-ci.org/mxstbr/micro-analytics)
 
-A tiny analytics server with less than 100 lines of code, easy to run and hack around on. It does one thing, and it does it well: count the views of something and making the views publicly accessible via an API.
+A tiny analytics server with ~150 lines of code, easy to run and hack around on. It does one thing, and it does it well: count the views of something and making the views publicly accessible via an API.
 
 (there is currently no frontend to display pretty graphs, feel free to build one yourself!)
 
@@ -23,12 +23,6 @@ That's it, the analytics server is now running at `localhost:3000`! 🎉
 See [`server-setup.md`](./server-setup.md) for instructions on acquiring a server and setting up `nginx` to make your `micro-analytics` publicly available.
 
 > **Note**: You can pass any option to the `micro-analytics` command that you can pass to [`micro`](https://github.com/zeit/micro). As an example, to change the host you'd do `micro-analytics -H 127.0.0.1`
-
-### Database adapters
-
-micro-analytics supports custom database adapters. They can be configured with the environment
-variable `DB_ADAPTER`. Setting it to `redis` will make it require `micro-analytics-adapter-redis`.
-Leaving it unset will make micro-analytics use the builtin flat-file-db adapter.
 
 ## Usage
 
@@ -56,17 +50,17 @@ If you just want to get the views for an id and don't want to increment the view
 
 If you want to get all views for all ids, set the `all` query parameter to `true` on a root request. (i.e. `/?all=true`) If you pass the `all` parameter to an id, all ids starting with that pathname will be included. E.g. `/x?all=true` will match views for `/x`, `/xyz` but not `/y`.
 
-## Built with
+### Database adapters
 
-- [`micro`](https://github.com/zeit/micro) to create the service.
+By default, `micro-analytics` uses `flat-file-db`, a fast in-process flat file database, which makes for easy setup and backups. _(change the path to the database with the `DB_PATH` env variable, e.g. `$ DB_PATH=storage/analytics.db micro-analytics`)_
 
-  `micro` is a lightweight wrapper around Nodes `http.Server` which makes it easy to write ultra-high performance, asynchronous microservices. Perfect for our use case!
+This works fine for side-project usage, but for a production application with bajillions of visitors you might want to use a real database with a _database adapter_. Install the necessary npm package (e.g. `micro-analytics-adapter-xyz`) and then specify the `DB_ADAPTER` environment variable: `$ DB_ADAPTER=xyz micro-analytics`
 
-- [`flat-file-db`](https://github.com/mafintosh/flat-file-db) to store the data. (and [`promise`](https://github.com/then/promise) to promisify `flat-file-db`)
+These are the available database adapters, made by the community:
 
-  `flat-file-db` is a fast in-process flat file database that caches all data in memory and persists it to an open file using an append-only algorithm ensuring compact file sizes and strong consistency. By using the filesystem for storage setup is easy and backups are only a copy & paste away. (in case you need more advanced features of a real database, swapping out `flat-file-db` for a real db shouldn't take long)
+- [`micro-analytics-adapter-redis`](https://github.com/relekang/micro-analytics-adapter-redis)
 
-*If you want to change the path the database file is saved as pass it as an env variable called `DB_PATH`. E.g. `DB_PATH=storage/analytics.db micro-analytics`.*
+Don't see your favorite database here? Writing your own adapter is super easy! See [`writing-adapters.md`](writing-adapters.md) for a simple step-by-step guide.
 
 ## License
 
