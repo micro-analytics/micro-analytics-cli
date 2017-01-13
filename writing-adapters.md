@@ -1,10 +1,10 @@
 # Writing database adapters
 
-`micro-analytics` database adapters are simple JavaScript modules which export an object with five methods. They _have_ to be called `micro-analytics-adapter-xyz`, where `xyz` is the name users will pass to the `DB_ADAPTER` environment variable when starting `micro-analytics`.
+`micro-analytics` database adapters are simple JavaScript modules which export an object with some methods. They _have_ to be called `micro-analytics-adapter-xyz`, where `xyz` is the name users will pass to the `DB_ADAPTER` environment variable when starting `micro-analytics`.
 
 ## Overview
 
-The five methods every adapter has to have are:
+The methods every adapter has to have are:
 
 - `get(key: string)`: Get a value from the database
 - `put(key: string, value: object)`: Put a value into the database
@@ -32,16 +32,36 @@ module.exports = {
 
 Let's dive into the individual methods:
 
-### `get(key: string): Promise`
+### `get(key: string, options?: { filter?: object }): Promise`
 
-Should resolve the Promise with the value stored in the database, if there is one, or reject it, if not.
+Should resolve the Promise with an object containing the number of views at that path or, if there is no record with that path yet, reject it.
 
 #### Usage
 
 ```JS
 try {
   const value = await adapter.get('/hello')
-} catch (err) {/* New record added here */}
+  console.log(value) // { views: 123 }
+} catch (err) {/* ... */}
+```
+
+#### Options
+
+##### `filter: { before?: UTCTime, after?: UTCTime }`
+
+The adapter should return filter all records returned to only contain the views before `before` and after `after`. The times are passed in UTC, so a simple `record.views[x].time < filter.before` is good enough.
+
+Both, either one or none of them might be specified. It also has to work in conjunction with `pathname`. These are all valid queries, including any further combination of those:
+
+```JS
+// Return record with key /hello
+await adapter.get('/hello') // -> { views: 125 }
+
+// Return record with key /hello and its number of views that happened before 1234 UTC
+await adapter.get('/hello', { filter: { before: 1234 }}) // -> { views: 100 }
+
+// Return record with key /hello and its number of views that happened 1234 UTC but after 1200 UTC
+await adapter.get('/hello', { filter: { after: 1200, before: 1234 }}) // -> { views: 20 }
 ```
 
 ### `put(key: string, value: object): Promise`
@@ -123,22 +143,22 @@ This would not only return the values for the record with the key `/car`, but al
 
 ##### `filter: { before: UTCTime, after: UTCTime }`
 
-The adapter should return filter all records returned to only contain the views before `before` and after `after`. The times are passed in UTC, so a simple `record.views[x].time < filter.before` is good enough.
+`getAll` should have the same behaviour as `get` in terms of the filtering.
 
-Both, either one or none of them might be specified. It also has to work in conjunction with `pathname`. These are all valid queries, including any further combination of those:
+Here's some examples of valid queries:
 
 ```JS
 // Return all records
-await.getAll()
+await adapter.getAll() // -> { '/car': { views: [{ time: 1900 }, { time: 1210 }, { time: 1235 }]}}
 
 // Return all keys and their views that happened before 1234 UTC
-await.getAll({ filter: { before: 1234 }})
+await adapter.getAll({ filter: { before: 1234 }}) // -> { '/car': { views: [{ time: 1900 }, { time: 1210 }]}}
 
 // Return all keys and their views that happened before 1234 UTC but after 1200 UTC
-await.getAll({ filter: { after: 1200, before: 1234 }})
+await adapter.getAll({ filter: { after: 1200, before: 1234 }}) // -> { '/car': { views: [{ time: 1210 }]}}
 
 // Return all keys that start with /car and their views that happened before 1234 UTC but after 1200 UTC
-await.getAll({ pathname: '/car', filter: { after: 1200, before: 1234 }})
+await adapter.getAll({ pathname: '/car', filter: { after: 1200, before: 1234 }})
 ```
 
 ### `subscribe(pathname?: string): Observable`
