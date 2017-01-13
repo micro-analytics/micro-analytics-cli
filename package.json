@@ -24,7 +24,6 @@
   "license": "MIT",
   "repository": "https://github.com/mxstbr/micro-analytics",
   "dependencies": {
-    "date-fns": "^1.25.0",
     "flat-file-db": "^1.0.0",
     "micro": "6.1.0",
     "promise": "^7.1.1",

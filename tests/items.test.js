@@ -1,5 +1,4 @@
 const request = require('request-promise')
-const dateFns = require('date-fns')
 const { listen, mockDb } = require('./utils')
 
 jest.mock('flat-file-db', () => mockDb)
@@ -93,27 +92,24 @@ describe('all', () => {
     })
 
     it('should filter based on before after', async () => {
-      const baseDate = new Date(2017, 1, 1, 10, 0)
-      const after = dateFns.addMinutes(baseDate, 11).toISOString()
-      const before = dateFns.addMinutes(baseDate, 41).toISOString()
-
-      const d = dateFns.addMinutes(baseDate, 20)
+      const after = new Date('2017-01-01T09:11:00.000Z').getTime()
+      const before = new Date('2017-01-01T09:41:00.000Z').getTime()
 
       mockDb._put('/rover', { views: [
-        { time: baseDate.getTime() },
-        { time: dateFns.addMinutes(baseDate, 10).getTime() },
-        { time: dateFns.addMinutes(baseDate, 20).getTime() },
-        { time: dateFns.addMinutes(baseDate, 30).getTime() },
-        { time: dateFns.addMinutes(baseDate, 40).getTime() },
-        { time: dateFns.addMinutes(baseDate, 50).getTime() },
+        { time: new Date('2017-01-01T09:00:00.000Z').getTime() },
+        { time: new Date('2017-01-01T09:10:00.000Z').getTime() },
+        { time: new Date('2017-01-01T09:20:00.000Z').getTime() },
+        { time: new Date('2017-01-01T09:30:00.000Z').getTime() },
+        { time: new Date('2017-01-01T09:40:00.000Z').getTime() },
+        { time: new Date('2017-01-01T09:50:00.000Z').getTime() },
       ]})
 
       const mapToIsoString = view => new Date(view.time).toISOString()
       const body = JSON.parse(await request(`${url}/rover?all=true&before=${before}&after=${after}`))
       expect(body.data['/rover'].views.map(mapToIsoString)).toEqual([
-        '2017-02-01T09:20:00.000Z',
-        '2017-02-01T09:30:00.000Z',
-        '2017-02-01T09:40:00.000Z'
+        '2017-01-01T09:20:00.000Z',
+        '2017-01-01T09:30:00.000Z',
+        '2017-01-01T09:40:00.000Z'
       ])
     })
   })

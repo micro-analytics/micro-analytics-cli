@@ -12,8 +12,8 @@ module.exports = async function (req, res) {
       const data = {
         data: await db.getAll({
           pathname: pathname,
-          before: query.before,
-          after: query.after,
+          before: parseInt(query.before, 10),
+          after: parseInt(query.after, 10),
         }),
         time: Date.now()
       }

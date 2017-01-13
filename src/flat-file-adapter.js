@@ -1,6 +1,5 @@
 const flatfile = require('flat-file-db')
 const promise = require('promise')
-const dateFns = require('date-fns')
 
 const db = flatfile.sync(process.env.DB_NAME || 'views.db')
 
@@ -13,8 +12,8 @@ module.exports = {
 
     return {
       views: value.views.filter(view => {
-        if (options && options.before && dateFns.isAfter(view.time, options.before)) return false
-        if (options && options.after && dateFns.isBefore(view.time, options.after)) return false
+        if (options && options.before && view.time > options.before) return false
+        if (options && options.after && view.time < options.after) return false
         return true
       })
     }
