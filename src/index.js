@@ -9,15 +9,21 @@ module.exports = async function (req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*')
   // Send all views down if "?all" is true
   if (String(query.all) === 'true') {
-    const data = {
-      data: {},
-      time: Date.now()
+    try {
+      const data = {
+        data: await db.getAll({
+          pathname: pathname,
+          before: parseInt(query.before, 10),
+          after: parseInt(query.after, 10),
+        }),
+        time: Date.now()
+      }
+      send(res, 200, data)
+      return
+    } catch (err) {
+      console.log(err)
+      throw createError(500, 'Internal server error.')
     }
-    for (let key of db.keys().filter(key => String(query.filter) === 'false' ? true : key.startsWith(pathname))) {
-      data.data[key] = db.get(key)
-    }
-    send(res, 200, data)
-    return
   }
   // Check that a page is provided
   if (pathname.length <= 1) {
@@ -28,7 +34,7 @@ module.exports = async function (req, res) {
   }
   const shouldIncrement = String(query.inc) !== 'false'
   try {
-    const currentViews = db.has(pathname) ? db.get(pathname).views.length : 0
+    const currentViews = await db.has(pathname) ? (await db.get(pathname)).views.length : 0
     // Add a view and send the total views back to the client
     if (shouldIncrement) {
       await pushView(pathname, { time: Date.now() })

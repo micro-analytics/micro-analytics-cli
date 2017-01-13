@@ -1,7 +1,7 @@
 const request = require('request-promise')
 const { listen, mockDb } = require('./utils')
 
-jest.mock('../src/db', () => mockDb)
+jest.mock('flat-file-db', () => mockDb)
 const service = require('../src')
 let url
 
@@ -91,12 +91,26 @@ describe('all', () => {
       expect(body.data['/rover2'].views.length).toBe(1)
     })
 
-    it('should not filter if filter is set to false', async () => {
-      await request(`${url}/rover`)
-      await request(`${url}/rover2`)
-      await request(`${url}/route`)
-      const body = JSON.parse(await request(`${url}/rover?all=true&filter=false`))
-      expect(Object.keys(body.data).length).toBe(3)
+    it('should filter based on before after', async () => {
+      const after = new Date('2017-01-01T09:11:00.000Z').getTime()
+      const before = new Date('2017-01-01T09:41:00.000Z').getTime()
+
+      mockDb._put('/rover', { views: [
+        { time: new Date('2017-01-01T09:00:00.000Z').getTime() },
+        { time: new Date('2017-01-01T09:10:00.000Z').getTime() },
+        { time: new Date('2017-01-01T09:20:00.000Z').getTime() },
+        { time: new Date('2017-01-01T09:30:00.000Z').getTime() },
+        { time: new Date('2017-01-01T09:40:00.000Z').getTime() },
+        { time: new Date('2017-01-01T09:50:00.000Z').getTime() },
+      ]})
+
+      const mapToIsoString = view => new Date(view.time).toISOString()
+      const body = JSON.parse(await request(`${url}/rover?all=true&before=${before}&after=${after}`))
+      expect(body.data['/rover'].views.map(mapToIsoString)).toEqual([
+        '2017-01-01T09:20:00.000Z',
+        '2017-01-01T09:30:00.000Z',
+        '2017-01-01T09:40:00.000Z'
+      ])
     })
   })
 })
