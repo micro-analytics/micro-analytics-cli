@@ -2,6 +2,8 @@
 
 `micro-analytics` database adapters are simple JavaScript modules which export an object with some methods. They _have_ to be called `micro-analytics-adapter-xyz`, where `xyz` is the name users will pass to the `DB_ADAPTER` environment variable when starting `micro-analytics`.
 
+If you want to see an example adapter, check out the default [`flat-file-db` adapter](https://github.com/mxstbr/micro-analytics-adapter-flat-file-db)!
+
 ## Overview
 
 The methods every adapter has to have are:

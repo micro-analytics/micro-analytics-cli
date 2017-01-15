@@ -52,7 +52,7 @@ If you want to get all views for all ids, set the `all` query parameter to `true
 
 ### Database adapters
 
-By default, `micro-analytics` uses `flat-file-db`, a fast in-process flat file database, which makes for easy setup and backups. _(change the path to the database with the `DB_PATH` env variable, e.g. `$ DB_PATH=storage/analytics.db micro-analytics`)_
+By default, `micro-analytics` uses `flat-file-db`, a fast in-process flat file database, which makes for easy setup and backups.
 
 This works fine for side-project usage, but for a production application with bajillions of visitors you might want to use a real database with a _database adapter_. Install the necessary npm package (e.g. `micro-analytics-adapter-xyz`) and then specify the `DB_ADAPTER` environment variable: `$ DB_ADAPTER=xyz micro-analytics`
 
