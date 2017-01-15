@@ -1,4 +1,5 @@
 const micro = require('micro')
+const noop = () => {}
 
 // Mock the database
 const DB = () => {
@@ -16,6 +17,10 @@ const DB = () => {
       },
       has: (key) => ({}.hasOwnProperty.call(data, key)),
       keys: () => Object.keys(data),
+      del: noop,
+      clear: noop,
+      close: noop,
+      on: noop,
     }),
 
     // Custom methods used in tests

@@ -26,6 +26,7 @@
   "dependencies": {
     "flat-file-db": "^1.0.0",
     "micro": "6.1.0",
+    "micro-analytics-adapter-flat-file-db": "^1.0.3",
     "promise": "^7.1.1",
     "shelljs": "^0.7.6"
   },
@@ -41,5 +42,10 @@
   },
   "execMap": {
     "js": "micro"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ]
   }
 }
