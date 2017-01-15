@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/mxstbr/micro-analytics-adapter-flat-file-db#readme",
   "dependencies": {
+    "escape-regex": "^1.0.7",
     "flat-file-db": "^1.0.0",
     "then-flat-file-db": "^1.0.0"
   },
