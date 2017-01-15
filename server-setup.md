@@ -42,6 +42,14 @@ server {
     proxy_set_header Host $host;
     proxy_pass http://localhost:3000;
   }
+
+  # This will avoid favicon.ico being counted when you test the service
+  # in the browser.
+  location = /favicon.ico {
+    access_log off;
+    log_not_found off;
+    return 204;
+  }
 }
 ```
 
