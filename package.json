@@ -42,5 +42,10 @@
   },
   "execMap": {
     "js": "micro"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ]
   }
 }
