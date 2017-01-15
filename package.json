@@ -2,9 +2,11 @@
   "name": "micro-analytics-adapter-flat-file-db",
   "version": "1.0.0",
   "description": "Store your micro-analytics data in flat-file-db!",
-  "main": "index.js",
+  "main": "dist.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "async-to-gen index.js --out-file dist.js",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -27,5 +29,8 @@
   },
   "peerDependencies": {
     "micro-analytics": "^1.2.0"
+  },
+  "devDependencies": {
+    "async-to-gen": "^1.3.0"
   }
 }
