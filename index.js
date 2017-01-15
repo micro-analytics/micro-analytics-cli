@@ -27,13 +27,13 @@ module.exports = {
 	// Get all values starting with a certain pathname and filter their views
   getAll: async function getAll(options) {
     const data = {}
-    const keys = await module.exports.keys()
+    const keys = (await module.exports.keys()).filter(key => key.startsWith(options.pathname))
 
-    keys
-      .filter(key => key.startsWith(options.pathname))
-      .forEach((key) => {
-        data[key] = module.exports.get(key, { before: options.before, after: options.after })
-      })
+		for (let key of keys) {
+			data[key] = await module.exports.get(key, { before: options.before, after: options.after })
+		}
+
+		await Promise.all(keys)
 
     return data
   }
