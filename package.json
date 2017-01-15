@@ -1,0 +1,31 @@
+{
+  "name": "micro-analytics-adapter-flat-file-db",
+  "version": "1.0.0",
+  "description": "Store your micro-analytics data in flat-file-db!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mxstbr/micro-analytics-adapter-flat-file-db.git"
+  },
+  "keywords": [
+    "micro-analytics",
+    "adapter",
+    "flat-file-db"
+  ],
+  "author": "Max Stoiber <contact@mxstbr.com> (http://mxstbr.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mxstbr/micro-analytics-adapter-flat-file-db/issues"
+  },
+  "homepage": "https://github.com/mxstbr/micro-analytics-adapter-flat-file-db#readme",
+  "dependencies": {
+    "flat-file-db": "^1.0.0",
+    "then-flat-file-db": "^1.0.0"
+  },
+  "peerDependencies": {
+    "micro-analytics": "^1.2.0"
+  }
+}
