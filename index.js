@@ -34,7 +34,7 @@ module.exports = {
   getAll: async function getAll(options) {
     const data = {}
     const keys = (await module.exports.keys()).filter((key) => {
-      return options.wildcard ? key.match(keyRegex(options.pathname)) : key.startsWith(options.pathname)
+      return options.ignoreWildcard ? key.startsWith(options.pathname) : key.match(keyRegex(options.pathname))
     })
 
 		for (let key of keys) {
