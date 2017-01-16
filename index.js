@@ -1,7 +1,13 @@
 const flatfile = require('flat-file-db')
 const promisify = require('then-flat-file-db')
+const escapeRegexp = require('escape-regex')
 
 const db = promisify(flatfile.sync(process.env.DB_NAME || 'views.db'))
+
+const keyRegex = (str) => {
+  str = str.split('*').map( s => escapeRegexp(s)).join('*')
+  return new RegExp('^' + str.replace('*','.*'))
+}
 
 module.exports = {
   put: db.put.bind(db),
@@ -27,7 +33,9 @@ module.exports = {
 	// Get all values starting with a certain pathname and filter their views
   getAll: async function getAll(options) {
     const data = {}
-    const keys = (await module.exports.keys()).filter(key => key.startsWith(options.pathname))
+    const keys = (await module.exports.keys()).filter((key) => {
+      return options.ignoreWildcard ? key.startsWith(options.pathname) : key.match(keyRegex(options.pathname))
+    })
 
 		for (let key of keys) {
 			data[key] = await module.exports.get(key, { before: options.before, after: options.after })
