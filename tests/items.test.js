@@ -1,7 +1,7 @@
 const request = require('request-promise')
+const expect = require('expect')
 const { listen, mockDb } = require('./utils')
 
-jest.mock('flat-file-db', () => mockDb)
 const service = require('../src')
 let url
 
@@ -43,7 +43,7 @@ describe('all', () => {
   it('should return an empty array if no previous views exist', async () => {
     const body = JSON.parse(await request(`${url}/?all=true`))
     expect(body.data).toEqual({})
-    expect(body.time).toBeDefined()
+    expect(body.time).toExist()
   })
 
   it('should return previous views of one route', async () => {
@@ -51,7 +51,7 @@ describe('all', () => {
     await request(`${url}/route`)
     const body = JSON.parse(await request(`${url}/?all=true`))
     expect(Object.keys(body.data).length).toBe(1)
-    expect(body.data['/route'].views).toBeDefined()
+    expect(body.data['/route'].views).toExist()
     expect(body.data['/route'].views.length).toBe(2)
   })
 
@@ -63,9 +63,9 @@ describe('all', () => {
     await request(`${url}/route2`)
     const body = JSON.parse(await request(`${url}/?all=true`))
     expect(Object.keys(body.data).length).toBe(2)
-    expect(body.data['/route'].views).toBeDefined()
+    expect(body.data['/route'].views).toExist()
     expect(body.data['/route'].views.length).toBe(2)
-    expect(body.data['/route2'].views).toBeDefined()
+    expect(body.data['/route2'].views).toExist()
     expect(body.data['/route2'].views.length).toBe(3)
   })
 
@@ -75,7 +75,7 @@ describe('all', () => {
       await request(`${url}/route`)
       const body = JSON.parse(await request(`${url}/rover?all=true`))
       expect(Object.keys(body.data).length).toBe(1)
-      expect(body.data['/rover'].views).toBeDefined()
+      expect(body.data['/rover'].views).toExist()
       expect(body.data['/rover'].views.length).toBe(1)
     })
 
@@ -85,9 +85,9 @@ describe('all', () => {
       await request(`${url}/route`)
       const body = JSON.parse(await request(`${url}/rover?all=true`))
       expect(Object.keys(body.data).length).toBe(2)
-      expect(body.data['/rover'].views).toBeDefined()
+      expect(body.data['/rover'].views).toExist()
       expect(body.data['/rover'].views.length).toBe(1)
-      expect(body.data['/rover2'].views).toBeDefined()
+      expect(body.data['/rover2'].views).toExist()
       expect(body.data['/rover2'].views.length).toBe(1)
     })
 

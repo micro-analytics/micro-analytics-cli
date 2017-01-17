@@ -20,14 +20,14 @@
     "build": "./node_modules/.bin/async-to-gen src --out-dir dist",
     "prepublish": "npm run build",
     "dev": "NODE_ENV=development nodemon --config package.json src/index.js",
-    "test": "jest"
+    "test": "NODE_ENV=test mocha tests/**.test.js --require tests/setup"
   },
   "author": "Max Stoiber <contact@mxstbr.com> (http://mxstbr.com/)",
   "license": "MIT",
   "repository": "https://github.com/mxstbr/micro-analytics",
   "dependencies": {
     "flat-file-db": "^1.0.0",
-    "micro": "6.1.0",
+    "micro": "^6.2.0",
     "micro-analytics-adapter-flat-file-db": "^1.0.3",
     "promise": "^7.1.1",
     "shelljs": "^0.7.6"
@@ -37,9 +37,15 @@
     "babel-jest": "^18.0.0",
     "babel-plugin-transform-async-to-generator": "^6.16.0",
     "babel-polyfill": "^6.20.0",
+    "babel-preset-env": "^1.1.8",
     "babel-preset-node6": "^11.0.0",
+    "babel-register": "^6.18.0",
+    "expect": "^1.20.2",
     "jest": "^18.1.0",
+    "mocha": "^3.2.0",
+    "request": "^2.79.0",
     "request-promise": "^4.1.1",
+    "sinon": "^1.17.7",
     "update-notifier": "^1.0.3"
   },
   "execMap": {
