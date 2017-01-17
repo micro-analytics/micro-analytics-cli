@@ -3,5 +3,7 @@ const path = require('path')
 const { exec } = require('shelljs')
 
 module.exports = (adapter) => {
-  exec('DB_ADAPTER=' + adapter + ' npm t', { async: true })
+  exec('npm i', () => {
+    exec('DB_ADAPTER=' + adapter + ' npm t', { async: true, cwd: __dirname })
+  })
 }

@@ -9,7 +9,8 @@
     "dist",
     "cli.js",
     "adapter-test.js",
-    "tests"
+    "tests",
+    "src"
   ],
   "engineStrict": true,
   "engines": {
@@ -18,7 +19,7 @@
   "scripts": {
     "start": "micro dist/index.js",
     "build": "./node_modules/.bin/async-to-gen src --out-dir dist",
-    "prepublish": "npm run build",
+    "prepublishOnly": "npm run build",
     "dev": "NODE_ENV=development nodemon --config package.json src/index.js",
     "test": "NODE_ENV=test mocha tests/**.test.js --require tests/setup"
   },
