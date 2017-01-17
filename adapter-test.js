@@ -13,6 +13,6 @@ module.exports = (adapter) => {
       return
     }
     spinner.stopAndPersist('✔')
-    const test = exec('DB_ADAPTER=' + adapter + ' npm t', { async: true, cwd: __dirname })
+    const test = exec('DB_ADAPTER=' + adapter + ' npm run adapter-test', { async: true, cwd: __dirname })
   })
 }

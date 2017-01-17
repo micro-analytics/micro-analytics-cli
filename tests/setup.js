@@ -1,10 +1,4 @@
-require('babel-register')({
-  presets: [['env', {
-    targets: {
-      node: 'current'
-    }
-  }]]
-})
+require('./babel-register')
 
 const sinon = require('sinon')
 const { mockDb } = require('./utils')

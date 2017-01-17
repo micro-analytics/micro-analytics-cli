@@ -21,7 +21,8 @@
     "build": "./node_modules/.bin/async-to-gen src --out-dir dist",
     "prepublishOnly": "npm run build",
     "dev": "NODE_ENV=development nodemon --config package.json src/index.js",
-    "test": "NODE_ENV=test mocha tests/**.test.js --require tests/setup"
+    "test": "NODE_ENV=test mocha tests/**.test.js --require tests/setup",
+    "adapter-test": "NODE_ENV=test mocha tests/**.test.js --require tests/babel-register"
   },
   "author": "Max Stoiber <contact@mxstbr.com> (http://mxstbr.com/)",
   "license": "MIT",
