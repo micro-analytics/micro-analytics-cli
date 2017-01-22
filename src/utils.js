@@ -7,7 +7,7 @@ const pushView = async (key, view) => {
   await push()
 
   async function push() {
-    if (locks[key]) return setImmediate(async () => { await push() })
+    if (locks[key]) return setTimeout(async () => { await push() }, 0)
     locks[key] = true
 
     const views = await db.has(key)
