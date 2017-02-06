@@ -1,4 +1,5 @@
 const promise = require('promise')
+const Observable = require("zen-observable")
 
 let adapter
 const adapterName = `micro-analytics-adapter-${process.env.DB_ADAPTER || 'flat-file-db'}`
@@ -17,10 +18,20 @@ try {
   }
 }
 
+const observable = new Observable((observer) => {
+  let timer = setInterval(_ => {
+    observer.next("hello")
+  }, 1000)
+
+  return _ => clearTimeout(timer)
+});
+
+
 module.exports = {
   get: adapter.get,
   getAll: adapter.getAll,
   put: adapter.put,
   has: adapter.has,
   keys: adapter.keys,
+  subscribe: adapter.subscribe,
 }
