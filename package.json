@@ -26,7 +26,8 @@
   "dependencies": {
     "escape-regex": "^1.0.7",
     "flat-file-db": "^1.0.0",
-    "then-flat-file-db": "^1.0.0"
+    "then-flat-file-db": "^1.0.0",
+    "zen-observable": "^0.4.0"
   },
   "peerDependencies": {
     "micro-analytics-cli": "^1.2.0"

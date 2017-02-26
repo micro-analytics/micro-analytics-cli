@@ -1,6 +1,7 @@
 const flatfile = require('flat-file-db')
 const promisify = require('then-flat-file-db')
 const escapeRegexp = require('escape-regex')
+const Observable = require("zen-observable")
 
 const db = promisify(flatfile.sync(process.env.DB_NAME || 'views.db'))
 
@@ -9,8 +10,24 @@ const keyRegex = (str) => {
   return new RegExp('^' + str.replace('*','.*'))
 }
 
+
+let handlers = [];
+
+const observable = new Observable((observer) => {
+  handlers.push((data) => observer.next(data))
+  let index = handlers.length;
+  return () => {
+    handlers = [...handlers.slice(0, index), ...handlers.slice(index)]
+  }
+});
+
 module.exports = {
-  put: db.put.bind(db),
+  put: (key, value) => {
+    db.put(key, value)
+    handlers.forEach(handler => {
+      handler({key, value});
+    })
+  },
   has: (key) => Promise.resolve(db.has(key)),
 	keys: () => Promise.resolve(db.keys()),
 	// Get a value and filter it
@@ -44,5 +61,8 @@ module.exports = {
 		await Promise.all(keys)
 
     return data
+  },
+  subscribe: (cb) => {
+    return observable.subscribe(cb);
   }
 }
