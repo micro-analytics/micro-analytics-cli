@@ -2,7 +2,7 @@
 
 Public analytics as a Node.js microservice, no sysadmin experience required.
 
-[![Build Status](https://travis-ci.org/mxstbr/micro-analytics.svg?branch=master)](https://travis-ci.org/mxstbr/micro-analytics)
+[![Build Status](https://travis-ci.org/micro-analytics/micro-analytics.svg?branch=master)](https://travis-ci.org/micro-analytics/micro-analytics)
 
 A tiny analytics server with ~100 lines of code, easy to run and hack around on. It does one thing, and it does it well: count the views of something and making the views publicly accessible via an API.
 
