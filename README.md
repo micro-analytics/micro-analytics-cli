@@ -50,17 +50,51 @@ If you just want to get the views for an id and don't want to increment the view
 
 If you want to get all views for all ids, set the `all` query parameter to `true` on a root request. (i.e. `/?all=true`) If you pass the `all` parameter to an id, all ids starting with that pathname will be included. E.g. `/x?all=true` will match views for `/x`, `/xyz` but not `/y`.
 
+### Options
+
+```
+$ micro-analytics --help
+Usage: micro-analytics [options] [command]
+
+Commands:
+
+  help  Display help
+
+Options:
+
+  -a, --adapter [value]  Database adapter used (defaults to "flat-file-db")
+  -h, --help             Output usage information
+  -H, --host [value]     Host to listen on (defaults to "0.0.0.0")
+  -p, --port <n>         Port to listen on (defaults to 3000)
+  -v, --version          Output the version number
+```
+
 ### Database adapters
 
 By default, `micro-analytics` uses `flat-file-db`, a fast in-process flat file database, which makes for easy setup and backups.
 
-This works fine for side-project usage, but for a production application with bajillions of visitors you might want to use a real database with a _database adapter_. Install the necessary npm package (e.g. `micro-analytics-adapter-xyz`) and then specify the `DB_ADAPTER` environment variable: `$ DB_ADAPTER=xyz micro-analytics`
+This works fine for side-project usage, but for a production application with bajillions of visitors you might want to use a real database with a _database adapter_. Install the necessary npm package (e.g. `micro-analytics-adapter-xyz`) and then specify the `DB_ADAPTER` environment variable: `$ DB_ADAPTER=xyz micro-analytics` or use the `--adapter` cli option.
 
 These are the available database adapters, made by the community:
 
 - [`micro-analytics-adapter-redis`](https://github.com/relekang/micro-analytics-adapter-redis)
 
 Don't see your favorite database here? Writing your own adapter is super easy! See [`writing-adapters.md`](writing-adapters.md) for a simple step-by-step guide.
+
+### Live updates
+
+micro-analytics has support for live updates with [server-sent events][]. This is an optional feature
+in the adapter backend so check that your chosen backend has the support for it. Below is a little
+example on how to listen for the events.
+
+```es6
+const sse = new EventSource('/sse')
+sse.onopen = function () { console.log('[sse] open') }
+sse.onerror = function (error) { console.error('[sse error]', error) }
+sse.addEventListener('new-event', function (e) { console.log('[sse]', e) })
+```
+
+[server-sent events]: https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events
 
 ## License
 
