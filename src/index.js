@@ -13,8 +13,12 @@ db.initDbAdapter(flags.adapter)
 
 const handler = require('./handler')
 const server = micro(handler)
-const sse = new SSE(server)
-sse.on('connection', sseHandler)
+
+if (db.hasFeature("subscribe")) {
+  const sseHandler = require('./sse')
+  const sse = new SSE(server)
+  sse.on('connection', sseHandler)
+}
 
 server.listen(flags.port, flags.host, (error) => {
   if (error) {
@@ -23,7 +27,8 @@ server.listen(flags.port, flags.host, (error) => {
   }
 
   console.log(
-    'micro-analytics listening on ' + flags.host + ':' + flags.port + ' with adapter ' +
-    flags.adapter
+    'micro-analytics listening on ' + flags.host + ':' + flags.port + '\n' +
+    '  with adapter ' + flags.adapter +
+    (db.hasFeature("subscribe") ? '\n  with server side events' : '')
   )
 })
