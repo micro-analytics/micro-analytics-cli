@@ -2,8 +2,11 @@ const request = require('request-promise')
 const { listen, mockDb } = require('./utils')
 
 jest.mock('flat-file-db', () => mockDb)
-const service = require('../src')
+const db = require('../src/db')
+const service = require('../src/handler')
 let url
+
+db.initDbAdapter('flat-file-db');
 
 beforeEach(async () => {
   url = await listen(service)
