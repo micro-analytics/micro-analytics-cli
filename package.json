@@ -15,23 +15,24 @@
     "node": ">=6.0.0"
   },
   "scripts": {
-    "start": "micro dist/index.js",
+    "start": "node dist/index.js",
     "build": "./node_modules/.bin/async-to-gen src --out-dir dist",
     "prepublish": "npm run build",
-    "dev": "NODE_ENV=development nodemon --config package.json src/index.js",
+    "dev": "NODE_ENV=development nodemon --config package.json --exec async-node src/index.js",
     "test": "jest"
   },
   "author": "Max Stoiber <contact@mxstbr.com> (http://mxstbr.com/)",
   "license": "MIT",
   "repository": "https://github.com/mxstbr/micro-analytics",
   "dependencies": {
+    "args": "^2.3.0",
     "flat-file-db": "^1.0.0",
     "micro": "6.1.0",
     "micro-analytics-adapter-flat-file-db": "^1.0.3",
     "promise": "^7.1.1",
     "shelljs": "^0.7.6",
-    "update-notifier": "^1.0.3",
     "sse": "0.0.6",
+    "update-notifier": "^1.0.3",
     "zen-observable": "^0.4.0"
   },
   "devDependencies": {
@@ -41,6 +42,7 @@
     "babel-polyfill": "^6.20.0",
     "babel-preset-node6": "^11.0.0",
     "jest": "^19.0.2",
+    "nodemon": "^1.11.0",
     "request-promise": "^4.1.1"
   },
   "execMap": {
