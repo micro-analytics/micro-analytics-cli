@@ -1,14 +1,11 @@
 const micro = require('micro')
 const SSE = require('sse')
-const args = require('args');
 
-const flags = args
-  .option(['p', 'port'], 'Port to listen on', process.env.PORT || 3000, Number)
-  .option(['H', 'host'], 'Host to listen on', '0.0.0.0')
-  .option(['a', 'adapter'], 'Database adapter used', process.env.DB_ADAPTER || 'flat-file-db')
-  .parse(process.argv, { name: 'micro-analytics' })
-
+const parseArgs = require('./parseArgs')
 const db = require('./db');
+
+const flags = parseArgs(process.argv)
+
 db.initDbAdapter(flags.adapter)
 
 const handler = require('./handler')

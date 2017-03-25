@@ -1,0 +1,12 @@
+exports[`parseArgs should have correct defaults 1`] = `
+Object {
+  "H": "0.0.0.0",
+  "a": "flat-file-db",
+  "adapter": "flat-file-db",
+  "host": "0.0.0.0",
+  "p": 3000,
+  "port": 3000,
+}
+`;
+
+exports[`parseArgs should use DB_ADAPTER environment variable as default if set 1`] = `"flat-file-db"`;
