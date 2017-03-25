@@ -20,4 +20,14 @@ describe('sse', () => {
 
     expect(sendMock).toHaveBeenCalled()
   })
+
+  it("should publish events with correct structure", () => {
+    const sendMock = jest.fn()
+    const eventListenerMock = jest.fn()
+    sseHandler({send: sendMock, on: eventListenerMock})
+
+    db.put('superview', { views: [{ time: 1490432584312 }] })
+
+    expect(sendMock.mock.calls).toMatchSnapshot()
+  })
 })
