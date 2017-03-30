@@ -1,6 +1,6 @@
 {
   "name": "micro-analytics-cli",
-  "version": "1.2.0-9",
+  "version": "1.2.0-10",
   "description": "Public analytics as a Node.js microservice, no sysadmin experience required.",
   "bin": {
     "micro-analytics": "./cli.js"
@@ -44,9 +44,8 @@
     "babel-preset-node6": "^11.0.0",
     "babel-register": "^6.18.0",
     "expect": "^1.20.2",
-    "jest": "^18.1.0",
-    "sinon": "^1.17.7",
     "jest": "^19.0.2",
+    "sinon": "^1.17.7",
     "request-promise": "^4.1.1"
   },
   "execMap": {
