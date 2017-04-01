@@ -1,7 +1,7 @@
 const promise = require('promise')
 
 let adapter
-const adapterName = `micro-analytics-adapter-${process.env.DB_ADAPTER || 'flat-file-db'}`
+const adapterName = process.env.TEST_DB_ADAPTER || `micro-analytics-adapter-${process.env.DB_ADAPTER || 'flat-file-db'}`
 
 const repeatCharacter = (char, n) => `${Array(n + 1).join(char)}`
 
