@@ -8,9 +8,9 @@
   "files": [
     "dist",
     "cli.js",
-    "adapter-test.js",
     "tests",
-    "src"
+    "src",
+    "adapter-tests"
   ],
   "engineStrict": true,
   "engines": {
