@@ -4,7 +4,7 @@
   "description": "Store your micro-analytics data in flat-file-db!",
   "main": "dist.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build": "async-to-gen index.js --out-file dist.js",
     "prepublish": "npm run build"
   },
@@ -33,6 +33,8 @@
     "micro-analytics-cli": "^1.2.0"
   },
   "devDependencies": {
-    "async-to-gen": "^1.3.0"
+    "async-to-gen": "^1.3.0",
+    "jest": "^19.0.2",
+    "micro-analytics-cli": "1.2.0-11"
   }
 }
