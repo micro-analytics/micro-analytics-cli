@@ -1,8 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`sse should publish events with correct structure 1`] = `
 Array [
   Array [
     Object {
-      "data": "{\"key\":\"superview\",\"value\":{\"views\":[{\"time\":1490432584312}]}}",
+      "data": "{"key":"superview","value":{"views":[{"time":1490432584312}]}}",
       "event": "micro-analytics-ping",
     },
   ],

@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`parseArgs should have correct defaults 1`] = `
 Object {
   "H": "0.0.0.0",
@@ -8,5 +10,3 @@ Object {
   "port": 3000,
 }
 `;
-
-exports[`parseArgs should use DB_ADAPTER environment variable as default if set 1`] = `"flat-file-db"`;
