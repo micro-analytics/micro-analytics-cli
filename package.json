@@ -28,7 +28,7 @@
     "args": "^2.3.0",
     "flat-file-db": "^1.0.0",
     "micro": "6.1.0",
-    "micro-analytics-adapter-flat-file-db": "^1.0.3",
+    "micro-analytics-adapter-flat-file-db": "^1.2.0",
     "promise": "^7.1.1",
     "shelljs": "^0.7.6",
     "sse": "0.0.6",

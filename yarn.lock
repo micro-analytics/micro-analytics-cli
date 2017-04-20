@@ -1811,13 +1811,14 @@ merge@^1.1.3:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/merge/-/merge-1.2.0.tgz#7531e39d4949c281a66b8c5a6e0265e8b05894da"
 
-micro-analytics-adapter-flat-file-db@^1.0.3:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/micro-analytics-adapter-flat-file-db/-/micro-analytics-adapter-flat-file-db-1.1.0.tgz#bf477dbd2269c55276e2807d97902e5b084aedf5"
+micro-analytics-adapter-flat-file-db@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/micro-analytics-adapter-flat-file-db/-/micro-analytics-adapter-flat-file-db-1.2.0.tgz#1fc724b3c5a1b11f5a568a514c70089ec7198053"
   dependencies:
     escape-regex "^1.0.7"
     flat-file-db "^1.0.0"
     then-flat-file-db "^1.0.0"
+    zen-observable "^0.4.0"
 
 micro@6.1.0:
   version "6.1.0"
