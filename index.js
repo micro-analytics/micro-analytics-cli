@@ -23,10 +23,10 @@ const observable = new Observable((observer) => {
 
 module.exports = {
   put: (key, value) => {
-    db.put(key, value)
     handlers.forEach(handler => {
       handler({key, value});
     })
+    return db.put(key, value)
   },
   has: (key) => Promise.resolve(db.has(key)),
 	keys: () => Promise.resolve(db.keys()),
