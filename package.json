@@ -1,6 +1,6 @@
 {
   "name": "micro-analytics-adapter-flat-file-db",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Store your micro-analytics data in flat-file-db!",
   "main": "dist.js",
   "scripts": {
