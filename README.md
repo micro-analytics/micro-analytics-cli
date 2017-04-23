@@ -83,7 +83,7 @@ Don't see your favorite database here? Writing your own adapter is super easy! S
 
 ### Live updates
 
-micro-analytics also let's you listen into updates live with [server-sent events].
+micro-analytics also let's you listen into updates live with [server-sent events][].
 That means you can e.g. build a realtime dashboard for your analytics!
 
 Note: Make sure your database adapter supports this feature. If not, bug them to implement it!
@@ -97,7 +97,13 @@ sse.onerror = function (error) { console.error('[sse error]', error) }
 sse.addEventListener('micro-analytics-ping', function (e) { console.log('[sse]', e) })
 ```
 
+#### Browser support
+
+Server-sent events is not supported in all browsers. This can easily be fixed by using a polyfill.
+Take a look at [the caniuse table][] for server-sent events if you need one.
+
 [server-sent events]: https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events
+[the caniuse table]: http://caniuse.com/#feat=eventsource
 
 ## License
 
