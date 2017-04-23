@@ -83,15 +83,18 @@ Don't see your favorite database here? Writing your own adapter is super easy! S
 
 ### Live updates
 
-micro-analytics has support for live updates with [server-sent events][]. This is an optional feature
-in the adapter backend so check that your chosen backend has the support for it. Below is a little
-example on how to listen for the events.
+micro-analytics also let's you listen into updates live with [server-sent events].
+That means you can e.g. build a realtime dashboard for your analytics!
+
+Note: Make sure your database adapter supports this feature. If not, bug them to implement it!
+micro-analytics will tell you when it starts up if it is supported, so the easiest way to find
+out is just to start it up.
 
 ```es6
-const sse = new EventSource('/sse')
+const sse = new EventSource('https://micro-analytics.now.sh/sse')
 sse.onopen = function () { console.log('[sse] open') }
 sse.onerror = function (error) { console.error('[sse error]', error) }
-sse.addEventListener('new-event', function (e) { console.log('[sse]', e) })
+sse.addEventListener('micro-analytics-ping', function (e) { console.log('[sse]', e) })
 ```
 
 [server-sent events]: https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events
