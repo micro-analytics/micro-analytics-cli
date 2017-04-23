@@ -94,7 +94,7 @@ The example below shows how you can listen for events in the browser, just swap
 micro-analytics.now.sh with your own domain and give it a try.
 
 ```es6
-const sse = new EventSource('https://micro-analytics.now.sh/sse')
+const sse = new EventSource('https://micro-analytics.now.sh/realtime')
 sse.onopen = function () { console.log('[sse] open') }
 sse.onerror = function (error) { console.error('[sse error]', error) }
 sse.addEventListener('micro-analytics-ping', function (e) { console.log('[sse]', e) })
