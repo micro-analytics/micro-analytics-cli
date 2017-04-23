@@ -4,8 +4,26 @@ const { send, createError, sendError } = require('micro')
 const db = require('./db')
 const { pushView } = require('./utils')
 
+let sse;
+
+if (db.hasFeature("subscribe")) {
+  const SseChannel = require('sse-channel')
+  const sseHandler = require('./sse')
+  sse = new SseChannel({ cors: { origins: ['*'] } })
+  sseHandler(sse)
+}
+
 module.exports = async function (req, res) {
   const { pathname, query } = url.parse(req.url, /* parseQueryString */ true)
+
+  if (pathname === '/sse') {
+    if (sse) {
+      sse.addClient(req, res);
+    } else {
+      send(res, 400, {error: 'The current database adapter does not support live updates.'})
+    }
+  }
+
   res.setHeader('Access-Control-Allow-Origin', '*')
   // Send all views down if "?all" is true
   if (String(query.all) === 'true') {

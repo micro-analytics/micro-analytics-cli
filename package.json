@@ -31,7 +31,7 @@
     "micro-analytics-adapter-flat-file-db": "^1.2.1",
     "promise": "^7.1.1",
     "shelljs": "^0.7.6",
-    "sse": "0.0.6",
+    "sse-channel": "^2.0.6",
     "update-notifier": "^1.0.3",
     "zen-observable": "^0.4.0"
   },

@@ -100,10 +100,16 @@ sse.addEventListener('micro-analytics-ping', function (e) { console.log('[sse]',
 #### Browser support
 
 Server-sent events is not supported in all browsers. This can easily be fixed by using a polyfill.
-Take a look at [the caniuse table][] for server-sent events if you need one.
+Take a look at [the caniuse table][] for server-sent events if you need one. Polyfills that are
+supported(disclaimer this list is from the documentation of the sse library we use [rexxars/sse-channel][]):
+
+* [amvtek/EventSource](https://github.com/amvtek/EventSource)
+* [Yaffle/EventSource)](https://github.com/Yaffle/EventSource)
+* [remy/polyfills/EventSource.js](https://github.com/remy/polyfills/blob/master/EventSource.js)
 
 [server-sent events]: https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events
 [the caniuse table]: http://caniuse.com/#feat=eventsource
+[rexxars/sse-channel]: https://github.com/rexxars/sse-channel
 
 ## License
 
