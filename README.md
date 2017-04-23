@@ -90,6 +90,9 @@ Note: Make sure your database adapter supports this feature. If not, bug them to
 micro-analytics will tell you when it starts up if it is supported, so the easiest way to find
 out is just to start it up.
 
+The example below shows how you can listen for events in the browser, just swap
+micro-analytics.now.sh with your own domain and give it a try.
+
 ```es6
 const sse = new EventSource('https://micro-analytics.now.sh/sse')
 sse.onopen = function () { console.log('[sse] open') }
