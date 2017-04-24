@@ -32,7 +32,33 @@ module.exports = {
 }
 ```
 
-Let's dive into the individual methods:
+## Tests
+
+There is pre-written tests for adapters that you can use to make sure you adapter is implemented
+correctly. These can be easily used by adding jest and micro-analytics-cli as a dev dependency to your adapter(e.g. `npm install --save-dev micro-analytics-cli jest`). Then create a test file like the one below.
+
+```js
+// adapter.test.js
+const test = require('micro-analytics-cli/adapter-tests/unit-tests')
+
+test({
+ name: 'adapter-name',
+ modulePath: path.resolve(__dirname, './index.js'),
+})
+```
+
+The option object takes the following properties.
+
+* `name` - The name of the adapter
+* `modulePath` - The absolute path to the file you refer to in main in package.json
+* `beforeEach` - Will be called in jest beforeEach hook, return a promise if it needs to do something async. We recommend cleaning the database here.
+* `afterEach` - Will be called in jest afterEach hook, return a promise if it needs to do something async.
+* `beforeAll` - Will be called in jest beforeAll hook, return a promise if it needs to do something async.
+* `afterAll` - Will be called in jest afterAll hook, return a promise if it needs to do something async.
+
+Let's dive into the individual methods and what they should do.
+
+## Methods
 
 ### `get(key: string, options?: { filter?: object }): Promise`
 
@@ -184,26 +210,3 @@ subscription.unsubscribe()
 ```
 
 > **Note:** If your database of choice does not support subscriptions, it is fine not to have `adapter.subscribe` as long as you mention that visibly in your documentation.
-
-## Tests
-
-There is pre-written tests for adapters that you can use to make sure you adapter is implemented
-correctly. These can be easily used by adding jest and micro-analytics-cli as a dev dependency to your adapter(e.g. `npm install --save-dev micro-analytics-cli jest`). Then create a test file like the one below.
-
-```js
-const test = require('micro-analytics-cli/adapter-tests/unit-tests')
-
-test({
- name: 'adapter-name',
- modulePath: path.resolve(__dirname, './index.js'),
-})
-```
-
-The option object takes the following properties.
-
-* `name` - The name of the adapter
-* `modulePath` - The absolute path to the file you refer to in main in package.json
-* `beforeEach` - Will be called in jest beforeEach hook, return a promise if it needs to do something async. We recommend cleaning the database here.
-* `afterEach` - Will be called in jest afterEach hook, return a promise if it needs to do something async.
-* `beforeAll` - Will be called in jest beforeAll hook, return a promise if it needs to do something async.
-* `afterAll` - Will be called in jest afterAll hook, return a promise if it needs to do something async.
