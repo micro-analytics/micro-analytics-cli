@@ -54,3 +54,63 @@ server {
 ```
 
 (note that I have no idea what I'm doing here, this was copied from [this tutorial](https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-as-a-reverse-proxy-for-apache))
+
+
+## Deploying on AWS (Linux AMI)
+To connect to your ec2 instance run (in gitbash):    
+`ssh -i ./path/to/key.pem ec2-user@xx.xx.xx.xx`  
+ key.pem is the key generated when you create an instance.  
+ xx.xx.xx.xx is the your public ip
+
+Once connnected to ec2 instance install nodejs   
+Add nodejs yum repo and build tools    
+
+`sudo yum install -y gcc-c++ make`  
+`sudo curl -sL https://rpm.nodesource.com/setup_6.x | sudo -E bash -`    
+### Installing nodejs    
+`sudo yum install nodejs`   
+
+check version of nodejs and npm    
+```
+node -v
+npm -v
+```
+#### Installing nginx   
+`sudo yum install nginx`       
+Now, make the following changes to /etc/nginx/nginx.conf
+`sudo vi /etc/nginx/nginx.conf`
+```nginx
+server {
+        listen 80;
+        server_name yourPublicDNS.com;
+
+        location ~^.*$ {
+                proxy_set_header X-Real-IP  $remote_addr;
+                proxy_set_header X-Forwarded-For $remote_addr;
+                proxy_set_header Host $host;
+                proxy_pass http://localhost:3000;
+        }
+}
+```
+#### Start nginx server    
+```
+sudo service nginx start   
+sudo service nginx status
+```
+#### Installing micro-analytics-cli
+```
+npm install micro-analytics-cli -g
+micro-analytics
+```
+##### Important: enable port 80 on your ec2 instance
+
+* Go to aws.amazon.com, Select ec2  and go to running instances     
+* On left side navigation menu go to Network & Security > Security groups    
+* click on the instance for which the port is to be enabled.     
+* click on inbound tab and click edit. Now in the pop up Add Rule and select http    
+* save    
+
+
+Now visit the public DNS    
+try to visit some url like www.yourDNS.com/something      
+If you only specify the public DNS like www.yourDNS.com u will get the message: please include a path to a page
