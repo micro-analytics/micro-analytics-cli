@@ -21,9 +21,13 @@ micro-analytics
 
 That's it, the analytics server is now running at `localhost:3000`! 🎉
 
-See [`server-setup.md`](./server-setup.md) for instructions on acquiring a server and setting up `nginx` to make your `micro-analytics` publicly available.
+To deploy a server either refer to [`server-setup.md`](./server-setup.md) for instructions on manually acquiring and setting up a server or use [`now`](https://now.sh) and deploy with a single command:
 
-> **Note**: You can pass any option to the `micro-analytics` command that you can pass to [`micro`](https://github.com/zeit/micro). As an example, to change the host you'd do `micro-analytics -H 127.0.0.1`
+```
+$ now micro-analytics/micro-analytics-cli
+
+> Deployment complete! https://micro-analytics-asfdasdf.now.sh
+```
 
 ## Usage
 
@@ -80,22 +84,22 @@ These are the available database adapters, made by the community:
 
 - [`micro-analytics-adapter-redis`](https://github.com/relekang/micro-analytics-adapter-redis)
 
-Don't see your favorite database here? Writing your own adapter is super easy! See [`writing-adapters.md`](writing-adapters.md) for a simple step-by-step guide.
+Don't see your favorite database here? Writing your own adapter is pretty easy, we've even written the tests for you! See [`writing-adapters.md`](writing-adapters.md) for a guide on how to write an adapter for your database of choice.
 
 ### Live updates
 
-micro-analytics also let's you listen into updates live with [server-sent events][].
+micro-analytics let's you listen into updates live with [server-sent events][].
 That means you can e.g. build a realtime dashboard for your analytics!
 
 Note: Make sure your database adapter supports this feature. If not, bug them to implement it!
 micro-analytics will tell you when it starts up if it is supported, so the easiest way to find
-out is just to start it up.
+out is to start it up.
 
 The example below shows how you can listen for events in the browser, just swap
-micro-analytics.now.sh with your own domain and give it a try.
+`my-deploy.now.sh` with your own domain and give it a try:
 
 ```es6
-const sse = new EventSource('https://micro-analytics.now.sh/realtime')
+const sse = new EventSource('https://my-deploy.now.sh/realtime')
 sse.onopen = function () { console.log('[sse] open') }
 sse.onerror = function (error) { console.error('[sse error]', error) }
 sse.addEventListener('micro-analytics-ping', function (e) { console.log('[sse]', e) })
@@ -103,13 +107,15 @@ sse.addEventListener('micro-analytics-ping', function (e) { console.log('[sse]',
 
 #### Browser support
 
-Server-sent events is not supported in all browsers. This can easily be fixed by using a polyfill.
-Take a look at [the caniuse table][] for server-sent events if you need one. Polyfills that are
-supported(disclaimer this list is from the documentation of the sse library we use [rexxars/sse-channel][]):
+Server-sent events are not supported in all browsers. There are great, tiny polyfills available, but before you include one take a look at [the caniuse table][] for server-sent events if you need one based on the browsers you support.
+
+Polyfills that are supported:
 
 * [amvtek/EventSource](https://github.com/amvtek/EventSource)
 * [Yaffle/EventSource)](https://github.com/Yaffle/EventSource)
 * [remy/polyfills/EventSource.js](https://github.com/remy/polyfills/blob/master/EventSource.js)
+
+> Note: This list is from the documentation of the sse library we use [rexxars/sse-channel][], check that repo because it might have been updated.
 
 [server-sent events]: https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events
 [the caniuse table]: http://caniuse.com/#feat=eventsource
@@ -117,4 +123,4 @@ supported(disclaimer this list is from the documentation of the sse library we u
 
 ## License
 
-Copyright ©️ 2017 Maximilian Stoiber, licensed under the MIT License. See [`license.md`](./license.md) for more information.
+Copyright ©️ 2017 Maximilian Stoiber & Rolf Erik Lekang, licensed under the MIT License. See [`license.md`](./license.md) for more information.
