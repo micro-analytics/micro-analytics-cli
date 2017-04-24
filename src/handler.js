@@ -16,7 +16,7 @@ if (db.hasFeature("subscribe")) {
 module.exports = async function (req, res) {
   const { pathname, query } = url.parse(req.url, /* parseQueryString */ true)
 
-  if (pathname === '/realtime') {
+  if (pathname === '/_realtime') {
     if (sse) {
       sse.addClient(req, res);
     } else {
