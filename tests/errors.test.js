@@ -1,8 +1,11 @@
 const request = require('request-promise')
 const { listen } = require('./utils')
 
-const service = require('../src')
+const service = require('../src/handler')
+const db = require('../src/db')
 let url
+
+db.initDbAdapter('flat-file-db');
 
 beforeEach(async () => {
   url = await listen(service)
