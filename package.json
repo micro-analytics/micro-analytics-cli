@@ -17,6 +17,8 @@
   },
   "scripts": {
     "start": "./cli.js",
+    "now-build": "npm install micro-analytics-adapter-memory",
+    "now-start": "node src/index.js --adapter memory",
     "build": "./node_modules/.bin/async-to-gen src --out-dir dist",
     "prepublish": "npm run build",
     "dev": "NODE_ENV=development nodemon --config package.json --exec async-node src/index.js",
