@@ -3,7 +3,7 @@ const flatfile = require('flat-file-db')
 const promisify = require('then-flat-file-db')
 const test = require('micro-analytics-cli/adapter-tests/unit-tests')
 
-const db = promisify(flatfile.sync(process.env.DB_NAME || 'views.db'))
+const db = promisify(flatfile.sync(path.resolve(process.cwd(), process.env.DB_NAME || 'views.db')))
 
 
 test({

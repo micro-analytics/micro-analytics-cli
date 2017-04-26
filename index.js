@@ -1,9 +1,10 @@
+const path = require('path')
 const flatfile = require('flat-file-db')
 const promisify = require('then-flat-file-db')
 const escapeRegexp = require('escape-regex')
 const Observable = require("zen-observable")
 
-const db = promisify(flatfile.sync(process.env.DB_NAME || 'views.db'))
+const db = promisify(flatfile.sync(path.resolve(process.cwd(), process.env.DB_NAME || 'views.db')))
 
 const keyRegex = (str) => {
   str = str.split('*').map( s => escapeRegexp(s)).join('*')
