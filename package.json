@@ -22,7 +22,8 @@
     "build": "./node_modules/.bin/async-to-gen src --out-dir dist",
     "prepublish": "npm run build",
     "dev": "NODE_ENV=development nodemon --config package.json --exec async-node src/index.js",
-    "test": "jest"
+    "test": "jest",
+    "test-now-deployment": "curl --fail $NOW_URL/test?inc=false"
   },
   "jest": {
     "collectCoverageFrom": [
