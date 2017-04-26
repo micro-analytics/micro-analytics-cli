@@ -23,6 +23,26 @@ module.exports = function testAdapter(options) {
       });
     }
 
+    test('get() should return a promise', () => {
+      expect(adapter.get('/a-key').constructor.name).toEqual("Promise")
+    })
+
+    test('getAll() should return a promise', () => {
+      expect(adapter.getAll({ pathname: '/' }).constructor.name).toEqual("Promise")
+    })
+
+    test('has() should return a promise', () => {
+      expect(adapter.has('/a-key').constructor.name).toEqual("Promise")
+    })
+
+    test('keys() should return a promise', () => {
+      expect(adapter.keys().constructor.name).toEqual("Promise")
+    })
+
+    test('put() should return a promise', () => {
+      expect(adapter.put('/a-key', {}).constructor.name).toEqual("Promise")
+    })
+
     it('should save and read', async () => {
       await adapter.put('/a-key', { views: [{ time: 1490623474639 }] });
 
