@@ -15,7 +15,7 @@ micro-analytics
 Options are set via environment variables. These are the possible options for this adapter:
 
 ```sh
-DB_PATH    # set the location the database should be created in
+DB_NAME    # set the location the database should be created in
 ```
 
 ## License
