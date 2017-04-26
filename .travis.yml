@@ -7,3 +7,9 @@ script: npm run test -- --coverage
 cache: yarn
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+
+deploy:
+  provider: script
+  script: scripts/deploy.sh
+  on:
+    branch: master
