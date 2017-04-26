@@ -6,7 +6,8 @@ const pkg = require('./package.json');
 
 updateNotifier({ pkg }).notify();
 
-exec('npm start -- ' + process.argv.join(' '), {
-  async: true,
-  cwd: __dirname
-})
+const supportsAsyncAwait = parseInt(process.version.slice(1).split('.').join('')) > 760
+
+const microAnalytics = supportsAsyncAwait ? './src/index' : './dist/index'
+
+require(microAnalytics)

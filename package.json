@@ -7,19 +7,25 @@
   },
   "files": [
     "dist",
+    "src",
     "cli.js",
-    "adapter-tests"
+    "adapter-tests/unit-tests.js"
   ],
   "engineStrict": true,
   "engines": {
     "node": ">=6.0.0"
   },
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "./cli.js",
     "build": "./node_modules/.bin/async-to-gen src --out-dir dist",
     "prepublish": "npm run build",
     "dev": "NODE_ENV=development nodemon --config package.json --exec async-node src/index.js",
     "test": "jest"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ]
   },
   "author": "Max Stoiber <contact@mxstbr.com> (http://mxstbr.com/)",
   "license": "MIT",
@@ -44,13 +50,5 @@
     "jest": "^19.0.2",
     "nodemon": "^1.11.0",
     "request-promise": "^4.1.1"
-  },
-  "execMap": {
-    "js": "micro"
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.js"
-    ]
   }
 }
