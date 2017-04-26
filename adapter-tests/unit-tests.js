@@ -51,6 +51,10 @@ module.exports = function testAdapter(options) {
       });
     });
 
+    it('should return empty list of views when key has no views', async () => {
+      expect(await adapter.get('/c-key')).toEqual({ views: [] });
+    });
+
     it('should return all saves on getAll', async () => {
       await adapter.put('/a-key', { views: [{ time: 1490623474639 }] });
       await adapter.put('/another-key', { views: [{ time: 1490623474639 }] });
