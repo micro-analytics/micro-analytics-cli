@@ -7,8 +7,9 @@
   },
   "files": [
     "dist",
+    "src",
     "cli.js",
-    "adapter-tests"
+    "adapter-tests/unit-tests.js"
   ],
   "engineStrict": true,
   "engines": {
