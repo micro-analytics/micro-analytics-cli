@@ -5,5 +5,5 @@ echo "Prune old instances"
 now-pipeline-prune
 
 echo "Deploy and alias new instance"
-now-pipeline --test 'curl --fail $NOW_URL/test?inc=false' --alias internal.micro-analytics.io
+now-pipeline --test 'curl --fail $NOW_URL/test?inc=false' --alias demo.micro-analytics.io
 
