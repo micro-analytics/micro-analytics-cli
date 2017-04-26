@@ -8,7 +8,12 @@ const DB = () => {
 
   return {
     sync: () => ({
-      get: (key) => data[key],
+      get: (key) => {
+        if (!{}.hasOwnProperty.call(data, key)) {
+          throw new Error('non-existing-key')
+        }
+        return data[key]
+      },
       put: (key, val, cb) => {
         setTimeout(() => {
           data[key] = val
