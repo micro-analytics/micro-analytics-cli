@@ -65,6 +65,17 @@ module.exports = function testAdapter(options) {
       });
     });
 
+    it('should return filtered saves on getAll', async () => {
+      await adapter.put('/a-key', { views: [{ time: 1490623474639 }] });
+      await adapter.put('/another-key', { views: [{ time: 1490623474639 }] });
+      await adapter.put('/b-key', { views: [{ time: 1490623474639 }] });
+
+      expect(await adapter.getAll({ pathname: '/a' })).toEqual({
+        '/a-key': { views: [{ time: 1490623474639 }] },
+        '/another-key': { views: [{ time: 1490623474639 }] },
+      });
+    });
+
     it('should have check whether a key is stored with has', async () => {
       await adapter.put('/a-key', { views: [{ time: 1490623474639 }] });
 
@@ -73,7 +84,6 @@ module.exports = function testAdapter(options) {
     });
 
     if (typeof adapter.subscribe === "function") {
-
       it('should allow subscription with observables', async () => {
         const listener = jest.fn();
         const unsubscribe = adapter.subscribe(listener);
