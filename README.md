@@ -121,6 +121,12 @@ Polyfills that are supported:
 [the caniuse table]: http://caniuse.com/#feat=eventsource
 [rexxars/sse-channel]: https://github.com/rexxars/sse-channel
 
+## Demo
+
+We have a demo instance on [demo.micro-analytics.io](https://demo.micro-analytics.io/visited)
+automatically deploys the master branch from this repository. Feel free to use it to test
+your clients.
+
 ## License
 
 Copyright ©️ 2017 Maximilian Stoiber & Rolf Erik Lekang, licensed under the MIT License. See [`license.md`](./license.md) for more information.
