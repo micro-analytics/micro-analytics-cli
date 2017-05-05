@@ -65,7 +65,7 @@ module.exports = function testAdapter(options) {
       });
     });
 
-    it('should return filtered saves on getAll', async () => {
+    it('should return filtered saves from getAll based on pathname', async () => {
       await adapter.put('/a-key', { views: [{ time: 1490623474639 }] });
       await adapter.put('/another-key', { views: [{ time: 1490623474639 }] });
       await adapter.put('/b-key', { views: [{ time: 1490623474639 }] });
@@ -73,6 +73,30 @@ module.exports = function testAdapter(options) {
       expect(await adapter.getAll({ pathname: '/a' })).toEqual({
         '/a-key': { views: [{ time: 1490623474639 }] },
         '/another-key': { views: [{ time: 1490623474639 }] },
+      });
+    });
+
+    it('should return filtered saves from getAll based on before', async () => {
+      await adapter.put('/a-key', { views: [{ time: 1490623474639 }] });
+      await adapter.put('/another-key', { views: [{ time: 1490623478639 }] });
+      await adapter.put('/b-key', { views: [{ time: 1490623484639 }] });
+
+      expect(await adapter.getAll({ pathname: '/', before: 1490623478640 })).toEqual({
+        '/a-key': { views: [{ time: 1490623474639 }] },
+        '/another-key': { views: [{ time: 1490623478639 }] },
+        '/b-key': { views: [] },
+      });
+    });
+
+    it('should return filtered saves from getAll based on after', async () => {
+      await adapter.put('/a-key', { views: [{ time: 1490623474639 }] });
+      await adapter.put('/another-key', { views: [{ time: 1490623478639 }] });
+      await adapter.put('/b-key', { views: [{ time: 1490623484639 }] });
+
+      expect(await adapter.getAll({ pathname: '/', after: 1490623478638 })).toEqual({
+        '/a-key': { views: [] },
+        '/another-key': { views: [{ time: 1490623478639 }] },
+        '/b-key': { views: [{ time: 1490623484639 }] },
       });
     });
 
