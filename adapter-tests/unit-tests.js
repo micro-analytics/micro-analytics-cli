@@ -100,6 +100,26 @@ module.exports = function testAdapter(options) {
       });
     });
 
+    it('should return filtered saves from get based on before', async () => {
+      await adapter.put('/a-key', {
+        views: [{ time: 1490623474639 }, { time: 1490623478639 }]
+      });
+
+      expect(await adapter.get('/a-key', { before: 1490623475640 })).toEqual({
+         views: [{ time: 1490623474639 }],
+      });
+    });
+
+    it('should return filtered saves from get based on after', async () => {
+      await adapter.put('/a-key', {
+        views: [{ time: 1490623474639 }, { time: 1490623478639 }]
+      });
+
+      expect(await adapter.get('/a-key', { after: 1490623475640 })).toEqual({
+         views: [{ time: 1490623478639 }],
+      });
+    });
+
     it('should have check whether a key is stored with has', async () => {
       await adapter.put('/a-key', { views: [{ time: 1490623474639 }] });
 
