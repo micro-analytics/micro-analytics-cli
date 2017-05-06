@@ -13,3 +13,4 @@ deploy:
   script: scripts/deploy.sh
   on:
     branch: master
+    node: '7'
