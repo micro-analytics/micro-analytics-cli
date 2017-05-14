@@ -83,6 +83,7 @@ This works fine for side-project usage, but for a production application with ba
 These are the available database adapters, made by the community:
 
 - [`micro-analytics-adapter-redis`](https://github.com/relekang/micro-analytics-adapter-redis)
+- [`micro-analytics-adapter-mongodb`](https://github.com/esakkiraj/adapter-mongodb)
 
 Don't see your favorite database here? Writing your own adapter is pretty easy, we've even written the tests for you! See [`writing-adapters.md`](writing-adapters.md) for a guide on how to write an adapter for your database of choice.
 
