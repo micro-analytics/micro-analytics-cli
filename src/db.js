@@ -1,21 +1,8 @@
 const promise = require('promise')
 
 function initDbAdapter(options) {
-  let adapter
-  const repeatCharacter = (char, n) => `${Array(n + 1).join(char)}`
   const adapterName = options.adapter
-
-  try {
-    adapter = require(`micro-analytics-adapter-${adapterName}`)
-  } catch (err) {
-    if (err.code === 'MODULE_NOT_FOUND') {
-      // Console.error a warning message, but normally exit the process to avoid printing ugly npm ERR lines and stack trace.
-      console.error(`\n${repeatCharacter(' ', 22)}⚠️ ERROR ⚠️\n${repeatCharacter('-', 55)}\nYou specified "${adapterName}" as the DB_ADAPTER, but no package\ncalled "micro-analytics-adapter-${adapterName}" was found.\n\nPlease make sure you spelled the name correctly and\nhave "npm install"ed the necessary adapter package!\n${repeatCharacter('-', 55)}\n`)
-      process.exit(0)
-    } else {
-      throw err
-    }
-  }
+  const adapter = require(`micro-analytics-adapter-${adapterName}`)
 
 
   module.exports.get = adapter.get
