@@ -1836,6 +1836,10 @@ micro-analytics-adapter-flat-file-db@^1.2.1:
     then-flat-file-db "^1.0.0"
     zen-observable "^0.4.0"
 
+micro-analytics-adapter-memory@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/micro-analytics-adapter-memory/-/micro-analytics-adapter-memory-0.1.0.tgz#c8bcdb5e4e46be156d610be73931ab9a7456f329"
+
 micro@6.1.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/micro/-/micro-6.1.0.tgz#c933e1dd90dea56b0517b62b2af00d3f5351d79d"

@@ -12,3 +12,16 @@ Object {
   "port": 3000,
 }
 `;
+
+exports[`parseArgs should throw on non existing adapter 1`] = `
+"
+                      ⚠️ ERROR ⚠️
+-------------------------------------------------------
+You specified \\"not-a-real-adapter\\" as the DB_ADAPTER, but no package
+called \\"micro-analytics-adapter-not-a-real-adapter\\" was found.
+
+Please make sure you spelled the name correctly and
+have \\"npm install\\"ed the necessary adapter package!
+-------------------------------------------------------
+"
+`;

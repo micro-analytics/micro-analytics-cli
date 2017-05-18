@@ -6,9 +6,15 @@ describe('parseArgs', () => {
     expect(parseArgs(['node', 'micro-analytics'])).toMatchSnapshot();
   })
 
+  it('should throw on non existing adapter', () => {
+    expect(() => {
+      parseArgs(['node', 'micro-analytics', '-a', 'not-a-real-adapter'])
+    }).toThrowErrorMatchingSnapshot()
+  });
+
   it("should use DB_ADAPTER environment variable as default if set", () => {
-    process.env.DB_ADAPTER = 'redis'
-    expect(parseArgs(['node', 'micro-analytics']).adapter).toEqual('redis');
+    process.env.DB_ADAPTER = 'memory'
+    expect(parseArgs(['node', 'micro-analytics']).adapter).toEqual('memory');
     delete process.env.DB_ADAPTER
   })
 
