@@ -5,7 +5,7 @@ const db = require('./db');
 
 const flags = parseArgs(process.argv)
 
-db.initDbAdapter(flags.adapter)
+db.initDbAdapter(flags)
 
 const handler = require('./handler')
 const server = micro(handler)

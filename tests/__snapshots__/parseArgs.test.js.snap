@@ -5,6 +5,8 @@ Object {
   "H": "0.0.0.0",
   "a": "flat-file-db",
   "adapter": "flat-file-db",
+  "d": "views.db",
+  "dbName": "views.db",
   "host": "0.0.0.0",
   "p": 3000,
   "port": 3000,

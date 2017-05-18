@@ -4,7 +4,9 @@ const db = require('../src/db')
 const sseHandler = require('../src/sse')
 let url
 
-db.initDbAdapter('flat-file-db');
+beforeAll(() => {
+  db.initDbAdapter({ adapter: 'flat-file-db' });
+})
 
 beforeEach(() => {
   mockDb._reset()

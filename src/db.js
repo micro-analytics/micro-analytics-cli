@@ -1,8 +1,9 @@
 const promise = require('promise')
 
-function initDbAdapter(adapterName) {
+function initDbAdapter(options) {
   let adapter
   const repeatCharacter = (char, n) => `${Array(n + 1).join(char)}`
+  const adapterName = options.adapter
 
   try {
     adapter = require(`micro-analytics-adapter-${adapterName}`)
@@ -17,14 +18,17 @@ function initDbAdapter(adapterName) {
   }
 
 
-  module.exports.get = adapter.get;
-  module.exports.getAll = adapter.getAll;
-  module.exports.put = adapter.put;
-  module.exports.has = adapter.has;
-  module.exports.keys = adapter.keys;
-  module.exports.subscribe = adapter.subscribe;
-  module.exports.hasFeature = (feature) => typeof adapter[feature] === "function";
+  module.exports.get = adapter.get
+  module.exports.getAll = adapter.getAll
+  module.exports.put = adapter.put
+  module.exports.has = adapter.has
+  module.exports.keys = adapter.keys
+  module.exports.subscribe = adapter.subscribe
+  module.exports.hasFeature = (feature) => typeof adapter[feature] === "function"
 
+  if (module.exports.hasFeature('init')) {
+    adapter.init(options)
+  }
 }
 
 module.exports = {

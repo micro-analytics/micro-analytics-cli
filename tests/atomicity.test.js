@@ -6,7 +6,9 @@ const db = require('../src/db')
 const service = require('../src/handler')
 let url
 
-db.initDbAdapter('flat-file-db');
+beforeAll(() => {
+  db.initDbAdapter({ adapter: 'flat-file-db' });
+})
 
 beforeEach(async () => {
   url = await listen(service)

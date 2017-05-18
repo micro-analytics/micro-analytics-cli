@@ -1,7 +1,6 @@
 jest.mock('pkginfo', () => () => ({version: '1.0.0'}))
 const parseArgs = require('../src/parseArgs')
 
-
 describe('parseArgs', () => {
   it("should have correct defaults", () => {
     expect(parseArgs(['node', 'micro-analytics'])).toMatchSnapshot();
@@ -24,4 +23,25 @@ describe('parseArgs', () => {
     expect(parseArgs(['node', 'micro-analytics']).host).toEqual('localhost');
     delete process.env.HOST
   })
+
+  it('should use get adapter option when using -a', () => {
+    process.env.DB_ADAPTER = 'redis'
+    const args = ['node', 'micro-analytics', '-a', 'flat-file-db']
+    expect(Object.keys(parseArgs(args))).toContain('dbName');
+    delete process.env.DB_ADAPTER
+  });
+
+  it('should use get adapter option when using --adapter', () => {
+    process.env.DB_ADAPTER = 'redis'
+    const args = ['node', 'micro-analytics', '--adapter', 'flat-file-db']
+    expect(Object.keys(parseArgs(args))).toContain('dbName');
+    delete process.env.DB_ADAPTER
+  });
+
+  it('should use get adapter option when using --adapter=', () => {
+    process.env.DB_ADAPTER = 'redis'
+    const args = ['node', 'micro-analytics', '--adapter=flat-file-db']
+    expect(Object.keys(parseArgs(args))).toContain('dbName');
+    delete process.env.DB_ADAPTER
+  });
 })
