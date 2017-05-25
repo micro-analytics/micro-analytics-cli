@@ -4,7 +4,14 @@ const promisify = require('then-flat-file-db')
 const escapeRegexp = require('escape-regex')
 const Observable = require("zen-observable")
 
-const db = promisify(flatfile.sync(path.resolve(process.cwd(), process.env.DB_NAME || 'views.db')))
+let db
+
+function init(options) {
+  db = promisify(flatfile.sync(path.resolve(process.cwd(), options.dbName || 'views.db')))
+}
+
+// This is here for backwards compatability should be removed at some point
+init({dbName: process.env.DB_NAME})
 
 const keyRegex = (str) => {
   str = str.split('*').map( s => escapeRegexp(s)).join('*')
@@ -23,6 +30,14 @@ const observable = new Observable((observer) => {
 });
 
 module.exports = {
+  options: [
+    {
+      name: 'db-name',
+      description: 'The name of the flat-file-db file.',
+      defaultValue: process.env.DB_NAME || 'views.db'
+    }
+  ],
+  init,
   put: (key, value) => {
     handlers.forEach(handler => {
       handler({key, value});
