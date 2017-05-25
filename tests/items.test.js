@@ -60,6 +60,14 @@ describe('all', () => {
     expect(body.data['/route'].views.length).toBe(2)
   })
 
+  it('should return meta field if exist', async () => {
+    await request(`${url}/with-meta?meta=k:v,k2:v2`)
+    await request(`${url}/no-meta`)
+    const body = JSON.parse(await request(`${url}/?all=true`))
+    expect(body.data['/with-meta'].views[0].meta).toEqual({ k: 'v', k2: 'v2'})
+    expect(body.data['/no-meta'].views[0].meta).toBeUndefined()
+  })
+
   it('should return previous views of all routes', async () => {
     await request(`${url}/route`)
     await request(`${url}/route`)

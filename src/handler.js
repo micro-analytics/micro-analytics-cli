@@ -2,7 +2,7 @@ const url = require('url')
 const { send, createError, sendError } = require('micro')
 
 const db = require('./db')
-const { pushView } = require('./utils')
+const { pushView, queryToObject } = require('./utils')
 
 let sse;
 
@@ -51,11 +51,16 @@ module.exports = async function (req, res) {
     throw createError(400, 'Please make a GET or a POST request.')
   }
   const shouldIncrement = String(query.inc) !== 'false'
+  const metaExist = Boolean(query.meta)
   try {
     const currentViews = await db.has(pathname) ? (await db.get(pathname)).views.length : 0
     // Add a view and send the total views back to the client
     if (shouldIncrement) {
-      await pushView(pathname, { time: Date.now() })
+      const data = {
+        time: Date.now(),
+      }
+      if (metaExist) data.meta = queryToObject(query.meta)
+      await pushView(pathname, data)
     }
     if (req.method === 'GET') {
       send(res, 200, { views: shouldIncrement ? currentViews + 1 : currentViews })

@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`utils queryToObject should convert string into object 1`] = `
+Object {
+  "k": "v",
+  "k2": "v2",
+}
+`;

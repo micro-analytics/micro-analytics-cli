@@ -24,5 +24,14 @@ const pushView = async (key, view) => {
   }
 }
 
+// Transform k:v,k2:v2 into { k: v, k2: v2 }
+const queryToObject = (string) => (
+  string.split(',').reduce((acc, item) => {
+    const [key, value] = item.split(':')
+    return Object.assign({}, acc, { [key]: value })
+  }, {})
+)
+
 module.exports = exports
 exports.pushView = pushView
+exports.queryToObject = queryToObject
