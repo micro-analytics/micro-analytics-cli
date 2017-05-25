@@ -43,6 +43,43 @@ module.exports = function testAdapter(options) {
       expect(adapter.put('/a-key', {}).constructor.name).toEqual("Promise")
     })
 
+    if (typeof adapter.options !== "undefined") {
+      test('options should be an array of args options', () => {
+        expect(Array.isArray(adapter.options)).toBe(true)
+        if (adapter.options.length >= 0) {
+          let counter = 0
+          adapter.options.forEach(option => {
+            expect(option.name).toBeDefined()
+            expect(option.description).toBeDefined()
+            counter++
+          })
+
+          // if the forEach somehow breaks the test should break
+          expect(counter).toBe(adapter.options.length)
+        }
+      })
+
+      test('init should be a defined when options is defined', () => {
+        expect(typeof adapter.init).not.toBe("undefined");
+      })
+    } else {
+      test.skip('options should be an array of args options', () => {})
+      test.skip('init should be a defined when options is defined', () => {})
+    }
+
+    if (typeof adapter.init !== "undefined") {
+      test('init should be a function', () => {
+        expect(typeof adapter.init).toBe("function");
+      })
+
+      test('call init should not throw', () => {
+        adapter.init(options.initOptions || {})
+      })
+    } else {
+      test.skip('init should be a function', () => {})
+      test.skip('call init should not throw', () => {})
+    }
+
     it('should save and read', async () => {
       await adapter.put('/a-key', { views: [{ time: 1490623474639 }] });
 
@@ -167,6 +204,9 @@ module.exports = function testAdapter(options) {
           value: { views: [{ time: 1490623474639 }] },
         });
       });
+    } else {
+      it.skip('should allow subscription with observables', () => {})
+      it.skip('should allow multiple subscription with observables and handle unsubscribption', () => {})
     }
   });
 };
