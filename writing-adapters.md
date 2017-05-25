@@ -7,23 +7,30 @@ If you want to see an example adapter, check out the default [`flat-file-db` ada
 ## Overview
 
 The methods every adapter has to have are:
+- `get(key: string): Promise`: Get a value from the database
+- `put(key: string, value: object): Promise`: Put a value into the database
+- `has(key: string): Promise`: Check if the database has a value for a certain key
+- `getAll(options?): Promise`: Get all values from the database as JSON
 
-- `get(key: string)`: Get a value from the database
-- `put(key: string, value: object)`: Put a value into the database
-- `has(key: string)`: Check if the database has a value for a certain key
-- `getAll(options?)`: Get all values from the database as JSON
+All of these methods have to return Promises. On top of that there is some optional methods:
 
-All of these methods have to return Promises. On top of that there is one more method, which returns an Observer (based on the [proposed spec](https://github.com/tc39/proposal-observable))
+- `init(options: Object): void`: A method to setup the adapter based on
+- `subscribe(pathname?: string): Observer`: Subscribe to changes of all keys starting with a certain `pathname`. If no pathname is provided, subscribe to all changes. It returns an Observer (based on the [proposed spec](https://github.com/tc39/proposal-observable))
 
-- `subscribe(pathname?: string)`: Subscribe to changes of all keys starting with a certain `pathname`. If no pathname is provided, subscribe to all changes.
+Furthermore, there are some non callable fields:
+- `options: Array<ArgsOption>`: An array of cli options that is needed to configure the adapter. The elements in the list should be compatible with the options of the [args library][args-options]. It is important to read environment variables and put that in the `defaultValue` field to support configuration through environment variables. The parsed options will be passed to `init` described above, thus, `init` is required when options is defined.
+
+[args-options]: https://github.com/leo/args#optionslist
 
 This is what the export of an adapter should thusly look like:
 
 ```JS
 // index.js
-const { get, put, getAll, has, subscribe } = require('./adapter')
+const { init, options, get, put, getAll, has, subscribe } = require('./adapter')
 
 module.exports = {
+  init,
+  options,
   get,
   put,
   getAll,
