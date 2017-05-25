@@ -4,6 +4,11 @@
 
 If you want to see an example adapter, check out the default [`flat-file-db` adapter](https://github.com/mxstbr/micro-analytics-adapter-flat-file-db)!
 
+This document is written and verified by humans so mistakes might happen. If you find something
+to not work, please refer to tests or the flatfile db for how might work at the moment. The tests
+described further below are ran against the flat-file-db adapter on every commit so they should be
+up to date. Also, if you find any errors in this document please open an issue or pull-request.
+
 ## Overview
 
 The methods every adapter has to have are:
@@ -62,12 +67,13 @@ The option object takes the following properties.
 * `afterEach` - Will be called in jest afterEach hook, return a promise if it needs to do something async.
 * `beforeAll` - Will be called in jest beforeAll hook, return a promise if it needs to do something async.
 * `afterAll` - Will be called in jest afterAll hook, return a promise if it needs to do something async.
+* `initOptions` - Object passed to `init()`.
 
 Let's dive into the individual methods and what they should do.
 
 ## Methods
 
-### `get(key: string, options?: { filter?: object }): Promise`
+### `get(key: string, options?: object): Promise`
 
 Should resolve the Promise with an object containing the number of views at that path or, if there is no record with that path yet, reject it.
 
@@ -82,9 +88,9 @@ try {
 
 #### Options
 
-##### `filter: { before?: UTCTime, after?: UTCTime }`
+##### `before?: UTCTime` and `after?: UTCTime`
 
-The adapter should return filter all records returned to only contain the views before `before` and after `after`. The times are passed in UTC, so a simple `record.views[x].time < filter.before` is good enough.
+The adapter should return filter all records returned to only contain the views before `before` and after `after`. The times are passed in UTC, so a simple `record.views[x].time < before` is good enough.
 
 Both, either one or none of them might be specified. It also has to work in conjunction with `pathname`. These are all valid queries, including any further combination of those:
 
@@ -93,10 +99,10 @@ Both, either one or none of them might be specified. It also has to work in conj
 await adapter.get('/hello') // -> { views: 125 }
 
 // Return record with key /hello and its number of views that happened before 1234 UTC
-await adapter.get('/hello', { filter: { before: 1234 }}) // -> { views: 100 }
+await adapter.get('/hello', { before: 1234 }) // -> { views: 100 }
 
 // Return record with key /hello and its number of views that happened 1234 UTC but after 1200 UTC
-await adapter.get('/hello', { filter: { after: 1200, before: 1234 }}) // -> { views: 20 }
+await adapter.get('/hello', { after: 1200, before: 1234 }) // -> { views: 20 }
 ```
 
 ### `put(key: string, value: object): Promise`
@@ -157,10 +163,8 @@ The passed `options` can contain the following keys:
 ```JS
 {
   pathname?: string,
-  filter?: {
-    before?: UTCTime,
-    after?: UTCTime,
-  }
+  before?: UTCTime,
+  after?: UTCTime,
 }
 ```
 
@@ -176,7 +180,7 @@ await adapter.getAll({ pathname: '/car' })
 
 This would not only return the values for the record with the key `/car`, but also for `/car2`, `/car/make/toyota`, `/caramba`, etc, essentially for _any key that starts with the string `/car`_.
 
-##### `filter: { before: UTCTime, after: UTCTime }`
+##### `before: UTCTime` and `after: UTCTime`
 
 `getAll` should have the same behaviour as `get` in terms of the filtering.
 
@@ -187,13 +191,13 @@ Here's some examples of valid queries:
 await adapter.getAll() // -> { '/car': { views: [{ time: 1900 }, { time: 1210 }, { time: 1235 }]}}
 
 // Return all keys and their views that happened before 1234 UTC
-await adapter.getAll({ filter: { before: 1234 }}) // -> { '/car': { views: [{ time: 1900 }, { time: 1210 }]}}
+await adapter.getAll({ before: 1234}) // -> { '/car': { views: [{ time: 1900 }, { time: 1210 }]}}
 
 // Return all keys and their views that happened before 1234 UTC but after 1200 UTC
-await adapter.getAll({ filter: { after: 1200, before: 1234 }}) // -> { '/car': { views: [{ time: 1210 }]}}
+await adapter.getAll({ after: 1200, before: 1234 }) // -> { '/car': { views: [{ time: 1210 }]}}
 
 // Return all keys that start with /car and their views that happened before 1234 UTC but after 1200 UTC
-await adapter.getAll({ pathname: '/car', filter: { after: 1200, before: 1234 }})
+await adapter.getAll({ pathname: '/car', after: 1200, before: 1234 })
 ```
 
 ### `subscribe(pathname?: string): Observable`
