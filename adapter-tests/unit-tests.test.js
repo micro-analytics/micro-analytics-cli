@@ -9,5 +9,5 @@ test({
   modulePath: 'micro-analytics-adapter-flat-file-db',
   beforeEach: async () => {
     mockDb._reset();
-  }
+  },
 });

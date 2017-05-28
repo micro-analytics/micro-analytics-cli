@@ -4,7 +4,7 @@ module.exports = function handleSseConnection(connection) {
   const subscription = db.subscribe(event => {
     connection.send({
       event: 'micro-analytics-ping',
-      data: JSON.stringify(event)
+      data: JSON.stringify(event),
     });
   });
 

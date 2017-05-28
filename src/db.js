@@ -19,5 +19,5 @@ function initDbAdapter(options) {
 
 module.exports = {
   initDbAdapter: initDbAdapter,
-  hasFeature: feature => false
+  hasFeature: feature => false,
 };

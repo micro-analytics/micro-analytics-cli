@@ -92,7 +92,7 @@ module.exports = function testAdapter(options) {
       await adapter.put('/a-key', { views: [{ time: 1490623474639 }] });
 
       expect(await adapter.get('/a-key')).toEqual({
-        views: [{ time: 1490623474639 }]
+        views: [{ time: 1490623474639 }],
       });
     });
 
@@ -106,7 +106,7 @@ module.exports = function testAdapter(options) {
 
       expect(await adapter.getAll({ pathname: '/' })).toEqual({
         '/a-key': { views: [{ time: 1490623474639 }] },
-        '/another-key': { views: [{ time: 1490623474639 }] }
+        '/another-key': { views: [{ time: 1490623474639 }] },
       });
     });
 
@@ -117,7 +117,7 @@ module.exports = function testAdapter(options) {
 
       expect(await adapter.getAll({ pathname: '/a' })).toEqual({
         '/a-key': { views: [{ time: 1490623474639 }] },
-        '/another-key': { views: [{ time: 1490623474639 }] }
+        '/another-key': { views: [{ time: 1490623474639 }] },
       });
     });
 
@@ -131,7 +131,7 @@ module.exports = function testAdapter(options) {
       ).toEqual({
         '/a-key': { views: [{ time: 1490623474639 }] },
         '/another-key': { views: [{ time: 1490623478639 }] },
-        '/b-key': { views: [] }
+        '/b-key': { views: [] },
       });
     });
 
@@ -145,27 +145,27 @@ module.exports = function testAdapter(options) {
       ).toEqual({
         '/a-key': { views: [] },
         '/another-key': { views: [{ time: 1490623478639 }] },
-        '/b-key': { views: [{ time: 1490623484639 }] }
+        '/b-key': { views: [{ time: 1490623484639 }] },
       });
     });
 
     it('should return filtered saves from get based on before', async () => {
       await adapter.put('/a-key', {
-        views: [{ time: 1490623474639 }, { time: 1490623478639 }]
+        views: [{ time: 1490623474639 }, { time: 1490623478639 }],
       });
 
       expect(await adapter.get('/a-key', { before: 1490623475640 })).toEqual({
-        views: [{ time: 1490623474639 }]
+        views: [{ time: 1490623474639 }],
       });
     });
 
     it('should return filtered saves from get based on after', async () => {
       await adapter.put('/a-key', {
-        views: [{ time: 1490623474639 }, { time: 1490623478639 }]
+        views: [{ time: 1490623474639 }, { time: 1490623478639 }],
       });
 
       expect(await adapter.get('/a-key', { after: 1490623475640 })).toEqual({
-        views: [{ time: 1490623478639 }]
+        views: [{ time: 1490623478639 }],
       });
     });
 
@@ -185,7 +185,7 @@ module.exports = function testAdapter(options) {
 
         expect(listener).toHaveBeenCalledWith({
           key: '/a-key',
-          value: { views: [{ time: 1490623474639 }] }
+          value: { views: [{ time: 1490623474639 }] },
         });
       });
 
@@ -201,19 +201,19 @@ module.exports = function testAdapter(options) {
 
         expect(listener1).toHaveBeenCalledWith({
           key: '/a-key',
-          value: { views: [{ time: 1490623474639 }] }
+          value: { views: [{ time: 1490623474639 }] },
         });
         expect(listener1).not.toHaveBeenCalledWith({
           key: '/b-key',
-          value: { views: [{ time: 1490623474639 }] }
+          value: { views: [{ time: 1490623474639 }] },
         });
         expect(listener2).toHaveBeenCalledWith({
           key: '/a-key',
-          value: { views: [{ time: 1490623474639 }] }
+          value: { views: [{ time: 1490623474639 }] },
         });
         expect(listener2).toHaveBeenCalledWith({
           key: '/b-key',
-          value: { views: [{ time: 1490623474639 }] }
+          value: { views: [{ time: 1490623474639 }] },
         });
       });
     } else {
