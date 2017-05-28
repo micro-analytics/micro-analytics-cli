@@ -23,7 +23,9 @@
     "prepublish": "npm run build",
     "dev": "NODE_ENV=development nodemon --config package.json --exec async-node src/index.js",
     "test": "jest",
-    "test-now-deployment": "curl --fail $NOW_URL/test?inc=false"
+    "test-now-deployment": "curl --fail $NOW_URL/test?inc=false",
+    "format": "prettier --no-semi --single-quote --write 'src/*.js' 'test/*.js' 'adapter-tests/*.js' '*.js'",
+    "lint": "prettier-check --no-semi --single-quote 'src/*.js' 'test/*.js' 'adapter-tests/*.js' '*.js'"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -53,6 +55,8 @@
     "jest": "^19.0.2",
     "micro-analytics-adapter-memory": "^0.1.0",
     "nodemon": "^1.11.0",
+    "prettier": "^1.3.1",
+    "prettier-check": "^1.0.0",
     "request-promise": "^4.1.1"
   }
 }
