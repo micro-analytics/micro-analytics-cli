@@ -4,23 +4,25 @@ const { send, createError, sendError } = require('micro')
 const db = require('./db')
 const { pushView } = require('./utils')
 
-let sse;
+let sse
 
-if (db.hasFeature("subscribe")) {
+if (db.hasFeature('subscribe')) {
   const SseChannel = require('sse-channel')
   const sseHandler = require('./sse')
   sse = new SseChannel({ cors: { origins: ['*'] } })
   sseHandler(sse)
 }
 
-module.exports = async function (req, res) {
+module.exports = async function(req, res) {
   const { pathname, query } = url.parse(req.url, /* parseQueryString */ true)
 
   if (pathname === '/_realtime') {
     if (sse) {
-      sse.addClient(req, res);
+      sse.addClient(req, res)
     } else {
-      send(res, 400, {error: 'The current database adapter does not support live updates.'})
+      send(res, 400, {
+        error: 'The current database adapter does not support live updates.'
+      })
     }
   }
 
@@ -32,7 +34,7 @@ module.exports = async function (req, res) {
         data: await db.getAll({
           pathname: pathname,
           before: parseInt(query.before, 10),
-          after: parseInt(query.after, 10),
+          after: parseInt(query.after, 10)
         }),
         time: Date.now()
       }
@@ -52,13 +54,17 @@ module.exports = async function (req, res) {
   }
   const shouldIncrement = String(query.inc) !== 'false'
   try {
-    const currentViews = await db.has(pathname) ? (await db.get(pathname)).views.length : 0
+    const currentViews = (await db.has(pathname))
+      ? (await db.get(pathname)).views.length
+      : 0
     // Add a view and send the total views back to the client
     if (shouldIncrement) {
       await pushView(pathname, { time: Date.now() })
     }
     if (req.method === 'GET') {
-      send(res, 200, { views: shouldIncrement ? currentViews + 1 : currentViews })
+      send(res, 200, {
+        views: shouldIncrement ? currentViews + 1 : currentViews
+      })
     } else {
       send(res, 200)
     }
