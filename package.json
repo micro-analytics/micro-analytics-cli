@@ -24,8 +24,8 @@
     "dev": "NODE_ENV=development nodemon --config package.json --exec async-node src/index.js",
     "test": "jest",
     "test-now-deployment": "curl --fail $NOW_URL/test?inc=false",
-    "format": "prettier --no-semi --single-quote --write 'src/*.js' 'test/*.js' 'adapter-tests/*.js' '*.js'",
-    "lint": "prettier-check --no-semi --single-quote 'src/*.js' 'test/*.js' 'adapter-tests/*.js' '*.js'"
+    "format": "prettier --single-quote --write 'src/*.js' 'test/*.js' 'adapter-tests/*.js' '*.js'",
+    "lint": "prettier-check --single-quote 'src/*.js' 'test/*.js' 'adapter-tests/*.js' '*.js'"
   },
   "jest": {
     "collectCoverageFrom": [
