@@ -21,7 +21,7 @@ module.exports = async function(req, res) {
       sse.addClient(req, res);
     } else {
       send(res, 400, {
-        error: 'The current database adapter does not support live updates.'
+        error: 'The current database adapter does not support live updates.',
       });
     }
   }
@@ -34,9 +34,9 @@ module.exports = async function(req, res) {
         data: await db.getAll({
           pathname: pathname,
           before: parseInt(query.before, 10),
-          after: parseInt(query.after, 10)
+          after: parseInt(query.after, 10),
         }),
-        time: Date.now()
+        time: Date.now(),
       };
       send(res, 200, data);
       return;
@@ -63,7 +63,7 @@ module.exports = async function(req, res) {
     }
     if (req.method === 'GET') {
       send(res, 200, {
-        views: shouldIncrement ? currentViews + 1 : currentViews
+        views: shouldIncrement ? currentViews + 1 : currentViews,
       });
     } else {
       send(res, 200);
