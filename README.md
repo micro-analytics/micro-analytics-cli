@@ -29,6 +29,8 @@ $ now micro-analytics/micro-analytics-cli
 > Deployment complete! https://micro-analytics-asfdasdf.now.sh
 ```
 
+> **Note**: Since `now` deploys are stateless we have to store data in memory, which means after every new deploy or when the server sleeps your data will be lost. You'll need to use some remote database hosting service with one of the [database adapters](#database-adapters) to persist data!
+
 ## Usage
 
 ### Tracking views
