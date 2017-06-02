@@ -2,6 +2,7 @@ const url = require('url');
 const { send, createError, sendError } = require('micro');
 
 const db = require('./db');
+const healthcheckHandler = require('./healthcheck');
 const { pushView } = require('./utils');
 
 let sse;
@@ -73,14 +74,19 @@ async function analyticsHandler(req, res) {
   }
 }
 
-module.exports = async function(req, res) {
-  const { pathname, query } = url.parse(req.url, /* parseQueryString */ true);
+module.exports = function createHandler(options) {
+  return async function(req, res) {
+    const { pathname, query } = url.parse(req.url, /* parseQueryString */ true);
 
-  switch (pathname) {
-    case '/_realtime':
-      return realtimeHandler(req, res);
+    switch (pathname) {
+      case '/_realtime':
+        return realtimeHandler(req, res);
 
-    default:
-      return analyticsHandler(req, res);
-  }
+      case '/_healthcheck':
+        return healthcheckHandler(options, req, res);
+
+      default:
+        return analyticsHandler(req, res);
+    }
+  };
 };

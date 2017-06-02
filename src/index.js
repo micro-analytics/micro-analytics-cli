@@ -8,7 +8,7 @@ try {
 
   db.initDbAdapter(flags);
 
-  const handler = require('./handler');
+  const handler = require('./handler')(flags);
   const server = micro(handler);
 
   server.listen(flags.port, flags.host, error => {

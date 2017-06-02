@@ -4,6 +4,8 @@ function initDbAdapter(options) {
   const adapterName = options.adapter;
   const adapter = require(`micro-analytics-adapter-${adapterName}`);
 
+  module.exports.version = adapter.version;
+  module.exports.healthcheck = adapter.healthcheck;
   module.exports.get = adapter.get;
   module.exports.getAll = adapter.getAll;
   module.exports.put = adapter.put;
