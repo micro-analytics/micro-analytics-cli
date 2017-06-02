@@ -13,19 +13,18 @@ if (db.hasFeature('subscribe')) {
   sseHandler(sse);
 }
 
-module.exports = async function(req, res) {
-  const { pathname, query } = url.parse(req.url, /* parseQueryString */ true);
-
-  if (pathname === '/_realtime') {
-    if (sse) {
-      sse.addClient(req, res);
-    } else {
-      send(res, 400, {
-        error: 'The current database adapter does not support live updates.',
-      });
-    }
+function realtimeHandler(req, res) {
+  if (sse) {
+    sse.addClient(req, res);
+  } else {
+    send(res, 400, {
+      error: 'The current database adapter does not support live updates.',
+    });
   }
+}
 
+async function analyticsHandler(req, res) {
+  const { pathname, query } = url.parse(req.url, /* parseQueryString */ true);
   res.setHeader('Access-Control-Allow-Origin', '*');
   // Send all views down if "?all" is true
   if (String(query.all) === 'true') {
@@ -71,5 +70,17 @@ module.exports = async function(req, res) {
   } catch (err) {
     console.log(err);
     throw createError(500, 'Internal server error.');
+  }
+}
+
+module.exports = async function(req, res) {
+  const { pathname, query } = url.parse(req.url, /* parseQueryString */ true);
+
+  switch (pathname) {
+    case '/_realtime':
+      return realtimeHandler(req, res);
+
+    default:
+      return analyticsHandler(req, res);
   }
 };
