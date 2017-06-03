@@ -28,7 +28,13 @@ module.exports = function parseArgs(argv) {
   } catch (err) {
     if (err.code === 'MODULE_NOT_FOUND') {
       throw new Error(
-        `\n${repeatCharacter(' ', 22)}⚠️ ERROR ⚠️\n${repeatCharacter('-', 55)}\nYou specified "${adapterName}" as the DB_ADAPTER, but no package\ncalled "micro-analytics-adapter-${adapterName}" was found.\n\nPlease make sure you spelled the name correctly and\nhave "npm install"ed the necessary adapter package!\n${repeatCharacter('-', 55)}\n`
+        `\n${repeatCharacter(' ', 22)}⚠️ ERROR ⚠️\n${repeatCharacter(
+          '-',
+          55
+        )}\nYou specified "${adapterName}" as the DB_ADAPTER, but no package\ncalled "micro-analytics-adapter-${adapterName}" was found.\n\nPlease make sure you spelled the name correctly and\nhave "npm install"ed the necessary adapter package!\n${repeatCharacter(
+          '-',
+          55
+        )}\n`
       );
     } else {
       throw err;

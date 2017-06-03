@@ -1,0 +1,21 @@
+{
+  "name": "micro-analytics-adapter-utils",
+  "version": "0.0.0",
+  "description": "Utilites for micro-analytics adapters.",
+  "license": "MIT",
+  "repository": "https://github.com/micro-analytics/micro-analytics",
+  "author": "Rolf Erik Lekang <me@rolflekang.com>",
+  "scripts": {
+    "build": "babel src -d dist",
+    "publish": "npm run build"
+  },
+  "dependencies": {
+    "escape-regex": "^1.0.7"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "flat-file-db": "^1.0.0",
+    "micro-analytics-adapter-flat-file-db": "^1.3.0",
+    "micro-analytics-cli": "^2.2.0"
+  }
+}

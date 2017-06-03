@@ -1,36 +1,17 @@
 {
-  "name": "micro-analytics-cli",
-  "version": "2.2.0",
-  "description": "Public analytics as a Node.js microservice, no sysadmin experience required.",
-  "bin": {
-    "micro-analytics": "./cli.js"
-  },
-  "files": [
-    "dist",
-    "src",
-    "cli.js",
-    "adapter-tests/unit-tests.js"
-  ],
-  "engineStrict": true,
-  "engines": {
-    "node": ">=6.0.0"
-  },
+  "name": "micro-analytics",
+  "private": true,
+  "license": "MIT",
+  "repository": "https://github.com/micro-analytics/micro-analytics",
   "scripts": {
     "precommit": "lint-staged",
-    "start": "./cli.js",
-    "now-build": "npm install micro-analytics-adapter-memory",
-    "now-start": "node src/index.js --adapter memory",
-    "build": "./node_modules/.bin/async-to-gen src --out-dir dist",
-    "prepublish": "npm run build",
-    "dev": "NODE_ENV=development nodemon --config package.json --exec async-node src/index.js",
     "test": "jest",
-    "test-now-deployment": "curl --fail $NOW_URL/test?inc=false",
-    "format": "prettier --single-quote --trailing-comma es5 --write 'src/*.js' 'test/*.js' 'adapter-tests/*.js' '*.js'",
-    "lint": "prettier-check --single-quote --trailing-comma es5 'src/*.js' 'test/*.js' 'adapter-tests/*.js' '*.js'"
+    "format": "prettier --single-quote --trailing-comma es5 --write 'packages/**/*.js'",
+    "lint": "prettier-check --single-quote --trailing-comma es5 'packages/**/*.js'"
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/**/*.js"
+      "**/src/**/*.js"
     ]
   },
   "lint-staged": {
@@ -39,34 +20,14 @@
       "git add"
     ]
   },
-  "author": "Max Stoiber <contact@mxstbr.com> (http://mxstbr.com/)",
-  "license": "MIT",
-  "repository": "https://github.com/mxstbr/micro-analytics",
-  "dependencies": {
-    "args": "^2.3.0",
-    "escape-regex": "^1.0.7",
-    "flat-file-db": "^1.0.0",
-    "micro": "6.1.0",
-    "micro-analytics-adapter-flat-file-db": "^1.3.0",
-    "promise": "^7.1.1",
-    "shelljs": "^0.7.6",
-    "sse-channel": "^2.0.6",
-    "update-notifier": "^1.0.3",
-    "zen-observable": "^0.4.0"
-  },
   "devDependencies": {
-    "async-to-gen": "^1.3.0",
-    "babel-jest": "^19.0.0",
-    "babel-plugin-transform-async-to-generator": "^6.16.0",
-    "babel-polyfill": "^6.20.0",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-preset-node6": "^11.0.0",
     "husky": "^0.13.4",
-    "jest": "^19.0.2",
-    "lint-staged": "^3.5.0",
-    "micro-analytics-adapter-memory": "^0.1.0",
-    "nodemon": "^1.11.0",
-    "prettier": "^1.3.1",
-    "prettier-check": "^1.0.0",
-    "request-promise": "^4.1.1"
+    "jest": "^20.0.4",
+    "lerna": "^2.0.0-rc.5",
+    "lint-staged": "^3.6.0",
+    "prettier": "^1.4.2",
+    "prettier-check": "^1.0.0"
   }
 }

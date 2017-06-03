@@ -1,8 +1,8 @@
-const { mockDb } = require('../tests/utils');
+const { mockDb } = require('micro-analytics-cli/tests/utils');
 
 jest.mock('flat-file-db', () => mockDb);
 
-const test = require('./unit-tests');
+const test = require('../src/unit-tests');
 
 test({
   name: 'flat-file-db',
