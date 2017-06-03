@@ -44,6 +44,42 @@ module.exports = {
 }
 ```
 
+## Adapter-utils
+
+Adapters falls mostly into two camps, those who can offload filtering to the database engine and
+those who need to do the filtering in JavaScript. If you are writing an adapter for the last group
+your in luck. We have a set of utils that are well tested which handles filtering. Read on if you
+would like to use or skip to the next section. Keep in mind that you might not need all of these
+depending on the database you are using.
+
+### `createKeyRegex`
+Creates a regex from a wildcard string, e.g. `/p*th`.
+
+Usage: `createKeyRegex(pathname: string): Regex`
+
+
+### `createPathFilter`
+Creates a filter predicate that can be passed into Array.filter based on options. This might be
+useful in `getAll`. See also `filterPaths` below.
+
+Usage: `createPathFilter(options: { ignoreWildcard: boolean, pathname: string }):: (path: string) => boolean`
+
+### `filterPaths`
+Filters a list of paths based on given options. This might be useful in `getAll`.
+
+Usage: `filterPaths(paths: Array<string>, options: { ignoreWildcard: boolean, pathname: string }): Array<string>`
+
+### `createViewFilter`
+Creates a filter predicate that can be passed into Array.filter based on options. It can be used
+with a list of views. This might be useful in `get` and `getAll`. See also `filterViews` below.
+
+Usage: `createViewFilter(options: { before: number, after: number }): (view: View) => boolean`
+
+### `filterViews`
+Filters a list of views based on given options. This migth be useful in `get` and `getAll`.
+
+Usage: `filterViews(views: Array<View>, options: { before: number, after: number }): Array<View>`
+
 ## Tests
 
 There is pre-written tests for adapters that you can use to make sure you adapter is implemented
