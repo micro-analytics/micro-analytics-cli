@@ -33,6 +33,10 @@ to create storage adapters.
 The default storage adapter. It stores the data in a single file. This adapter is
 automatically installed by micro-analytics-cli.
 
+#### [micro-analytics-adapter-memory](packages/adapter-memory) [![micro-analytics-adapter-memory](https://img.shields.io/npm/v/micro-analytics-adapter-memory.svg)]()
+
+A storage adapter that keeps everything in memory, when using this all data will be lost
+when the app restarts.
 
 
 ## Demo

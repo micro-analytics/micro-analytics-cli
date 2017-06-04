@@ -6,7 +6,6 @@
   "repository": "https://github.com/micro-analytics/micro-analytics",
   "main": "dist.js",
   "scripts": {
-    "test": "jest",
     "build": "babel index.js -o dist.js",
     "prepublish": "npm run build"
   },

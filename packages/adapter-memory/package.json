@@ -1,0 +1,21 @@
+{
+  "name": "micro-analytics-adapter-memory",
+  "version": "1.0.0",
+  "description": "An in memory adapter for micro-analytics",
+  "license": "MIT",
+  "repository": "https://github.com/micro-analytics/micro-analytics",
+  "main": "index.js",
+  "author": "Rolf Erik Lekang <me@rolflekang.com>",
+  "engineStrict": true,
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "keywords": [
+    "micro-analytics",
+    "adapter"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "micro-analytics-adapter-utils": "^0.0.1"
+  }
+}
