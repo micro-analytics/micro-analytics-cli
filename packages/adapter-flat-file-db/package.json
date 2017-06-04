@@ -2,27 +2,24 @@
   "name": "micro-analytics-adapter-flat-file-db",
   "version": "1.3.0",
   "description": "Store your micro-analytics data in flat-file-db!",
+  "license": "MIT",
+  "repository": "https://github.com/micro-analytics/micro-analytics",
   "main": "dist.js",
   "scripts": {
     "test": "jest",
-    "build": "async-to-gen index.js --out-file dist.js",
+    "build": "babel index.js -o dist.js",
     "prepublish": "npm run build"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mxstbr/micro-analytics-adapter-flat-file-db.git"
   },
   "keywords": [
     "micro-analytics",
     "adapter",
     "flat-file-db"
   ],
-  "author": "Max Stoiber <contact@mxstbr.com> (http://mxstbr.com/)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/mxstbr/micro-analytics-adapter-flat-file-db/issues"
+  "engineStrict": true,
+  "engines": {
+    "node": ">=6.0.0"
   },
-  "homepage": "https://github.com/mxstbr/micro-analytics-adapter-flat-file-db#readme",
+  "author": "Max Stoiber <contact@mxstbr.com> (http://mxstbr.com/)",
   "dependencies": {
     "escape-regex": "^1.0.7",
     "flat-file-db": "^1.0.0",
@@ -33,8 +30,8 @@
     "micro-analytics-cli": "^1.2.0"
   },
   "devDependencies": {
-    "async-to-gen": "^1.3.0",
-    "jest": "^19.0.2",
-    "micro-analytics-cli": "1.2.0-11"
+    "babel-cli": "^6.24.1",
+    "babel-runtime": "^6.23.0",
+    "micro-analytics-adapter-utils": "^0.0.1"
   }
 }

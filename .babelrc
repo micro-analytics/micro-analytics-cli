@@ -1,4 +1,16 @@
 {
-  "presets": ["node6"],
-  "plugins": ["transform-async-to-generator"]
+  "presets": [
+    ["env", {
+      "target": { "node": "6" }
+    }]
+  ],
+  "plugins": [
+    "transform-async-to-generator",
+    ["transform-runtime", {
+      "helpers": false,
+      "polyfill": false,
+      "regenerator": true,
+      "moduleName": "babel-runtime"
+    }]
+  ]
 }
