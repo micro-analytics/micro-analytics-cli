@@ -6,8 +6,8 @@
   "scripts": {
     "precommit": "lint-staged",
     "test": "jest",
-    "format": "prettier --single-quote --trailing-comma es5 --write 'packages/**/*.js'",
-    "lint": "prettier-check --single-quote --trailing-comma es5 'packages/**/*.js'",
+    "format": "prettier --single-quote --trailing-comma es5 --print-width 100 --write 'packages/**/*.js'",
+    "lint": "prettier-check --single-quote --trailing-comma es5 --print-width 100 'packages/**/*.js'",
     "dev": "cd packages/micro-analytics-cli && npm run dev"
   },
   "jest": {

@@ -1,32 +1,33 @@
-const path = require('path')
-const flatfile = require('flat-file-db')
-const promisify = require('then-flat-file-db')
-const escapeRegexp = require('escape-regex')
-const Observable = require("zen-observable")
+const path = require('path');
+const flatfile = require('flat-file-db');
+const promisify = require('then-flat-file-db');
+const escapeRegexp = require('escape-regex');
+const Observable = require('zen-observable');
 
-let db
+let db;
 
 function init(options) {
-  db = promisify(flatfile.sync(path.resolve(process.cwd(), options.dbName || 'views.db')))
+  db = promisify(
+    flatfile.sync(path.resolve(process.cwd(), options.dbName || 'views.db'))
+  );
 }
 
 // This is here for backwards compatability should be removed at some point
-init({dbName: process.env.DB_NAME})
+init({ dbName: process.env.DB_NAME });
 
-const keyRegex = (str) => {
-  str = str.split('*').map( s => escapeRegexp(s)).join('*')
-  return new RegExp('^' + str.replace('*','.*'))
-}
-
+const keyRegex = str => {
+  str = str.split('*').map(s => escapeRegexp(s)).join('*');
+  return new RegExp('^' + str.replace('*', '.*'));
+};
 
 let handlers = [];
 
-const observable = new Observable((observer) => {
-  handlers.push((data) => observer.next(data))
+const observable = new Observable(observer => {
+  handlers.push(data => observer.next(data));
   let index = handlers.length;
   return () => {
-    handlers = [...handlers.slice(0, index), ...handlers.slice(index)]
-  }
+    handlers = [...handlers.slice(0, index), ...handlers.slice(index)];
+  };
 });
 
 module.exports = {
@@ -34,51 +35,57 @@ module.exports = {
     {
       name: 'db-name',
       description: 'The name of the flat-file-db file.',
-      defaultValue: process.env.DB_NAME || 'views.db'
-    }
+      defaultValue: process.env.DB_NAME || 'views.db',
+    },
   ],
   init,
   put: (key, value) => {
     handlers.forEach(handler => {
-      handler({key, value});
-    })
-    return db.put(key, value)
+      handler({ key, value });
+    });
+    return db.put(key, value);
   },
-  has: (key) => Promise.resolve(db.has(key)),
-	keys: () => Promise.resolve(db.keys()),
-	// Get a value and filter it
+  has: key => Promise.resolve(db.has(key)),
+  keys: () => Promise.resolve(db.keys()),
+  // Get a value and filter it
   get: async (key, options) => {
-    let value
-		try {
-			value = await db.get(key)
-		} catch (err) {
-			value = { views: [] }
-		}
+    let value;
+    try {
+      value = await db.get(key);
+    } catch (err) {
+      value = { views: [] };
+    }
 
     return {
       views: value.views.filter(view => {
-        if (options && options.before && view.time > options.before) return false
-        if (options && options.after && view.time < options.after) return false
-        return true
-      })
-    }
+        if (options && options.before && view.time > options.before)
+          return false;
+        if (options && options.after && view.time < options.after) return false;
+        return true;
+      }),
+    };
   },
-	// Get all values starting with a certain pathname and filter their views
+  // Get all values starting with a certain pathname and filter their views
   getAll: async function getAll(options) {
-    const data = {}
-    const keys = (await module.exports.keys()).filter((key) => {
-      return options.ignoreWildcard ? key.startsWith(options.pathname) : key.match(keyRegex(options.pathname))
-    })
+    const data = {};
+    const keys = (await module.exports.keys()).filter(key => {
+      return options.ignoreWildcard
+        ? key.startsWith(options.pathname)
+        : key.match(keyRegex(options.pathname));
+    });
 
-		for (let key of keys) {
-			data[key] = await module.exports.get(key, { before: options.before, after: options.after })
-		}
+    for (let key of keys) {
+      data[key] = await module.exports.get(key, {
+        before: options.before,
+        after: options.after,
+      });
+    }
 
-		await Promise.all(keys)
+    await Promise.all(keys);
 
-    return data
+    return data;
   },
-  subscribe: (cb) => {
+  subscribe: cb => {
     return observable.subscribe(cb);
-  }
-}
+  },
+};
