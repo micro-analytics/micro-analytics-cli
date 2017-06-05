@@ -15,11 +15,6 @@ function init(options) {
 // This is here for backwards compatability should be removed at some point
 init({ dbName: process.env.DB_NAME });
 
-const keyRegex = str => {
-  str = str.split('*').map(s => escapeRegexp(s)).join('*');
-  return new RegExp('^' + str.replace('*', '.*'));
-};
-
 let handlers = [];
 
 const observable = new Observable(observer => {
