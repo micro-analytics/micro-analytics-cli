@@ -11,7 +11,6 @@ const listen = (fn, opts) => {
       if (err) {
         return reject(err);
       }
-
       const { port } = server.address();
       resolve(`http://localhost:${port}`);
     });

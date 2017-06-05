@@ -6,9 +6,9 @@
   "scripts": {
     "precommit": "lint-staged",
     "test": "jest",
-    "format": "prettier $(cat .prettier) --write 'packages/**/*.js'",
     "format:file": "prettier $(cat .prettier) --write ",
-    "lint": "prettier-check $(cat .prettier) 'packages/**/*.js'",
+    "format": "npm run --silent format:file -- 'packages/**/src/*.js' 'packages/**/tests/*.js' 'packages/**/tests/*.js' $(find packages/*/*.js -not -name 'dist.js')",
+    "lint": "npm run --silent format -- -l",
     "dev": "cd packages/micro-analytics-cli && npm run dev"
   },
   "jest": {
@@ -30,7 +30,6 @@
     "jest": "^20.0.4",
     "lerna": "^2.0.0-rc.5",
     "lint-staged": "^3.6.0",
-    "prettier": "^1.4.2",
-    "prettier-check": "^1.0.0"
+    "prettier": "^1.4.2"
   }
 }
