@@ -1,14 +1,8 @@
+const { filterViews, filterPaths } = require('micro-analytics-adapter-utils');
 const Observable = require('zen-observable');
 
 let data = {};
 let handlers = [];
-
-const escapeRegexp = require('escape-regex');
-
-const keyRegex = str => {
-  str = str.split('*').map(s => escapeRegexp(s)).join('*');
-  return new RegExp('^' + str.replace('*', '.*'));
-};
 
 const observable = new Observable(observer => {
   handlers.push(data => observer.next(data));
@@ -20,13 +14,7 @@ const observable = new Observable(observer => {
 
 function get(key, options) {
   const value = data[key] || { views: [] };
-  return Promise.resolve({
-    views: value.views.filter(view => {
-      if (options && options.before && view.time > options.before) return false;
-      if (options && options.after && view.time < options.after) return false;
-      return true;
-    }),
-  });
+  return Promise.resolve({ views: filterViews(value.views, options) });
 }
 
 function keys() {
@@ -44,12 +32,7 @@ function put(key, value) {
 
 async function getAll(options) {
   const value = {};
-  const _keys = (await keys()).filter(
-    key =>
-      options.ignoreWildcard
-        ? key.startsWith(options.pathname)
-        : key.match(keyRegex(options.pathname))
-  );
+  const _keys = filterPaths(await keys(), options);
 
   for (let key of _keys) {
     value[key] = await get(key, {
