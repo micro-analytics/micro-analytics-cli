@@ -1,8 +1,8 @@
 const path = require('path');
 const flatfile = require('flat-file-db');
 const promisify = require('then-flat-file-db');
-const escapeRegexp = require('escape-regex');
 const Observable = require('zen-observable');
+const { filterPaths, filterViews } = require('micro-analytics-adapter-utils');
 
 let db;
 
@@ -51,28 +51,19 @@ module.exports = {
   get: async (key, options) => {
     let value;
     try {
-      value = await db.get(key);
+      value = (await db.get(key)) || {};
     } catch (err) {
       value = { views: [] };
     }
 
     return {
-      views: value.views.filter(view => {
-        if (options && options.before && view.time > options.before)
-          return false;
-        if (options && options.after && view.time < options.after) return false;
-        return true;
-      }),
+      views: filterViews(value.views, options),
     };
   },
   // Get all values starting with a certain pathname and filter their views
   getAll: async function getAll(options) {
     const data = {};
-    const keys = (await module.exports.keys()).filter(key => {
-      return options.ignoreWildcard
-        ? key.startsWith(options.pathname)
-        : key.match(keyRegex(options.pathname));
-    });
+    const keys = filterPaths(await module.exports.keys(), options);
 
     for (let key of keys) {
       data[key] = await module.exports.get(key, {
@@ -87,5 +78,8 @@ module.exports = {
   },
   subscribe: cb => {
     return observable.subscribe(cb);
+  },
+  clear: () => {
+    db.clear();
   },
 };
