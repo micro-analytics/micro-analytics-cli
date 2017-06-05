@@ -54,9 +54,7 @@ async function analyticsHandler(req, res) {
   }
   const shouldIncrement = String(query.inc) !== 'false';
   try {
-    const currentViews = (await db.has(pathname))
-      ? (await db.get(pathname)).views.length
-      : 0;
+    const currentViews = (await db.has(pathname)) ? (await db.get(pathname)).views.length : 0;
     // Add a view and send the total views back to the client
     if (shouldIncrement) {
       await pushView(pathname, { time: Date.now() });

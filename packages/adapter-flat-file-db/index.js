@@ -7,9 +7,7 @@ const { filterPaths, filterViews } = require('micro-analytics-adapter-utils');
 let db;
 
 function init(options) {
-  db = promisify(
-    flatfile.sync(path.resolve(process.cwd(), options.dbName || 'views.db'))
-  );
+  db = promisify(flatfile.sync(path.resolve(process.cwd(), options.dbName || 'views.db')));
 }
 
 // This is here for backwards compatability should be removed at some point

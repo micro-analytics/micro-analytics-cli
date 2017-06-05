@@ -4,9 +4,7 @@ const pkg = require('../package.json');
 const db = require('./db');
 
 module.exports = async function healthcheckHandler(options, req, res) {
-  const health = db.hasFeature('healthcheck')
-    ? await db.healthcheck()
-    : 'unknown';
+  const health = db.hasFeature('healthcheck') ? await db.healthcheck() : 'unknown';
 
   send(res, health === 'ok' ? 200 : 500, {
     health,
