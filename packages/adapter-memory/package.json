@@ -4,20 +4,26 @@
   "description": "An in memory adapter for micro-analytics",
   "license": "MIT",
   "repository": "https://github.com/micro-analytics/micro-analytics",
-  "main": "index.js",
+  "main": "dist.js",
   "author": "Rolf Erik Lekang <me@rolflekang.com>",
   "engineStrict": true,
   "engines": {
     "node": ">=6.0.0"
+  },
+  "scripts": {
+    "build": "babel index.js -o dist.js",
+    "prepublish": "npm run build"
   },
   "keywords": [
     "micro-analytics",
     "adapter"
   ],
   "dependencies": {
+    "babel-runtime": "^6.23.0",
     "zen-observable": "^0.5.1"
   },
   "devDependencies": {
+    "babel-cli": "^6.24.1",
     "micro-analytics-adapter-utils": "^0.0.1"
   }
 }
