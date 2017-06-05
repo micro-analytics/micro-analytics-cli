@@ -1,11 +1,6 @@
 const path = require('path');
-const flatfile = require('flat-file-db');
-const promisify = require('then-flat-file-db');
 const test = require('micro-analytics-adapter-utils/unit-tests');
 
-const db = promisify(
-  flatfile.sync(path.resolve(process.cwd(), process.env.DB_NAME || 'views.db'))
-);
 const adapter = require('./index');
 
 test({
@@ -15,6 +10,6 @@ test({
     adapter.init({ dbName: 'views.db' });
   },
   beforeEach: () => {
-    return db.clear();
+    return adapter.clear();
   },
 });
