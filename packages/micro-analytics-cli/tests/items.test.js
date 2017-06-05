@@ -1,18 +1,17 @@
 const request = require('request-promise');
-const { listen, mockDb } = require('./utils');
+const { listen } = require('./utils');
 
-jest.mock('flat-file-db', () => mockDb);
 const db = require('../src/db');
 const service = require('../src/handler');
 let url;
 
 beforeAll(() => {
-  db.initDbAdapter({ adapter: 'flat-file-db' });
+  db.initDbAdapter({ adapter: 'memory' });
 });
 
 beforeEach(async () => {
-  mockDb._reset();
-  url = await listen(service({ adapter: 'flat-file-db' }));
+  db.clear();
+  url = await listen(service({ adapter: 'memory' }));
 });
 
 describe('single', () => {
@@ -100,7 +99,7 @@ describe('all', () => {
       const after = new Date('2017-01-01T09:11:00.000Z').getTime();
       const before = new Date('2017-01-01T09:41:00.000Z').getTime();
 
-      mockDb._put('/rover', {
+      await db.put('/rover', {
         views: [
           { time: new Date('2017-01-01T09:00:00.000Z').getTime() },
           { time: new Date('2017-01-01T09:10:00.000Z').getTime() },

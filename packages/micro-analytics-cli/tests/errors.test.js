@@ -6,11 +6,11 @@ const db = require('../src/db');
 let url;
 
 beforeAll(() => {
-  db.initDbAdapter({ adapter: 'flat-file-db' });
+  db.initDbAdapter({ adapter: 'memory' });
 });
 
 beforeEach(async () => {
-  url = await listen(service({ adapter: 'flat-file-db' }));
+  url = await listen(service({ adapter: 'memory' }));
 });
 
 it('should throw an error if no pathname is provided', async () => {

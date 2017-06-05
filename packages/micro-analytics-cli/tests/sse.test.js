@@ -1,15 +1,14 @@
-const { listen, mockDb } = require('./utils');
-jest.mock('flat-file-db', () => mockDb);
+const { listen } = require('./utils');
 const db = require('../src/db');
 const sseHandler = require('../src/sse');
 let url;
 
 beforeAll(() => {
-  db.initDbAdapter({ adapter: 'flat-file-db' });
+  db.initDbAdapter({ adapter: 'memory' });
 });
 
 beforeEach(() => {
-  mockDb._reset();
+  db.clear();
 });
 
 describe('sse', () => {
