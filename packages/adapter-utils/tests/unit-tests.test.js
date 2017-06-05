@@ -1,13 +1,10 @@
-const { mockDb } = require('micro-analytics-cli/tests/utils');
-
-jest.mock('flat-file-db', () => mockDb);
-
+const adapter = require('micro-analytics-adapter-memory');
 const test = require('../src/unit-tests');
 
 test({
-  name: 'flat-file-db',
-  modulePath: 'micro-analytics-adapter-flat-file-db',
-  beforeEach: async () => {
-    mockDb._reset();
+  name: 'memory',
+  modulePath: 'micro-analytics-adapter-memory',
+  beforeEach: () => {
+    adapter.clear();
   },
 });
