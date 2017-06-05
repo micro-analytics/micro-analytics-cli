@@ -38,6 +38,10 @@ automatically installed by micro-analytics-cli.
 A storage adapter that keeps everything in memory, when using this all data will be lost
 when the app restarts.
 
+## Community adapters
+
+- [`micro-analytics-adapter-redis`](https://github.com/micro-analytics/micro-analytics-adapter-redis)
+- [`micro-analytics-adapter-mongodb`](https://github.com/esakkiraj/adapter-mongodb)
 
 ## Demo
 
