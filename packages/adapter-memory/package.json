@@ -20,10 +20,10 @@
   ],
   "dependencies": {
     "babel-runtime": "^6.23.0",
+    "micro-analytics-adapter-utils": "^0.0.1",
     "zen-observable": "^0.5.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "micro-analytics-adapter-utils": "^0.0.1"
+    "babel-cli": "^6.24.1"
   }
 }
