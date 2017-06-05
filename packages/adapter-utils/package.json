@@ -18,9 +18,6 @@
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
-    "babel-runtime": "^6.23.0",
-    "flat-file-db": "^1.0.0",
-    "micro-analytics-adapter-flat-file-db": "^1.3.0",
-    "micro-analytics-cli": "^2.2.0"
+    "babel-runtime": "^6.23.0"
   }
 }
