@@ -14,7 +14,9 @@
     "micro-analytics",
     "adapter"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "zen-observable": "^0.5.1"
+  },
   "devDependencies": {
     "micro-analytics-adapter-utils": "^0.0.1"
   }
