@@ -9,6 +9,12 @@
     "build": "babel index.js -o dist.js",
     "prepublish": "npm run build"
   },
+  "files": [
+    "index.js",
+    "dist.js",
+    "package.json",
+    "readme.md"
+  ],
   "keywords": [
     "micro-analytics",
     "adapter",

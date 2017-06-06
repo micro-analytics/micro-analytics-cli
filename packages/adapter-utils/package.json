@@ -9,6 +9,14 @@
     "build": "babel src -d dist",
     "publish": "npm run build"
   },
+  "files": [
+    "src",
+    "dist",
+    "index.js",
+    "unit-test.js",
+    "package.json",
+    "readme.md"
+  ],
   "engineStrict": true,
   "engines": {
     "node": ">=6.0.0"
