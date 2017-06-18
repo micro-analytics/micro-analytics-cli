@@ -41,9 +41,20 @@ describe('single', () => {
     expect(body.views).toEqual(1);
   });
 
-  it('should not return anything for a POST request', async () => {
-    const body = await request.post(`${server.url}/existant`);
-    expect(body).toEqual('');
+  describe('POST', () => {
+    it('should increment the views of an existant path', async () => {
+      await request.post(`${server.url}/existant`);
+      const body = JSON.parse(await request(`${server.url}/existant`));
+      expect(body.views).toEqual(2);
+    });
+
+    it('should increment the views of an existant path and store metadata', async () => {
+      await request.post(`${server.url}/existant`, {
+        body: JSON.stringify({ meta: { browser: 'IE 6' } }),
+      });
+      const [data] = (await db.get('/existant')).views;
+      expect(data).toMatchObject({ meta: { browser: 'IE 6' } });
+    });
   });
 });
 
