@@ -19,19 +19,20 @@ jest.mock('micro-analytics-adapter-memory', () => ({
 
 const service = require('../src/handler')({ adapter: 'flat-file-db' });
 
-let url;
+let server;
 
-beforeAll(() => {
+beforeAll(async () => {
   db.initDbAdapter({ adapter: 'flat-file-db' });
+  server = await listen(service);
 });
 
-beforeEach(async () => {
-  url = await listen(service);
+afterAll(() => {
+  server.close();
 });
 
 test('GET /_healtcheck adapter healthcheck returns "ok"', async () => {
   mockStatus = 'ok';
-  const body = JSON.parse(await request(`${url}/_healthcheck`));
+  const body = JSON.parse(await request(`${server.url}/_healthcheck`));
 
   expect(body).toMatchObject({
     health: 'ok',
@@ -50,7 +51,7 @@ test('GET /_healtcheck adapter healthcheck returns "critical"', async () => {
   let error;
 
   try {
-    const body = JSON.parse(await request(`${url}/_healthcheck`));
+    const body = JSON.parse(await request(`${server.url}/_healthcheck`));
   } catch (e) {
     error = e;
   }
@@ -70,7 +71,7 @@ test('GET /_healtcheck adapter healthcheck returns "critical"', async () => {
 
 test('GET /_healtcheck when adapter has no healthcheck', async () => {
   let error;
-  url = await listen(require('../src/handler')({ adapter: 'memory' }));
+  const { url, close } = await listen(require('../src/handler')({ adapter: 'memory' }));
   db.initDbAdapter({ adapter: 'memory' });
 
   try {
@@ -78,6 +79,8 @@ test('GET /_healtcheck when adapter has no healthcheck', async () => {
   } catch (e) {
     error = e;
   }
+
+  close();
 
   expect(error.statusCode).toEqual(500);
   expect(JSON.parse(error.error)).toMatchObject({
