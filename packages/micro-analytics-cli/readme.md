@@ -44,11 +44,27 @@ To track a view of `x`, simply send a request to `/x`. This is how you'd track p
 </script>
 ```
 
-If you send a `GET` request, the request will increment the views and return the total views for the id. (in this case "x") If you send a `POST` request, the views will increment but you don't get the total views back.
+If you send a `GET` or `POST` request, the request will increment the views and return the total views for the id (in this case "x").
 
 #### `GET` the views without incrementing
 
 If you just want to get the views for an id and don't want to increment the views during a `GET` request, set `inc` to `false` in your query parameter. (`/x?inc=false`)
+
+#### `POST` to add metadata
+
+You can add more metadata to the view by posting a JSON payload with the field `meta`. Everything in that meta field will be set on meta in the view object. You can read
+the data out with the `all` option, see below for more info. Example request that will post the browser useragent string:
+
+```html
+<script>
+  fetch('servicedomain.com' + window.location.pathname, {
+    method: "POST",
+    credentials: "include",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({meta: { browser: navigator.userAgent }}),
+  })
+</script>
+```
 
 ### Getting all views
 

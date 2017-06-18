@@ -1,5 +1,5 @@
 const url = require('url');
-const { send, createError, sendError } = require('micro');
+const { json, send, createError, sendError } = require('micro');
 
 const db = require('./db');
 const healthcheckHandler = require('./healthcheck');
@@ -21,6 +21,14 @@ function realtimeHandler(req, res) {
     send(res, 400, {
       error: 'The current database adapter does not support live updates.',
     });
+  }
+}
+
+async function readMeta(req) {
+  try {
+    return (await json(req)).meta;
+  } catch (error) {
+    return null;
   }
 }
 
@@ -55,17 +63,18 @@ async function analyticsHandler(req, res) {
   const shouldIncrement = String(query.inc) !== 'false';
   try {
     const currentViews = (await db.has(pathname)) ? (await db.get(pathname)).views.length : 0;
-    // Add a view and send the total views back to the client
+    const meta = await readMeta(req);
+
+    const data = { time: Date.now() };
+    if (meta) {
+      data.meta = meta;
+    }
+
     if (shouldIncrement) {
-      await pushView(pathname, { time: Date.now() });
+      await pushView(pathname, data);
     }
-    if (req.method === 'GET') {
-      send(res, 200, {
-        views: shouldIncrement ? currentViews + 1 : currentViews,
-      });
-    } else {
-      send(res, 200);
-    }
+
+    send(res, 200, { views: shouldIncrement ? currentViews + 1 : currentViews });
   } catch (err) {
     console.log(err);
     throw createError(500, 'Internal server error.');
