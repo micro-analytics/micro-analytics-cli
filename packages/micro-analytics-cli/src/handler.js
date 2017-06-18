@@ -35,16 +35,15 @@ async function readMeta(req) {
 
 async function analyticsHandler(req, res) {
   const { pathname, query } = url.parse(req.url, /* parseQueryString */ true);
+  const before = parseInt(query.before, 10) || undefined;
+  const after = parseInt(query.after, 10) || undefined;
+
   res.setHeader('Access-Control-Allow-Origin', '*');
   // Send all views down if "?all" is true
   if (String(query.all) === 'true') {
     try {
       const data = {
-        data: await db.getAll({
-          pathname: pathname,
-          before: parseInt(query.before, 10),
-          after: parseInt(query.after, 10),
-        }),
+        data: await db.getAll({ pathname: pathname, before, after }),
         time: Date.now(),
       };
       send(res, 200, data);
@@ -71,7 +70,10 @@ async function analyticsHandler(req, res) {
   const shouldIncrement = String(query.inc) !== 'false';
   try {
     let meta;
-    const currentViews = (await db.has(pathname)) ? (await db.get(pathname)).views.length : 0;
+    const currentViews = (await db.has(pathname))
+      ? (await db.get(pathname, { before, after })).views.length
+      : 0;
+
     if (req.method === 'POST') {
       meta = await readMeta(req);
     }
