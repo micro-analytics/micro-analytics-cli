@@ -56,6 +56,31 @@ describe('single', () => {
       expect(data).toMatchObject({ meta: { browser: 'IE 6' } });
     });
   });
+
+  describe.only('filtering', () => {
+    it('should filter based on before after', async () => {
+      const after = new Date('2017-01-01T09:11:00.000Z').getTime();
+      const before = new Date('2017-01-01T09:41:00.000Z').getTime();
+
+      await db.put('/rover', {
+        views: [
+          { time: new Date('2017-01-01T09:00:00.000Z').getTime() },
+          { time: new Date('2017-01-01T09:10:00.000Z').getTime() },
+          { time: new Date('2017-01-01T09:20:00.000Z').getTime() },
+          { time: new Date('2017-01-01T09:30:00.000Z').getTime() },
+          { time: new Date('2017-01-01T09:40:00.000Z').getTime() },
+          { time: new Date('2017-01-01T09:50:00.000Z').getTime() },
+        ],
+      });
+
+      const mapToIsoString = view => new Date(view.time).toISOString();
+      const body = JSON.parse(
+        await request(`${server.url}/rover?inc=false&before=${before}&after=${after}`)
+      );
+
+      expect(body.views).toEqual(3);
+    });
+  });
 });
 
 describe('all', () => {
