@@ -12,6 +12,7 @@ function initDbAdapter(options) {
   module.exports.has = adapter.has;
   module.exports.keys = adapter.keys;
   module.exports.subscribe = adapter.subscribe;
+  module.exports.clear = adapter.clear;
   module.exports.hasFeature = feature => typeof adapter[feature] === 'function';
 
   if (module.exports.hasFeature('init')) {

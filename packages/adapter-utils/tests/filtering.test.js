@@ -4,7 +4,7 @@ const {
   filterPaths,
   createViewFilter,
   filterViews,
-} = require('../src/adapter-utils');
+} = require('../src/filtering');
 
 test('createKeyRegex', () => {
   expect(createKeyRegex('/path').test('/pathname')).toBe(true);

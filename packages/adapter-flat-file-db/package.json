@@ -1,0 +1,41 @@
+{
+  "name": "micro-analytics-adapter-flat-file-db",
+  "version": "1.3.0",
+  "description": "Store your micro-analytics data in flat-file-db!",
+  "license": "MIT",
+  "repository": "https://github.com/micro-analytics/micro-analytics",
+  "main": "dist.js",
+  "scripts": {
+    "build": "babel index.js -o dist.js",
+    "prepublish": "npm run build"
+  },
+  "files": [
+    "index.js",
+    "dist.js",
+    "package.json",
+    "readme.md"
+  ],
+  "keywords": [
+    "micro-analytics",
+    "adapter",
+    "flat-file-db"
+  ],
+  "engineStrict": true,
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "author": "Max Stoiber <contact@mxstbr.com> (http://mxstbr.com/)",
+  "dependencies": {
+    "flat-file-db": "^1.0.0",
+    "then-flat-file-db": "^1.0.0",
+    "zen-observable": "^0.4.0"
+  },
+  "peerDependencies": {
+    "micro-analytics-cli": "^1.2.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-runtime": "^6.23.0",
+    "micro-analytics-adapter-utils": "^0.0.1"
+  }
+}

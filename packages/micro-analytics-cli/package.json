@@ -1,0 +1,51 @@
+{
+  "name": "micro-analytics-cli",
+  "version": "2.2.0",
+  "description": "Public analytics as a Node.js microservice, no sysadmin experience required.",
+  "license": "MIT",
+  "repository": "https://github.com/micro-analytics/micro-analytics",
+  "bin": {
+    "micro-analytics": "./cli.js"
+  },
+  "files": [
+    "dist",
+    "src",
+    "cli.js",
+    "adapter-tests/unit-tests.js"
+  ],
+  "engineStrict": true,
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "scripts": {
+    "start": "./cli.js",
+    "now-build": "npm install micro-analytics-adapter-memory",
+    "now-start": "node src/index.js --adapter memory",
+    "build": "babel src -d dist",
+    "prepublish": "npm run build",
+    "dev": "NODE_ENV=development nodemon --config package.json --exec babel-node src/index.js",
+    "test-now-deployment": "curl --fail $NOW_URL/test?inc=false"
+  },
+  "author": "Max Stoiber <contact@mxstbr.com> (http://mxstbr.com/)",
+  "dependencies": {
+    "args": "^2.3.0",
+    "flat-file-db": "^1.0.0",
+    "is-async-supported": "^1.2.0",
+    "micro": "6.1.0",
+    "micro-analytics-adapter-flat-file-db": "^1.3.0",
+    "promise": "^7.1.1",
+    "shelljs": "^0.7.6",
+    "sse-channel": "^2.0.6",
+    "update-notifier": "^1.0.3",
+    "zen-observable": "^0.4.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-jest": "^19.0.0",
+    "babel-polyfill": "^6.20.0",
+    "babel-runtime": "^6.23.0",
+    "micro-analytics-adapter-memory": "^1.0.0",
+    "nodemon": "^1.11.0",
+    "request-promise": "^4.1.1"
+  }
+}

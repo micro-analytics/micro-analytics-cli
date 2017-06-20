@@ -34,9 +34,7 @@ module.exports = function testAdapter(options) {
     });
 
     test('getAll() should return a promise', () => {
-      expect(adapter.getAll({ pathname: '/' }).constructor.name).toEqual(
-        'Promise'
-      );
+      expect(adapter.getAll({ pathname: '/' }).constructor.name).toEqual('Promise');
     });
 
     test('has() should return a promise', () => {
@@ -126,9 +124,7 @@ module.exports = function testAdapter(options) {
       await adapter.put('/another-key', { views: [{ time: 1490623478639 }] });
       await adapter.put('/b-key', { views: [{ time: 1490623484639 }] });
 
-      expect(
-        await adapter.getAll({ pathname: '/', before: 1490623478640 })
-      ).toEqual({
+      expect(await adapter.getAll({ pathname: '/', before: 1490623478640 })).toEqual({
         '/a-key': { views: [{ time: 1490623474639 }] },
         '/another-key': { views: [{ time: 1490623478639 }] },
         '/b-key': { views: [] },
@@ -140,9 +136,7 @@ module.exports = function testAdapter(options) {
       await adapter.put('/another-key', { views: [{ time: 1490623478639 }] });
       await adapter.put('/b-key', { views: [{ time: 1490623484639 }] });
 
-      expect(
-        await adapter.getAll({ pathname: '/', after: 1490623478638 })
-      ).toEqual({
+      expect(await adapter.getAll({ pathname: '/', after: 1490623478638 })).toEqual({
         '/a-key': { views: [] },
         '/another-key': { views: [{ time: 1490623478639 }] },
         '/b-key': { views: [{ time: 1490623484639 }] },

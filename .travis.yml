@@ -3,6 +3,11 @@ node_js:
   - node
   - 7
   - 6
+install:
+  - npm i -g lerna
+  - yarn
+  - lerna bootstrap
+  - lerna exec npm run build
 script:
   - npm run lint
   - npm run test -- --coverage

@@ -1,23 +1,17 @@
 const request = require('request-promise');
-const { listen, mockDb } = require('./utils');
+const { listen } = require('./utils');
 
-jest.mock('flat-file-db', () => mockDb);
 const db = require('../src/db');
 const service = require('../src/handler');
 let url;
 
 beforeAll(() => {
-  db.initDbAdapter({ adapter: 'flat-file-db' });
+  db.initDbAdapter({ adapter: 'memory' });
 });
 
 beforeEach(async () => {
-  url = await listen(service({ adapter: 'flat-file-db' }));
-  mockDb._setDelay(10);
-});
-
-afterEach(async () => {
-  mockDb._reset();
-  mockDb._setDelay();
+  url = await listen(service({ adapter: 'memory' }));
+  db.clear();
 });
 
 it('should atomically set two views coming in at the same time', async () => {
