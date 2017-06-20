@@ -1,5 +1,5 @@
 echo "Installing now-pipeline"
-npm install -g MiniGod/now-pipeline#state-building
+npm install -g now-pipeline@latest
 
 echo "Prune old instances"
 now-pipeline-prune > /dev/null
