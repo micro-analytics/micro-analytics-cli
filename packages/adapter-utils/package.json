@@ -7,7 +7,7 @@
   "author": "Rolf Erik Lekang <me@rolflekang.com>",
   "scripts": {
     "build": "babel src -d dist",
-    "publish": "npm run build"
+    "prepublishOnly": "npm run build"
   },
   "files": [
     "src",

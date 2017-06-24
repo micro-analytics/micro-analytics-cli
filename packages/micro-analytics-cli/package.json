@@ -19,10 +19,10 @@
   },
   "scripts": {
     "start": "./cli.js",
-    "now-build": "npm install micro-analytics-adapter-memory",
+    "now-build": "npm install && npm install --no-save micro-analytics-adapter-memory@latest",
     "now-start": "node src/index.js --adapter memory",
     "build": "babel src -d dist",
-    "prepublish": "npm run build",
+    "prepublishOnly": "npm run build",
     "dev": "NODE_ENV=development nodemon --config package.json --exec babel-node src/index.js",
     "test-now-deployment": "curl --fail $NOW_URL/test?inc=false"
   },
