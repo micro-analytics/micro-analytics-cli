@@ -1,6 +1,6 @@
 {
   "name": "micro-analytics-adapter-memory",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "An in memory adapter for micro-analytics",
   "license": "MIT",
   "repository": "https://github.com/micro-analytics/micro-analytics",
@@ -26,7 +26,7 @@
   ],
   "dependencies": {
     "babel-runtime": "^6.23.0",
-    "micro-analytics-adapter-utils": "^0.0.1",
+    "micro-analytics-adapter-utils": "^1.0.0",
     "zen-observable": "^0.5.1"
   },
   "devDependencies": {
