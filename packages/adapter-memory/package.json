@@ -1,6 +1,6 @@
 {
   "name": "micro-analytics-adapter-memory",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An in memory adapter for micro-analytics",
   "license": "MIT",
   "repository": "https://github.com/micro-analytics/micro-analytics",
