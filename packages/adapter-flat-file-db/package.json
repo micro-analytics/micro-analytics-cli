@@ -26,7 +26,9 @@
   },
   "author": "Max Stoiber <contact@mxstbr.com> (http://mxstbr.com/)",
   "dependencies": {
+    "babel-runtime": "^6.23.0",
     "flat-file-db": "^1.0.0",
+    "micro-analytics-adapter-utils": "^1.0.0",
     "then-flat-file-db": "^1.0.0",
     "zen-observable": "^0.4.0"
   },
@@ -34,8 +36,6 @@
     "micro-analytics-cli": "^1.2.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-runtime": "^6.23.0",
-    "micro-analytics-adapter-utils": "^0.0.1"
+    "babel-cli": "^6.24.1"
   }
 }
