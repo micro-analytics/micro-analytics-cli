@@ -52,6 +52,12 @@ your in luck. We have a set of utils that are well tested which handles filterin
 would like to use or skip to the next section. Keep in mind that you might not need all of these
 depending on the database you are using.
 
+### Installation
+
+```
+npm install micro-analytics-adapter-utils
+```
+
 ### `createKeyRegex`
 Creates a regex from a wildcard string, e.g. `/p*th`.
 
@@ -83,11 +89,13 @@ Usage: `filterViews(views: Array<View>, options: { before: number, after: number
 ## Tests
 
 There is pre-written tests for adapters that you can use to make sure you adapter is implemented
-correctly. These can be easily used by adding jest and micro-analytics-cli as a dev dependency to your adapter(e.g. `npm install --save-dev micro-analytics-cli jest`). Then create a test file like the one below.
+correctly. These can be easily used by adding jest and micro-analytics-adapter-utils as a dev dependency
+to your adapter(e.g. `npm install --save-dev micro-analytics-adapter-utils jest`).
+Then create a test file like the one below.
 
 ```js
 // adapter.test.js
-const test = require('micro-analytics-cli/adapter-tests/unit-tests')
+const test = require('micro-analytics-adapter-utils/unit-tests')
 
 test({
  name: 'adapter-name',
