@@ -1,6 +1,6 @@
 {
   "name": "micro-analytics-adapter-utils",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Utilites for micro-analytics adapters.",
   "license": "MIT",
   "repository": "https://github.com/micro-analytics/micro-analytics",
