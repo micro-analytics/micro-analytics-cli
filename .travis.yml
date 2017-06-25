@@ -4,13 +4,12 @@ node_js:
   - 7
   - 6
 install:
-  - npm i -g lerna
-  - yarn
+  - npm i -g lerna npm@^5
+  - npm i
   - lerna bootstrap
   - lerna exec npm run build
 script:
   - npm run lint
   - npm run test -- --coverage
-cache: yarn
 after_success:
   - bash <(curl -s https://codecov.io/bash)

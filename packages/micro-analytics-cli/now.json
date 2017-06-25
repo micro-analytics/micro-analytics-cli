@@ -2,10 +2,11 @@
   "name": "micro-analytics",
   "type": "npm",
   "engines": {
-    "node": "7.4.0"
+    "node": "8.1.0"
   },
   "files": [
     "src",
-    "package.json"
+    "package.json",
+    "package-lock.json"
   ]
 }
