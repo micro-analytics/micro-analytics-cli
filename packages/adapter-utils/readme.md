@@ -4,8 +4,6 @@ A set of utilities and tests for creating database adapters.
 
 ## Installation
 
-Running your own `micro-analytics` is just two tiny commands away:
-
 ```
 npm install micro-analytics-adapter-utils
 ```
