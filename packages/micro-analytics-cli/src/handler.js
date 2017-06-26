@@ -53,6 +53,10 @@ async function analyticsHandler(req, res) {
   if (pathname.length <= 1) {
     throw createError(400, 'Please include a path to a page.');
   }
+  if (req.method === 'OPTIONS') {
+    res.setHeader('Access-Control-Allow-Headers', 'content-type');
+    return send(res, 204);
+  }
   if (req.method !== 'GET' && req.method !== 'POST') {
     throw createError(400, 'Please make a GET or a POST request.');
   }
