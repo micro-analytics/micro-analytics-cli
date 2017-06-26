@@ -1,5 +1,5 @@
 const url = require('url');
-const { json, send, createError, sendError } = require('micro');
+const { json, text, send, createError, sendError } = require('micro');
 
 const db = require('./db');
 const healthcheckHandler = require('./healthcheck');
@@ -25,7 +25,10 @@ function realtimeHandler(req, res) {
 }
 
 async function readMeta(req) {
-  return (await json(req)).meta;
+  if (await text(req)) {
+    return (await json(req)).meta;
+  }
+  return null;
 }
 
 async function analyticsHandler(req, res) {
@@ -62,8 +65,11 @@ async function analyticsHandler(req, res) {
   }
   const shouldIncrement = String(query.inc) !== 'false';
   try {
+    let meta;
     const currentViews = (await db.has(pathname)) ? (await db.get(pathname)).views.length : 0;
-    const meta = await readMeta(req);
+    if (req.method === 'POST') {
+      meta = await readMeta(req);
+    }
 
     const data = { time: Date.now() };
     if (meta) {
