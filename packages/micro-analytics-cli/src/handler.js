@@ -25,11 +25,7 @@ function realtimeHandler(req, res) {
 }
 
 async function readMeta(req) {
-  try {
-    return (await json(req)).meta;
-  } catch (error) {
-    return null;
-  }
+  return (await json(req)).meta;
 }
 
 async function analyticsHandler(req, res) {
