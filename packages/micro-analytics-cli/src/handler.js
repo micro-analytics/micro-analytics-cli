@@ -25,10 +25,12 @@ function realtimeHandler(req, res) {
 }
 
 async function readMeta(req) {
-  if (await text(req)) {
+  try {
     return (await json(req)).meta;
+  } catch (error) {
+    console.error('Failed parsing meta', error);
+    return null;
   }
-  return null;
 }
 
 async function analyticsHandler(req, res) {
@@ -56,13 +58,16 @@ async function analyticsHandler(req, res) {
   if (pathname.length <= 1) {
     throw createError(400, 'Please include a path to a page.');
   }
+
   if (req.method === 'OPTIONS') {
     res.setHeader('Access-Control-Allow-Headers', 'content-type');
     return send(res, 204);
   }
+
   if (req.method !== 'GET' && req.method !== 'POST') {
     throw createError(400, 'Please make a GET or a POST request.');
   }
+
   const shouldIncrement = String(query.inc) !== 'false';
   try {
     let meta;
