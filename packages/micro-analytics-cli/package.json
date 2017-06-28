@@ -1,6 +1,6 @@
 {
   "name": "micro-analytics-cli",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "description": "Public analytics as a Node.js microservice, no sysadmin experience required.",
   "license": "MIT",
   "repository": "https://github.com/micro-analytics/micro-analytics",
