@@ -13,7 +13,7 @@ I use and like [DigitalOcean](https://m.do.co/c/d371ed7f99af) (referral link) fo
 
 Make sure to choose the `NodeJS x.x.x on 16.04` (where `x.x.x` is the highest version number you can find) one-click app when creating the droplet to get the server fully setup with Node and Ubuntu.
 
-<a href="#start-and-deamonize-the-app"></a>
+<a id="#start-and-deamonize-the-app"></a>
 ## Start and daemonize the app
 
 Install `micro-analytics` on your server by running `npm install -g micro-analytics-cli` in its shell.
