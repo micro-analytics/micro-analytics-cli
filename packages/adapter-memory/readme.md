@@ -2,7 +2,7 @@
 
 This is an in-memory adapter for [micro-analytics][].
 
-#### Why would you want to to use an in memory adapter for micro-analytics?
+#### Why would you want to use an in memory adapter for micro-analytics?
 
 It can be useful for testing and when deploying test deployments to now.sh.
 now does not support writing to the filesystem, which makes micro-analytics

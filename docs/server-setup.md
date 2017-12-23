@@ -3,7 +3,7 @@
 Running `micro-analytics` on a server is a simple two step process:
 
 1. Start and daemonize the app with `pm2`
-2. Setup `nginx` as a reverse proxy to make your service publicy accessible
+2. Setup `nginx` as a reverse proxy to make your service publicly accessible
 
 ## Prerequisite: A server
 
@@ -13,11 +13,12 @@ I use and like [DigitalOcean](https://m.do.co/c/d371ed7f99af) (referral link) fo
 
 Make sure to choose the `NodeJS x.x.x on 16.04` (where `x.x.x` is the highest version number you can find) one-click app when creating the droplet to get the server fully setup with Node and Ubuntu.
 
-## Start and deamonize the app
+<a id="start-and-deamonize-the-app"></a>
+## Start and daemonize the app
 
 Install `micro-analytics` on your server by running `npm install -g micro-analytics-cli` in its shell.
 
-We'll use `pm2` to start and deamonize the app. This means that the app isn't bound to the terminal, and we'll also make `pm2` start the app when the server start. (this avoids the service being down in case your server reboots)
+We'll use `pm2` to start and daemonize the app. This means that the app isn't bound to the terminal, and we'll also make `pm2` start the app when the server start. (this avoids the service being down in case your server reboots)
 
 First run `npm install -g pm2` to get `pm2`, then run `pm2 start micro-analytics`. This tells `pm2` to run `micro-analytics` in the background.
 
