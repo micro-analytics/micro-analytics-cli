@@ -82,7 +82,7 @@ with a list of views. This might be useful in `get` and `getAll`. See also `filt
 Usage: `createViewFilter(options: { before: number, after: number }): (view: View) => boolean`
 
 ### `filterViews`
-Filters a list of views based on given options. This migth be useful in `get` and `getAll`.
+Filters a list of views based on given options. This might be useful in `get` and `getAll`.
 
 Usage: `filterViews(views: Array<View>, options: { before: number, after: number }): Array<View>`
 
