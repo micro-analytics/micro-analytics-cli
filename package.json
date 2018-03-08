@@ -29,7 +29,7 @@
     "babel-preset-env": "^1.5.1",
     "husky": "^0.13.4",
     "jest": "^20.0.4",
-    "lerna": "^2.0.0-rc.5",
+    "lerna": "^2.9.0",
     "lint-staged": "^3.6.0",
     "prettier": "^1.4.2"
   }
