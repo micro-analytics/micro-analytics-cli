@@ -42,6 +42,7 @@ when the app restarts.
 
 - [`micro-analytics-adapter-redis`](https://github.com/micro-analytics/micro-analytics-adapter-redis)
 - [`micro-analytics-adapter-mongodb`](https://github.com/esakkiraj/adapter-mongodb)
+- [`micro-analytics-adapter-postgres`](https://github.com/toddheslin/micro-analytics-adapter-postgres)
 
 ## Demo
 
